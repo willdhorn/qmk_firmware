@@ -45,12 +45,12 @@
 
 #define CL_QWERTY CHSV(30, 240, 255)
 #define CL_COLEMAK CHSV(80, 235, 255)
-#define CL_SYM_BASE C_INDIGO
+#define CL_SYMBOLS C_INDIGO
 #define CL_NUM C_SEAGREEN
 #define CL_NAV C_YELLOW
 #define CL_CMD C_ORANGE
 #define CL_SYM_EXT C_CYAN
-#define CL_WIN_MNG C_GREEN
+#define CL_WIN_CTL C_GREEN
 #define CL_ADJUST C_PURPLE
 
 #define CF_PALE(color) CHSV(color.h, color.s-70, color.v)

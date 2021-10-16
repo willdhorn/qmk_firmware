@@ -14,24 +14,24 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYER_QWERTY,
     [_COLEMAK] = LAYER_COLEMAK,
-    [_SYM_BASE] = LAYER_SYM_BASE,
     [_NUM] = LAYER_NUM,
+    [_SYMBOLS] = LAYER_SYMBOLS,
     [_NAV] = LAYER_NAV,
-    [_CMD] = LAYER_COMMAND,
-    [_SYM_EXT] = LAYER_SYM_EXT,
-    [_WIN_MNG] = LAYER_WIN_MNG,
+    // [_CMD] = LAYER_COMMAND,
+    // [_SYM_EXT] = LAYER_SYM_EXT,
+    [_WIN_CTL] = LAYER_WIN_CTL,
     [_ADJUST] = LAYER_ADJUST
 };
 
 const HSV layer_colors[] = {
   [_QWERTY] = CL_QWERTY,
   [_COLEMAK] = CL_COLEMAK,
-  [_SYM_BASE] = CL_SYM_BASE,
   [_NUM] = CL_NUM,   
+  [_SYMBOLS] = CL_SYMBOLS,
   [_NAV] = CL_NAV,
-  [_CMD] = CL_CMD,
-  [_SYM_EXT] = CL_SYM_EXT,
-  [_WIN_MNG] = CL_WIN_MNG,
+  // [_CMD] = CL_CMD,
+  // [_SYM_EXT] = CL_SYM_EXT,
+  [_WIN_CTL] = CL_WIN_CTL,
   [_ADJUST] = CL_ADJUST
 };
 
@@ -92,6 +92,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     planck_ez_right_led_level(0);
                 }
+            } else {
+                planck_ez_right_led_level(0);
             }
             break;
     }
@@ -107,9 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _SYM_BASE, _NUM, _SYM_EXT);
-    state = update_tri_layer_state(state, _SYM_BASE, _NAV, _WIN_MNG);
-    state = update_tri_layer_state(state, _CMD, _NAV, _ADJUST);
+    state = update_tri_layer_state(state, _WIN_CTL, _NAV, _ADJUST);
 
     // set_all_layer_colors(state);
     return state;
@@ -149,8 +149,7 @@ void set_all_layer_colors(layer_state_t state) {
 
     for (uint8_t layer = _DEFAULT_RANGE_; layer <= g_active_layer+1; layer++) {
         if (layer_state_cmp(state, layer)) {
-            set_layer_color(layer, layer_colors[layer]);
-        }
+            set_layer_color(layer, layer_colors[layer]);yussa}
     }
 }
 
