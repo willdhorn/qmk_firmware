@@ -1,12 +1,12 @@
 #pragma once
 
 
-
 #define ENCODER_RESOLUTION 4
 
 /*
   Set any config.h overrides for your specific keymap here.
-  See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
+  See config.h and rules.mk options at 
+  https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
 // Key Behaviour
@@ -18,22 +18,9 @@
 
 #define TAPPING_FORCE_HOLD
 
-
-// Mouse keys
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 50
-
-#undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 20
-
-#undef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 75
-
-#undef MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 6
-
-#undef MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 75
+// Disable deprecated features for binary size
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 // USB Startup (no delay)
 #define USB_SUSPEND_WAKEUP_DELAY 0
@@ -51,9 +38,25 @@
 // #define PLANCK_EZ_LED_ADJUST 7
 #define PLANCK_EZ_USER_LEDS
 
+// Mouse keys
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY 50
+
+#undef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX 20
+
+#undef MOUSEKEY_WHEEL_INTERVAL
+#define MOUSEKEY_WHEEL_INTERVAL 75
+
+#undef MOUSEKEY_WHEEL_MAX_SPEED
+#define MOUSEKEY_WHEEL_MAX_SPEED 6
+
+#undef MOUSEKEY_WHEEL_TIME_TO_MAX
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 75
+
+
 // Audio
 #ifdef AUDIO_ENABLE
 #define STARTUP_SONG SONG(PLANCK_SOUND)
-#endif
-
 #define MIDI_BASIC
+#endif
