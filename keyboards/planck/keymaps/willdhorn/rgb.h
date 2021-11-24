@@ -23,6 +23,30 @@
 #define C_MAGENTA   CHSV( 215, 255, 255 )
 #define C_HOTPINK   CHSV( 241, 255, 255 )
 
+#define C_W(val)    CHSV( 0, 0, val )
+#define C_WHITE C_W(255)
+#define C_BLACK C_W(0)
+
+/*
+  === LAYER COLORS ===
+*/
+#define CL_QWERTY       CHSV(30, 255, 240)
+#define CL_COLEMAK      CHSV(83, 255, 240)
+
+#define CL_SYMBOLS      C_INDIGO
+#define CL_NAV          C_YELLOW
+#define CL_NUM          C_TURQUOISE
+#define CL_VSCODE       C_PURPLE
+
+#define CL_APPS_WNDW    C_TURQUOISE
+#define CL_WNDW_HALF    C_INDIGO
+#define CL_WNDW_QUAD    C_RED
+#define CL_WNDW_VERT    C_ORANGE
+#define CL_WNDW_THRD    C_GREEN
+#define CL_WNDW_SIXT    C_YELLOW
+
+#define CL_ADJUST       C_BLORNG
+
 // THE 16 COLORS ASSIGNED TO DIFFERNT CATEGORIES OF KEYS
 #define C_MODS      C_RED         // MOD KEYS
 #define C_APPNAV    C_BLORNG      // NAVIGATION WITHIN APPS...
@@ -41,20 +65,8 @@
 #define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
 #define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?
 
-#define C_W(val)    CHSV( 0, 0, val )
-#define C_WHITE C_W(255) 
-#define C_BLACK C_W(0)
-
-#define CL_QWERTY CHSV(30, 255, 255)
-#define CL_COLEMAK CHSV(87, 255, 255)
-#define CL_SYMBOLS C_INDIGO
-#define CL_NUM_NAV C_SEAGREEN
-#define CL_NAV C_YELLOW
-#define CL_CMD C_PURPLE
-#define CL_WIN_CTL C_LIME
-#define CL_ADJUST C_BLORNG
-
 #define CF_PALE(color) CHSV(color.h, color.s-50, color.v)
+#define CF_SHFT(color) CHSV((color.h+10)%255, color.s, (color.v>=255-15 ? 255 : color.v+15))
 #define CF_OPPO(color) CHSV((color.h+128)%255, color.s, color.v)
 
 #define IS_LETTER(kc) (KC_A <= (kc) && (kc) <= KC_Z)

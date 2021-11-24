@@ -4,27 +4,40 @@
 #endif
 #include <stdint.h>
 #include "eeprom.h"
-// #include "keymap_us_international.h"
 #include "print.h"
 
-#include "layouts.h"
+#include "key_defs.h"
+#include "master.h"
 #include "rgb.h"
+#include "layouts.h"
 #include "user_debug.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]  = LAYER_QWERTY,
-                                                              [_COLEMAK] = LAYER_COLEMAK,
-                                                              [_NUM_NAV] = LAYER_NUM_NAV,
-                                                              [_SYMBOLS] = LAYER_SYMBOLS,
-                                                              [_CMD]     = LAYER_COMMAND,
-                                                              [_WIN_CTL] = LAYER_WIN_CTL,
-                                                              [_ADJUST]  = LAYER_ADJUST};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_COLEMAK]   = LAYER_COLEMAK,
+                                                              [_QWERTY]    = LAYER_QWERTY,
+                                                              [_SYMBOLS]   = LAYER_SYMBOLS,
+                                                              [_NAV]       = LAYER_NAV,
+                                                              [_NUM]       = LAYER_NUM,
+                                                              [_VSCODE]    = LAYER_VSCODE,
+                                                              [_APPS_WNDW] = LAYER_APPS_WNDW,
+                                                              [_WNDW_HALF] = LAYER_WNDW_HALF,
+                                                              [_WNDW_QUAD] = LAYER_WNDW_QUAD,
+                                                              [_WNDW_VERT] = LAYER_WNDW_VERT,
+                                                              [_WNDW_THRD] = LAYER_WNDW_THRD,
+                                                              [_WNDW_SIXT] = LAYER_WNDW_SIXT,
+                                                              [_ADJUST]    = LAYER_ADJUST};
 
-const HSV layer_colors[] = {[_QWERTY]  = CL_QWERTY,
-                            [_COLEMAK] = CL_COLEMAK,
-                            [_NUM_NAV] = CL_NUM_NAV,
+const HSV layer_colors[] = {[_COLEMAK] = CL_COLEMAK,
+                            [_QWERTY]  = CL_QWERTY,
                             [_SYMBOLS] = CL_SYMBOLS,
-                            [_CMD]     = CL_CMD,
-                            [_WIN_CTL] = CL_WIN_CTL,
+                            [_NAV]     = CL_NAV,
+                            [_NUM]     = CL_NUM,
+                            [_VSCODE]  = CL_VSCODE,
+                            [_APPS_WNDW] = CL_APPS_WNDW,
+                            [_WNDW_HALF] = CL_WNDW_HALF,
+                            [_WNDW_QUAD] = CL_WNDW_QUAD,
+                            [_WNDW_VERT] = CL_WNDW_VERT,
+                            [_WNDW_THRD] = CL_WNDW_THRD,
+                            [_WNDW_SIXT] = CL_WNDW_SIXT,
                             [_ADJUST]  = CL_ADJUST};
 
 extern bool         g_suspend_state;
@@ -74,6 +87,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             vscode_chord(KC_F12);
             break;
         
+        
+        
         default:
             // flash the right when caps lock is on light anytime a key is pressed
             if (host_keyboard_led_state().caps_lock) {
@@ -110,17 +125,37 @@ void two_tap(uint16_t kc1, uint16_t kc2) {
     tap_code16(kc2);
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _WIN_CTL, _CMD, _ADJUST);
-    return state;
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     state = update_tri_layer_state(state, _WIN_CTL, _CMD, _ADJUST);
+//     return state;
+// }
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SPLT_KL1:
+    case SPLT_KL2:
+    case SPLT_KL3:
+    case SPLT_KR3:
+    case SPLT_KR1:
+        return 200;
+    case SPLT_KR2: // Space
+        return 250;
+    default:
+        return TAPPING_TERM;
+  }
 }
 
+uint8_t print_lock = 0;
+//
 uint8_t g_active_layer = 0;
 void    set_g_active_layer(layer_state_t state) {
     for (uint8_t i = _MAX_LAYER_ - 1; i >= 0; i--) {
         if (layer_state_cmp(state, i)) {
             g_active_layer = i;
-            dprintf("active layer: %d\n", g_active_layer);
+            print_lock = (print_lock + 1);
+            if (print_lock == 0) {
+                dprintf("top active layer: %d\n", g_active_layer);
+            }
             break;
         }
     }
@@ -132,7 +167,9 @@ void    set_g_active_layer(layer_state_t state) {
 void set_default_layer_colors(layer_state_t state) {
     for (int layer = 0; layer < _DEFAULT_RANGE_; layer++) {
         if (layer_state_cmp(state, layer)) {
-            dprintf("\nDefault layer is %04X ", layer);
+            if (print_lock == 0) {
+              dprintf("\n\ndefault layer: %04X\n", layer);
+            }
             set_layer_color(layer, layer_colors[layer]);
         }
     }
@@ -150,50 +187,124 @@ void set_all_layer_colors(layer_state_t state) {
 }
 
 void set_layer_color(int layer, HSV color) {
-    color.s -= g_active_layer > 0 ? C_SAT_DIM_FACTOR * (g_active_layer - layer) : 0;
-    color.v -= g_active_layer > 0 ? C_VAL_DIM_FACTOR * (g_active_layer - layer) : 0;
+    bool is_default = (layer < _DEFAULT_RANGE_);
+    bool is_top_layer = is_default ? g_active_layer == 0 : g_active_layer == layer;
+
+    if (print_lock == 0) {
+      dprintf("[layer %d]\n", layer);
+      dprintf("  is_default=%s\n", (is_default ? "true" : "false"));
+      dprintf("  is_top_layer=%s\n", (is_top_layer ? "true" : "false"));
+    }
     if (layer_stack_color) {
         for (int r = 0; r < MATRIX_ROWS; r++) {
             for (int c = 0; c < MATRIX_COLS; c++) {
                 int index = g_led_config.matrix_co[r][c];
                 if (index != NO_LED) {
+                    // get kecode at the current position 
                     uint16_t kc = pgm_read_word(&keymaps[layer][r][c]);
-#ifdef DEBUG_LAYER_COLOR
-                    dprintf("Keycode: 0x%04X\n", kc);
-#endif
+                    HSV keyColor = color;
+                    bool set_color = true;
                     switch (kc) {
                         case KC_TRANSPARENT:
+                         
+                            set_color = false;
+                            // set_color = !is_default;
+                            keyColor  = C_BLACK;
                             break;
                         case KC_NO:
-                            set_key_layer_color(index, layer, C_BLACK);
+                            keyColor  = C_BLACK;
+                            // set_key_layer_color(index, layer, C_BLACK);
                             break;
                         case RESET:
-                            set_key_layer_color(index, layer, C_RED);
+                            keyColor = C_RED;
+                            // set_key_layer_color(index, layer, C_RED);
                             break;
                         case DEBUG:
-                            set_key_layer_color(index, layer, C_GREEN);
+                            keyColor = C_GREEN;
+                            // set_key_layer_color(index, layer, C_GREEN);
+                            break;
+                        // WINDOW ARRANGEMENT LAYER KEYS
+                        case WNDW_LAYER_H:
+                            keyColor = CL_WNDW_HALF;
+                            break;
+                        case WNDW_LAYER_Q:
+                            keyColor = CL_WNDW_QUAD;
+                            break;
+                        case WNDW_LAYER_V:
+                            keyColor = CL_WNDW_VERT;
+                            break;
+                        case WNDW_LAYER_3:
+                            keyColor = CL_WNDW_THRD;
+                            break;
+                        case WNDW_LAYER_6:
+                            keyColor = CL_WNDW_SIXT;
+                            break;
+                        // VSCODE SHORTCUT KEYS
+                        case VSC_BACK:
+                        case VSC_FWRD:
+                        case VSC_DBG_RUN:
+                        case VSC_DBG_BRKP:
+                        case VSC_DBG_OVR:
+                        case VSC_DBG_IN:
+                        case VSC_FIND:
+                        case VSC_FIND_PREV:
+                        case VSC_FIND_NEXT:
+                        case VSC_RENAME:
+                        case VSC_GOTO_DEF:
+                        case VSC_PEEK_DEF:
+                        case VSC_SHOW_REF:
+                        case VSC_PROB_PREV:
+                        case VSC_PROB_NEXT:
+                        case VSC_GOTO_SYMB:
+                        case VSC_GOTO_LINE:
+                        case VSC_SEL_EXPND:
+                        case VSC_SEL_SHRNK:
+                        case VSC_SEL_LINE:
+                        case VSC_EDTR_SPLT:
+                        case VSC_TOGL_VRT_HRZ:
+                        case VSC_SB_EXPLR:
+                        case VSC_SB_SEARC:
+                        case VSC_SB_DEBUG:
+                        case VSC_SB_SRCTL:
+                        case VSC_BP_TERML:
+                        case VSC_BP_PRBLM:
+                        case VSC_MV_EDTR_LFT:
+                        case VSC_MV_EDTR_RGT:
+                        case VSC_FCS_G_PREV:
+                        case VSC_FCS_G_NEXT:
+                        case VSC_MV_EDTR_G_LFT:
+                        case VSC_MV_EDTR_G_RGT:
+                        case VSC_OPN_DEF_SIDE:
+                            keyColor = C_PURPLE;
                             break;
                         default:
                             if (IS_LETTER(kc)) {
-                                set_key_layer_color(index, layer, CF_PALE(color));
-                            // } else if(IS_MO_LAYER(kc)) {
-                            //     set_key_layer_color(index, layer, CF_OPPO(color));
+                                    keyColor = CF_SHFT(keyColor);
                             } else if (IS_MOD_TAP(kc)) {
-                                set_key_layer_color(index, layer, C_RED);
-                            } else {
-                                set_key_layer_color(index, layer, color);
+                                keyColor = C_RED;
                             }
                             break;
+                    }
+
+                    if (set_color) {
+                      if (!is_top_layer) {
+                          if (is_default) {
+                              keyColor = C_BLACK;
+                          } else {
+                            // dim colors in lower layers based on 'height'
+                            int satDim = g_active_layer > 0 ? C_SAT_DIM_FACTOR * (g_active_layer - layer) : 0;
+                            keyColor.s = (keyColor.s<satDim) ? 0 : keyColor.s - satDim;
+                            int valDim = g_active_layer > 0 ? C_VAL_DIM_FACTOR * (g_active_layer - layer) : 0;
+                            keyColor.v = (keyColor.v<valDim) ? 0 : keyColor.v - valDim;
+                          }
+                      }
+
+                      set_key_layer_color(index, layer, keyColor);
                     }
                 }
             }
         }
     }
-#ifdef DEBUG_LAYER_COLOR
-    else {
-        dprintf("\nlayer_stack_color NOT ENABLED\n");
-    }
-#endif
 }
 
 void set_key_layer_color(int index, int layer, HSV hsv) {

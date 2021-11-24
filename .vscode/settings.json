@@ -31,7 +31,7 @@
     "C_Cpp.default.intelliSenseMode": "clang-x64",
     "C_Cpp.default.includePath": [
         "${workspaceFolder}",
-        "${workspaceFolder}/*",
+        "${workspaceFolder}/**",
     ],
     "[cpp]": {
         "editor.wordBasedSuggestions": false,
