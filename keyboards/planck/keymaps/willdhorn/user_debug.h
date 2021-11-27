@@ -5,10 +5,6 @@
 // QMK debug flags
 #undef DEBUG_MATRIX_SCAN_RATE
 
-// User debug flags
-#undef DEBUG_KEYCODE_PRINT
-#undef DEBUG_LAYER_COLOR
-
 #define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
 #define BYTE_TO_BINARY(byte)  \
   (byte & 0x80 ? '1' : '0'), \
@@ -21,5 +17,5 @@
   (byte & 0x01 ? '1' : '0') 
 #define BOOL_STR(val) ((val) ? "true" : "false")
 
-#define DEBUG_KEYCODE_HEX(kc) uprintf("\nkc:   0x%04X\n", kc)
-#define DEBUG_KEYCODE_BINARY(kc) uprintf("keycode:\t" BYTE_TO_BINARY_PATTERN " " BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(kc >> 8), BYTE_TO_BINARY(kc))
+#define DEBUG_KEYCODE_HEX(kc) dprintf("\nkc:   0x%04X\n", kc)
+#define DEBUG_KEYCODE_BINARY(kc) dprintf("keycode:\t" BYTE_TO_BINARY_PATTERN " " BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(kc >> 8), BYTE_TO_BINARY(kc))

@@ -17,8 +17,13 @@
 
 // !! ABSOLUTELY NEEDED FOR HOME ROW MODS !!
 #define IGNORE_MOD_TAP_INTERRUPT
-
 #define TAPPING_FORCE_HOLD
+
+// DEBUG FLAGS
+#define DEBUG_KEYCODE_PRINT
+// #define DEBUG_LAYER_PRINT
+#define DEBUG_TAP_DANCE
+
 
 // Disable deprecated features for binary size
 #define NO_ACTION_MACRO

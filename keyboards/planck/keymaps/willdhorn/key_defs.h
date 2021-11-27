@@ -74,6 +74,10 @@
 #define OSX_DESK_RIGHT CTL(KC_RIGHT)
 #define OSX_MC_DESKS CTL(KC_UP)
 #define OSX_MC_APPS CTL(KC_DOWN)
+// TAP DANCE
+#define OSX_APP_PREV TD(TD_APPSW_L)
+#define OSX_APP_WNDW TD(TD_APPSW_M)
+#define OSX_APP_NEXT TD(TD_APPSW_R)
 
 /*
   === VISUAL STUDIO CODE ===
@@ -128,10 +132,6 @@ enum custom_keycodes {
     VSC_MV_EDTR_G_LFT,  // MOVE EDITOR GROUP LEFT
     VSC_MV_EDTR_G_RGT,  // MOVE EDITOR GROUP RIGHT
     VSC_OPN_DEF_SIDE,    // OPEN DEFINITION IN OPPOSITE GROUP
-    // APPS AND WINDOWS
-    OSX_APP_PREV,  // ALT TAB MODE - PREVIOUS APP
-    OSX_APP_WNDW,  // ALT TAB MODE - SELECT APP / SWITCH WINDOW
-    OSX_APP_NEXT,  // ALT TAB MODE - NEXT APP
 };
 
 
@@ -145,4 +145,66 @@ enum custom_keycodes {
 #define KC_END CMD(KC_RIGT)
 #define KC_EMOJI LCTL(LCMD(KC_SPACE))
 
-#define foo F(0)
+/*
+  === KEY TEST MACROS ===
+*/
+
+#define IS_LETTER(kc) (KC_A <= (kc) && (kc) <= KC_Z)
+
+// .,;?!'"()@
+#define IS_SYM_COMMON(kc) ((kc) == KC_DOT || (kc) == KC_COMM || (kc) == KC_SCLN || (kc) == KC_QUES || (kc) == KC_EXLM || (kc) == KC_QUOT || (kc) == KC_DQUO || (kc) == KC_LPRN || (kc) == KC_RPRN || (kc) == KC_AT)
+// {}[]
+#define IS_SYM_BRACKET(kc) ( (kc) == KC_LBRC || (kc) == KC_RBRC || (kc) == KC_LCBR || (kc) == KC_RCBR )
+// =_+-*/&|%<>
+#define IS_SYM_PROGRAM(kc) ( (kc) == KC_EQL || (kc) == KC_UNDS || (kc) == KC_PLUS || (kc) == KC_MINS || (kc) == KC_ASTR || (kc) == KC_SLSH || (kc) == KC_AMPR || (kc) == KC_PIPE || (kc) == KC_PERC || (kc) == KC_LABK || (kc) == KC_RABK )
+// \^$#~`
+#define IS_SYM_OTHER(kc) ( (kc) == KC_BSLS || (kc) == KC_CRRT || (kc) == KC_DLR || (kc) == KC_HASH || (kc) == KC_TILD || (kc) == KC_GRV )
+
+#define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
+#define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
+#define IS_NAV_SC(kc) ((kc) == S_TABL || (kc) == S_TABR)
+
+// Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
+#define IS_MOD_KEY(kc) (((kc>>5) & 0x07) == 0x07)
+
+#define IS_MO_LAYER(kc) ((kc) >= QK_MOMENTARY && (kc) <= QK_MOMENTARY_MAX)
+#define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
+#define IS_LT_LAYER(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
+#define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
+#define IS_TAP_DANCE(kc) ((kc) >= QK_TAP_DANCE && (kc) <= QK_TAP_DANCE_MAX)
+#define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
+
+#define MT_KEYCODE(mt) ((mt)&0xFF)
+#define LT_KEYCODE(lt) ((lt)&0xFF)
+#define LT_LAYER(lt) ((lt>>8)&0xF)
+
+#define IS_VOL_KEY(kc) ( (kc) == KC_MUTE || (kc) == KC_VOLD || (kc) == KC_VOLU)
+#define IS_MED_KEY(kc) ( (kc) == KC_MPRV || (kc) == KC_MNXT || (kc) == KC_MPLY || (kc) == KC_MSTP )
+#define IS_RGB_KEY(kc) (((kc) >= RGB_TOG && (kc) <= RGB_MODE_RGBTEST) || (kc) == RGB_MODE_TWINKLE || (kc) == TOGGLE_LAYER_COLOR || (kc) == KC_LAYERCOLOR)
+
+/* === VSCODE === */
+#define IS_VSC_KEY(kc) ( IS_VSC_CURSOR(kc) || IS_VSC_SELECT(kc) || IS_VSC_SIDEBAR(kc) || IS_VSC_PROBLEM(kc) || IS_VSC_FNDSRCH(kc) || IS_VSC_GOTO(kc) || IS_VSC_DEBUG(kc) || IS_VSC_REFNCE(kc) || IS_VSC_REFAC(kc) || IS_VSC_EDTFCS(kc) || IS_VSC_EDTSPLT(kc) )
+#define IS_VSC_CURSOR(kc) ( (kc) == VSC_BACK || (kc) == VSC_FWRD )
+#define IS_VSC_SELECT(kc) ( (kc) == VSC_SEL_EXPND || (kc) == VSC_SEL_SHRNK || (kc) == VSC_SEL_LINE )
+#define IS_VSC_SIDEBAR(kc) ( (kc) == VSC_SB_EXPLR || (kc) == VSC_SB_SEARC || (kc) == VSC_SB_DEBUG || (kc) == VSC_SB_SRCTL || (kc) == VSC_BP_TERML || (kc) == VSC_BP_PRBLM )
+
+#define IS_VSC_PROBLEM(kc) ( (kc) == VSC_PROB_PREV || (kc) == VSC_PROB_NEXT )
+#define IS_VSC_FNDSRCH(kc) ( (kc) == VSC_FIND || (kc) == VSC_FIND_PREV || (kc) == VSC_FIND_NEXT )
+#define IS_VSC_GOTO(kc) ( (kc) == VSC_GOTO_SYMB || (kc) == VSC_GOTO_LINE )
+
+#define IS_VSC_DEBUG(kc) ( (kc) == VSC_DBG_RUN || (kc) == VSC_DBG_BRKP || (kc) == VSC_DBG_OVR || (kc) == VSC_DBG_IN )
+#define IS_VSC_REFNCE(kc) ( (kc) == VSC_GOTO_DEF || (kc) == VSC_PEEK_DEF || (kc) == VSC_SHOW_REF )
+#define IS_VSC_REFAC(kc) ( (kc) == VSC_RENAME )
+#define IS_VSC_EDTFCS(kc) ( (kc) == VSC_FCS_G_PREV || (kc) == VSC_FCS_G_NEXT )
+#define IS_VSC_EDTSPLT(kc) ( (kc) == VSC_EDTR_SPLT || (kc) == VSC_TOGL_VRT_HRZ || (kc) == VSC_MV_EDTR_LFT || (kc) == VSC_MV_EDTR_RGT || (kc) == VSC_MV_EDTR_G_LFT || (kc) == VSC_MV_EDTR_G_RGT )
+
+/*
+  === FUNCTION DECLARATIONS ===
+*/
+
+// Functions for handling vscode short cut sequences
+void two_tap(uint16_t kc1, uint16_t kc2);
+void vscode_chord(uint16_t kc);
+
+// Alt-Tab mode handler
+void handle_alt_tab_mode(uint16_t kc);
