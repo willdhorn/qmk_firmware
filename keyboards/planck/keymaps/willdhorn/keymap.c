@@ -146,6 +146,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       case SPLT_KR2:  // Space
           return 250;
 #endif
+      case MR1(KC_O):
+      case MR2(KC_I):
+      case ML1(KC_A):
+      case ML2(KC_S):
+          return 250;
       case OSX_APP_PREV:
       case OSX_APP_WNDW:
       case OSX_APP_NEXT:
