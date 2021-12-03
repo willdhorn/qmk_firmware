@@ -9,6 +9,9 @@
   https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
+// Layout switch
+#define KB_LAYOUT_STANDARD // otherwise, use split layout
+
 // Key Behaviour
 #undef TAPPING_TERM
 #define TAPPING_TERM 190

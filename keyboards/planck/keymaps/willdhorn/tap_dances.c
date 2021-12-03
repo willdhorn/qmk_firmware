@@ -3,9 +3,11 @@
 
 #include "tap_dances.h"
 #include "key_defs.h"
+#include "layers.h"
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_SPACE] = ACTION_TAP_DANCE_DOUBLE(MO(_APPS_WNDW), KC_CAPS),
     [TD_APPSW_L] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_left),
     [TD_APPSW_M] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_mid),
     [TD_APPSW_R] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_right)

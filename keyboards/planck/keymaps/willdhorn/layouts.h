@@ -1,24 +1,8 @@
 #pragma once
 
 #include <stdint.h>
+#include "config.h"
 
-
-enum default_layers { _QWERTY, _COLEMAK, _WORKMAN, _DEFAULT_RANGE_ };
-
-enum planck_layers {
-    _SYMBOLS  = _DEFAULT_RANGE_,
-    _NAV,
-    _NUM,
-    _VSCODE,
-    _APPS_WNDW,
-    _WNDW_HALF,
-    _WNDW_QUAD,
-    _WNDW_VERT,
-    _WNDW_THRD,
-    _WNDW_SIXT,
-    _ADJUST,
-    _MAX_LAYER_
-};
 
 // define home mods arrangement
 #define ML1(kc) LCTL_T(kc)
@@ -45,27 +29,24 @@ enum planck_layers {
 
 
 
-#define KB_LAYOUT_STANDARD 1
-// #define KB_LAYOUT_SPLIT 1
-
-
 #ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
-#   define STD_LK_LEFT MO(_NUM)
+#   define STD_LK_LEFT MO(_VSCODE)
 #   define STD_LK_LOWR MO(_SYMBOLS)
-#   define STD_LK_RAIS MO(_NAV)
-#   define STD_LK_RGHT MO(_ADJUST)
+#   define STD_LK_RAIS LT(_NAV, KC_SPACE)
+#   define STD_LK_RGHT MO(_NUM)
+#   define STD_LK_SPCE LT(_APPS_WNDW, KC_CAPSLOCK)
 
-#   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_ESC, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
-#   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_TAB, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
-#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) KC_ESC, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_CAPSLOCK
-#   define STD_BASE(L1, L2, R2, R1) L1, L2, _______, STD_LK_LEFT, STD_LK_LOWR, KC_SPACE, STD_LK_RAIS, STD_LK_RGHT, _______, R2, R1
+#   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
+#   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
+#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) KC_EMPTY, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_EMPTY
+#   define STD_BASE(L1, L2, R2, R1) L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, STD_LK_SPCE, STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
 
 #   define STD_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) _______, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, _______
 
 #   define STD_DEFAULT_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_DEFAULT_HOME(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 #   define STD_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_ROW(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 
-#   define EMPTY_STD_BASE STD_BASE(_______, _______, _______, _______)
+#   define EMPTY_STD_BASE STD_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
 
 #   define DEF_TOP(...)  STD_DEFAULT_TOP(__VA_ARGS__)
 #   define DEF_MID(...)  STD_DEFAULT_HOME_MOD(__VA_ARGS__)
@@ -77,7 +58,7 @@ enum planck_layers {
 
 #   define EMPTY_BASE     EMPTY_STD_BASE
 
-#elif KB_LAYOUT_SPLIT // SPLIT LAYOUT - WITH 3 LAYERKEYS
+#else // SPLIT LAYOUT - WITH 3 LAYERKEYS
 #   define SPLT_KL1 LT(_APPS_WNDW, KC_ESC)
 #   define SPLT_KL2 LT(_SYMBOLS, KC_SPACE)
 #   define SPLT_KL3 LT(_VSCODE, KC_TAB)

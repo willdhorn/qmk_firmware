@@ -7,9 +7,9 @@
 #include "print.h"
 
 #include "key_defs.h"
-#include "layouts.h"
-#include "tap_dances.h"
 #include "layers.h"
+#include "tap_dances.h"
+#include "layouts.h"
 #include "rgb_stuff.h"
 #include "user_debug.h"
 
@@ -109,24 +109,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _VSCODE, _NUM, _ADJUST);
+    return state;
+}
+
 void vscode_chord(uint16_t kc) { 
     two_tap(CMD(KC_K), kc);
 }
-
 
 void two_tap(uint16_t kc1, uint16_t kc2) {
     tap_code16(kc1);
     tap_code16(kc2);
 }
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     state = update_tri_layer_state(state, _WIN_CTL, _CMD, _ADJUST);
-//     return state;
-// }
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-#ifdef KB_LAYOUT_SPLIT
+#ifdef KB_LAYOUT_STANDARD
+      case STD_LK_RAIS:
+          return 250;
+#else
       case SPLT_KL1:
       case SPLT_KL2:
       case SPLT_KL3:

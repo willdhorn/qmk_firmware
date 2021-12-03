@@ -1,7 +1,24 @@
 #pragma once
 
+enum default_layers { _QWERTY, _COLEMAK, _WORKMAN, _DEFAULT_RANGE_ };
+
+enum planck_layers {
+    _SYMBOLS  = _DEFAULT_RANGE_,
+    _NAV,
+    _NUM,
+    _VSCODE,
+    _APPS_WNDW,
+    _WNDW_HALF,
+    _WNDW_QUAD,
+    _WNDW_VERT,
+    _WNDW_THRD,
+    _WNDW_SIXT,
+    _ADJUST,
+    _MAX_LAYER_
+};
+
 /*
-  === DEFAULT LAYOUTS ===
+  === DEFAULT LAYERS ===
 */
 
 // QWERTY
