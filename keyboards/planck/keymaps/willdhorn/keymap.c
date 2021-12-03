@@ -32,6 +32,14 @@ extern bool         g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 extern led_config_t g_led_config;
 
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &delete_key_override,
+    NULL // Null terminate the array of overrides!
+};
+
 void keyboard_post_init_user(void) {
     // debug_enable = true;
     //    debug_matrix = true;
