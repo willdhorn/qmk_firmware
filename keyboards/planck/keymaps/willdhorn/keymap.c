@@ -148,8 +148,8 @@ void two_tap(uint16_t kc1, uint16_t kc2) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef KB_LAYOUT_STANDARD
-      case STD_LK_RAIS:
-          return 250;
+      case STD_LK_RAIS: // LT(space)
+          return 200;
 #else
       case SPLT_KL1:
       case SPLT_KL2:
@@ -168,7 +168,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       case OSX_APP_PREV:
       case OSX_APP_WNDW:
       case OSX_APP_NEXT:
-          return 150;
+          return 140;
       default:
           return TAPPING_TERM;
   }

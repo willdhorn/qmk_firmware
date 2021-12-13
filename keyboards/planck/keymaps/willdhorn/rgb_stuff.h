@@ -55,7 +55,7 @@
 #define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 75))
 #define CF_BRGT(color) CHSV((color).h, (color).s, F_ADD((color).v, 100))
 
-#define CF_SHFT(color) CHSV(F_H_RGT((color).h, 15), (color).s, F_ADD((color).v, 15))
+#define CF_SHFT(color) CHSV(F_H_LFT((color).h, 15), (color).s, F_ADD((color).v, 15))
 #define CF_OPPO(color) CHSV(F_H_RGT((color).h, 128), (color).s, (color).v)
 
 #define C_VAL_DIM_FACTOR 10
@@ -65,9 +65,9 @@
   === LAYER COLORS ===
 */
 
-#define CL_QWERTY       CHSV(30, 255, 240)
-#define CL_COLEMAK      CHSV(83, 255, 240)
-#define CL_WORKMAN      CHSV(200, 255, 240)
+#define CL_QWERTY       CHSV(45, 255, 240)
+#define CL_COLEMAK      CHSV(20, 255, 240)
+#define CL_WORKMAN      CHSV(83, 255, 240)
 
 #define CL_SYMBOLS      C_INDIGO
 #define CL_NAV          C_YELLOW
@@ -85,7 +85,7 @@
 /* 
   === KEY COLORS === 
 */
-#define CK_LETTERS(color) color
+#define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_SHFT(color)) : (color))
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
 #define CK_LAYER_DF       C_MAGENTA

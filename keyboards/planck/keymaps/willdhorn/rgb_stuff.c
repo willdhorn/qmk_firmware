@@ -150,7 +150,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     /* SYMBOLS */
     else if (IS_SYM_COMMON(kc)) {
         return CK_SYM_COMMON;
-    } if (IS_SYM_BRACKET(kc)) {
+    }
+    if (IS_SYM_BRACKET(kc)) {
         return CK_SYM_BRACKET;
     } else if (IS_SYM_PROGRAM(kc)) {
         return CK_SYM_PROGRAM;
@@ -160,11 +161,9 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     /* UTILITY */
     else if (IS_NUMBER(kc)) {
         return CK_NUMBERS;
-    }
-    else if (IS_ARROW(kc)) {
+    } else if (IS_ARROW(kc)) {
         return CK_ARROWS;
-    }
-    else if (IS_NAV_SC(kc)) {
+    } else if (IS_NAV_SC(kc)) {
         return CK_NAV_SC;
     }
     /* LAYER */
@@ -174,11 +173,9 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {
         return CK_ADJ_VOL;
-    }
-    else if (IS_MED_KEY(kc)) {
+    } else if (IS_MED_KEY(kc)) {
         return CK_ADJ_MED;
-    }
-    else if (IS_RGB_KEY(kc)) {
+    } else if (IS_RGB_KEY(kc)) {
         return CK_ADJ_RGB;
     }
     /* VSCODE */
