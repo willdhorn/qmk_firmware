@@ -150,7 +150,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef KB_LAYOUT_STANDARD
       case STD_LK_RAIS: // LT(space)
-          return 200;
+          return 185;
 #else
       case SPLT_KL1:
       case SPLT_KL2:
