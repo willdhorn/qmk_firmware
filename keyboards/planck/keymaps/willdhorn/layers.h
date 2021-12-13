@@ -76,7 +76,7 @@ enum planck_layers {
 #define NAV_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX
 
 #define NAV_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______
-#define NAV_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD     VSC_SB_SRCTL
+#define NAV_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,     VSC_SB_SRCTL
 #define NAV_CMD3 _______,      _______,       _______,       _______,      _______
 
 // NUMPAD

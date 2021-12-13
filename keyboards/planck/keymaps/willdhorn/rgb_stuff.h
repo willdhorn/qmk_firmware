@@ -51,12 +51,12 @@
 #define F_H_LFT(hue, amt) ((hue-amt)%255)
 #define F_H_RGT(hue, amt) ((hue+amt)%255)
 
-#define CF_PALE(color) CHSV(color.h, F_SUB(color.s, 50), color.v)
-#define CF_DIM(color)  CHSV(color.h, color.s, F_SUB(color.v, 75))
-#define CF_BRGT(color) CHSV(color.h, color.s, F_ADD(color.v, 100))
+#define CF_PALE(color) CHSV((color).h,  (F_SUB((color).s, 50)), (color).v)
+#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 75))
+#define CF_BRGT(color) CHSV((color).h, (color).s, F_ADD((color).v, 100))
 
-#define CF_SHFT(color) CHSV(F_H_RGT(color.h, 15), color.s, F_ADD(color.v, 15))
-#define CF_OPPO(color) CHSV(F_H_RGT(color.h, 128), color.s, color.v)
+#define CF_SHFT(color) CHSV(F_H_RGT((color).h, 15), (color).s, F_ADD((color).v, 15))
+#define CF_OPPO(color) CHSV(F_H_RGT((color).h, 128), (color).s, (color).v)
 
 #define C_VAL_DIM_FACTOR 10
 #define C_SAT_DIM_FACTOR 5
@@ -104,7 +104,7 @@
 
 #define CK_VSCODE         CL_VSCODE
 #define CK_VSC_LGT        C_VIOLET
-#define CK_VSC_DRK        CHSV(F_H_RGT(H_PURPLE,9),220,240)
+#define CK_VSC_DRK        CHSV((F_H_RGT(H_PURPLE,9)),220,240)
 
 #define CK_VSC_DEBUG      C_MAGENTA
 #define CK_VSC_REFNCE     CK_VSCODE

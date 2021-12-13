@@ -130,7 +130,7 @@
 // NAV
 
 #define NAV_1 ROW(NAV_CMD1,  NAV_R1)
-#define NAV_2 ROW(NAV_CMD2_, NAV_R2)
+#define NAV_2 ROW(NAV_CMD2, NAV_R2)
 #define NAV_3 ROW(NAV_CMD3,  NAV_R3)
 #define NAV_4 EMPTY_BASE
 
@@ -138,9 +138,9 @@
 
 // NUM
 
-#define NUM_1 ROW(    NUM_CMD1, NUM_R1)
-#define NUM_2 MOD_ROW(NUM_CMD2, NUM_R2)
-#define NUM_3 ROW(    NUM_CMD3, NUM_R3)
+#define NUM_1 ROW(NUM_CMD1, NUM_R1)
+#define NUM_2 ROW(NUM_CMD2, NUM_R2)
+#define NUM_3 ROW(NUM_CMD3, NUM_R3)
 #define NUM_4 EMPTY_BASE
 
 #define LAYER_NUM PLANCK_LAYOUT(NUM_1, NUM_2, NUM_3, NUM_4)
