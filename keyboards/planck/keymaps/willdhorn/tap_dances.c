@@ -7,7 +7,7 @@
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_SPACE] = ACTION_TAP_DANCE_DOUBLE(MO(_APPS_WNDW), KC_CAPS),
+    //[TD_SPACE] = ACTION_TAP_DANCE_DOUBLE(MO(_APPS_WNDW), KC_CAPS),
     [TD_APPSW_L] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_left),
     [TD_APPSW_M] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_mid),
     [TD_APPSW_R] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_right)
@@ -21,17 +21,19 @@ void handle_app_switch_mode_left(qk_tap_dance_state_t *state, void *user_data) {
 #endif
     switch(get_app_switch_dance_mode(state)) {
       case ATTD_SINGLE_TAP_OFF:
-          tap_code16(CMD(SFT(KC_TAB)));
+          tap_code16(CTL(KC_DOWN));
           break;
       case ATTD_DOUBLE_TAP_OFF:
           app_switch_on();
-          tap_code16(SFT(KC_TAB));
           tap_code16(SFT(KC_TAB));
           break;
       case ATTD_SINGLE_TAP_ON:
           tap_code16(SFT(KC_TAB));
           break;
       case ATTD_DOUBLE_TAP_ON:
+          for (int i = 0; i < state->count; i++) {
+              tap_code16(SFT(KC_TAB));
+          }
           break;
     }
 }
@@ -49,6 +51,7 @@ void handle_app_switch_mode_mid(qk_tap_dance_state_t *state, void *user_data) {
           break;
       case ATTD_DOUBLE_TAP_OFF:
           app_switch_on();
+          tap_code16(KC_TAB);
           tap_code16(SFT(KC_TAB));
           break;
       case ATTD_DOUBLE_TAP_ON:
@@ -75,6 +78,9 @@ void handle_app_switch_mode_right(qk_tap_dance_state_t *state, void *user_data) 
           tap_code16(KC_TAB);
           break;
       case ATTD_DOUBLE_TAP_ON:
+          for (int i = 0; i < state->count; i++) {
+              tap_code16(KC_TAB);
+          }
           break;
     }
 }
