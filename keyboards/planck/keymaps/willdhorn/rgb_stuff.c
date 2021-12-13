@@ -129,14 +129,23 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return CL_WNDW_THRD;
         case WNDW_LAYER_6:
             return CL_WNDW_SIXT;
+        // DEFAULT LAYER
+        case KC_QWERTY:
+            return CF_PALE(CL_QWERTY);
+        case KC_WORKMAN:
+            return CF_PALE(CL_WORKMAN);
+        case KC_COLEMAK:
+            return CF_PALE(CL_COLEMAK);
     }
 
     if (IS_LETTER(kc)) {
         return CK_LETTERS(layer_color);
     } else if (IS_MOD_TAP(kc)) {
         HSV key_color = get_keycode_color(MT_KEYCODE(kc), layer_color);
+        if (get_mods() & MT_MODS(kc)) {
+            return CF_OPPO(key_color);
+        }
         return CK_MOD_TAP(key_color);
-        // return C_RED;
     }
     /* SYMBOLS */
     else if (IS_SYM_COMMON(kc)) {

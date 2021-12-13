@@ -51,7 +51,13 @@ void keyboard_post_init_user(void) {
 }
 
 void rgb_matrix_indicators_user(void) { 
-    set_all_layer_colors(layer_state); 
+    set_all_layer_colors(layer_state);
+    // Set caps lock indicator light
+    if (host_keyboard_led_state().caps_lock) {
+        planck_ez_left_led_level(255);
+    } else {
+        planck_ez_left_led_level(0);
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -63,6 +69,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (pressed) {
                 toggle_color_mode();
             }
+            break;
+        // DEFAULT LAYER
+        case KC_QWERTY:
+            set_single_persistent_default_layer(_QWERTY);
+            break;
+        case KC_WORKMAN:
+            set_single_persistent_default_layer(_WORKMAN);
+            break;
+        case KC_COLEMAK:
+            set_single_persistent_default_layer(_COLEMAK);
             break;
         // VSCode keys for chorded shortcuts (cmd-k used as leader)
         case VSC_MV_EDTR_LFT:
@@ -93,8 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         default:
             // flash the right when caps lock is on light anytime a key is pressed
-            if (host_keyboard_led_state().caps_lock) {
-              planck_ez_left_led_level(255);
+            if (host_keyboard_led_state().caps_lock && IS_LETTER(keycode)) {
                 if (pressed) {
                     planck_ez_right_led_level(255);
                 } else {
@@ -102,7 +117,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             } else {
                 planck_ez_right_led_level(0);
-                planck_ez_left_led_level(0);
             }
             break;
     }

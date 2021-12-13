@@ -123,6 +123,11 @@
 // CUSTOM KEYCODES
 enum custom_keycodes {
     KC_EMPTY = EZ_SAFE_RANGE,
+    // PDRSISTANT DEFALT LAYER
+    KC_QWERTY,
+    KC_WORKMAN,
+    KC_COLEMAK,
+    // RGB
     KC_LAYERCOLOR,
     // VSCODE
     VSC_MV_EDTR_LFT,    // MOVE EDITOR TO LEFT GROUP
@@ -175,6 +180,7 @@ enum custom_keycodes {
 #define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
 
 #define MT_KEYCODE(mt) ((mt)&0xFF)
+#define MT_MODS(mt) ((((mt)>>8)&0x10) ? (((mt)>>4)&0xF0) : (((mt)>>8)&0x0F)) // get correct (L/R) mod mask 
 #define LT_KEYCODE(lt) ((lt)&0xFF)
 #define LT_LAYER(lt) ((lt>>8)&0xF)
 

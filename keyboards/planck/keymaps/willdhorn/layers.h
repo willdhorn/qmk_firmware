@@ -1,6 +1,6 @@
 #pragma once
 
-enum default_layers { _QWERTY, _COLEMAK, _WORKMAN, _DEFAULT_RANGE_ };
+enum default_layers { _QWERTY, _WORKMAN, _COLEMAK, _DEFAULT_RANGE_ };
 
 enum planck_layers {
     _SYMBOLS  = _DEFAULT_RANGE_,
@@ -30,15 +30,6 @@ enum planck_layers {
 #define QWERTY_R2 KC_H, KC_J, KC_K, KC_L, KC_SCLN
 #define QWERTY_R3 KC_N, KC_M, KC_COMMA, KC_DOT, KC_QUOTE
 
-// COLEMAK
-#define COLEMAK_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
-#define COLEMAK_L2 KC_A, KC_R, KC_S, KC_T, KC_G
-#define COLEMAK_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
-
-#define COLEMAK_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
-#define COLEMAK_R2 KC_M, KC_N, KC_E, KC_I, KC_O
-#define COLEMAK_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
-
 // WORKMAN
 #define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
 #define WORKMAN_L2 KC_A, KC_S, KC_H, KC_T, KC_G
@@ -47,6 +38,15 @@ enum planck_layers {
 #define WORKMAN_R1 KC_J, KC_F, KC_U, KC_P, KC_SCLN
 #define WORKMAN_R2 KC_Y, KC_N, KC_E, KC_I, KC_O
 #define WORKMAN_R3 KC_K, KC_L, KC_COMMA, KC_DOT, KC_QUOTE
+
+// COLEMAK
+#define COLEMAK_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
+#define COLEMAK_L2 KC_A, KC_R, KC_S, KC_T, KC_G
+#define COLEMAK_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
+
+#define COLEMAK_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
+#define COLEMAK_R2 KC_M, KC_N, KC_E, KC_I, KC_O
+#define COLEMAK_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
 /*
   === COMMON LAYERS ===
@@ -75,11 +75,9 @@ enum planck_layers {
 #define NAV_R2 XXXXXXX, KC_LEFT,  KC_DOWN, KC_RIGHT, XXXXXXX
 #define NAV_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX
 
-#define NAV_CMD1           VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______
-#define NAV_CMD2_ MOD_LEFT(_______,      _______,       _______,       _______,      VSC_SB_SRCTL)
-#define NAV_CMD3           _______,      _______,       _______,       _______,      _______
-// Necessary to expand MOD_LEFT macro
-#define NAV_CMD2 NAV_CMD2_
+#define NAV_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______
+#define NAV_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD     VSC_SB_SRCTL
+#define NAV_CMD3 _______,      _______,       _______,       _______,      _______
 
 // NUMPAD
 #define NUM_R1 _______,  KC_7, KC_8, KC_9, _______
@@ -87,7 +85,7 @@ enum planck_layers {
 #define NUM_R3 _______,  KC_1, KC_2, KC_3, KC_DOT
 
 #define NUM_CMD1 VSC_BP_PRBLM, VSC_PROB_PREV, VSC_PROB_NEXT, VSC_SB_SEARC, VSC_GOTO_SYMB
-#define NUM_CMD2 _______,      _______,       _______,       _______,      VSC_GOTO_LINE 
+#define NUM_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_GOTO_LINE 
 #define NUM_CMD3 _______,      VSC_FIND_PREV, VSC_FIND_NEXT, VSC_FIND,     _______
 
 // ADJUST
@@ -97,9 +95,9 @@ enum planck_layers {
 #define ADJUST_LB XXXXXXX, XXXXXXX
 
 
-#define ADJUST_R1 XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, DF(_COLEMAK)
-#define ADJUST_R2 XXXXXXX, KC_MUTE, KC_VOLD,       KC_VOLU, DF(_QWERTY)
-#define ADJUST_R3 XXXXXXX, RGB_TOG, KC_LAYERCOLOR, RGB_MOD, DF(_WORKMAN)
+#define ADJUST_R1 XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, KC_QWERTY
+#define ADJUST_R2 XXXXXXX, KC_MUTE, KC_VOLD,       KC_VOLU, KC_WORKMAN
+#define ADJUST_R3 XXXXXXX, RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_COLEMAK
 #define ADJUST_RB RESET, DEBUG
 /*
   === COMMANDS ===
