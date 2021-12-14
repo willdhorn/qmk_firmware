@@ -47,7 +47,12 @@ const key_override_t activate_n_override = ko_make_basic(MOD_BIT(KC_RIGHT_GUI), 
 const key_override_t activate_e_override = ko_make_basic(MOD_BIT(KC_RIGHT_SHIFT), KC_CAPS,  RSFT(KC_E));
 const key_override_t activate_i_override = ko_make_basic(MOD_BIT(KC_RIGHT_ALT),   KC_CAPS,  RALT(KC_I));
 const key_override_t activate_o_override = ko_make_basic(MOD_BIT(KC_RIGHT_CTRL),  KC_CAPS,  RCTL(KC_O));
-
+// turn space-hold onto command shortcut
+// DEPENDANT ON WORKMAN LAYOUT
+const key_override_t command_undo_override = ko_make_basic(MOD_MASK_CSA,   KC_Z,  S_UNDO);
+const key_override_t command_cut_override = ko_make_basic(MOD_MASK_CSA,    KC_X,  S_CUT);
+const key_override_t command_copy_override = ko_make_basic(MOD_MASK_CSA,   KC_M,  S_COPY);
+const key_override_t command_paste_override = ko_make_basic(MOD_MASK_CSA,  KC_C,  S_PASTE);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -61,6 +66,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &activate_e_override,
     &activate_i_override,
     &activate_o_override,
+    &command_undo_override,
+    &command_cut_override,
+    &command_copy_override,
+    &command_paste_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -131,26 +140,6 @@ void rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
-    if (get_mods() == MOD_MASK_SHIFT) {
-        // both shift keys are down
-        switch (keycode) {
-          // DEPENDENT ON WORKMAN
-          case KC_Z:
-              tap_code16(S_UNDO);
-              return true;
-          case KC_X:
-              tap_code16(S_CUT);
-              return true;
-          case KC_M:
-              tap_code16(S_COPY);
-              return true;
-          case KC_C:
-              tap_code16(S_PASTE);
-              return true;
-          default:
-              break;
-        }
-    }
     switch (keycode) {
         // Keycodes defined in planck_keycodes
         // Toggle layer coloring

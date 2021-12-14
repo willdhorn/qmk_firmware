@@ -34,7 +34,7 @@
 #   define STD_LK_LOWR MO(_SYMBOLS)
 #   define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #   define STD_LK_RGHT MO(_NUM)
-#   define STD_LK_SPCE MT(MOD_LSFT|MOD_RSFT, KC_CAPSLOCK)
+#   define STD_LK_SPCE MT(MOD_MEH, KC_CAPSLOCK)
 
 #   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
 #   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
