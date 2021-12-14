@@ -36,17 +36,17 @@ extern led_config_t g_led_config;
   === KEY OVERRIDES ===
 */
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
-const key_override_t suppress_hide_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI), KC_H, KC_T);
+const key_override_t suppress_hide_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI), ML3(KC_H), KC_T);
 // turn space-tap into activator key
 // DEPENDANT ON WORKMAN LAYOUT
-const key_override_t activate_a_override = ko_make_basic(MOD_BIT(KC_LEFT_CTRL),   KC_CAPS,  LCTL(KC_A));
-const key_override_t activate_s_override = ko_make_basic(MOD_BIT(KC_LEFT_ALT),    KC_CAPS,  LALT(KC_S));
-const key_override_t activate_h_override = ko_make_basic(MOD_BIT(KC_LEFT_SHIFT),  KC_CAPS,  LSFT(KC_H));
-const key_override_t activate_t_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI),    KC_CAPS,  LGUI(KC_T));
-const key_override_t activate_n_override = ko_make_basic(MOD_BIT(KC_RIGHT_GUI),   KC_CAPS,  RGUI(KC_N));
-const key_override_t activate_e_override = ko_make_basic(MOD_BIT(KC_RIGHT_SHIFT), KC_CAPS,  RSFT(KC_E));
-const key_override_t activate_i_override = ko_make_basic(MOD_BIT(KC_RIGHT_ALT),   KC_CAPS,  RALT(KC_I));
-const key_override_t activate_o_override = ko_make_basic(MOD_BIT(KC_RIGHT_CTRL),  KC_CAPS,  RCTL(KC_O));
+const key_override_t activate_a_override = ko_make_basic(MOD_BIT(KC_LEFT_CTRL),   STD_LK_SPCE,  LCTL(KC_A));
+const key_override_t activate_s_override = ko_make_basic(MOD_BIT(KC_LEFT_ALT),    STD_LK_SPCE,  LALT(KC_S));
+const key_override_t activate_h_override = ko_make_basic(MOD_BIT(KC_LEFT_SHIFT),  STD_LK_SPCE,  LSFT(KC_H));
+const key_override_t activate_t_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI),    STD_LK_SPCE,  LGUI(KC_T));
+const key_override_t activate_n_override = ko_make_basic(MOD_BIT(KC_RIGHT_GUI),   STD_LK_SPCE,  RGUI(KC_N));
+const key_override_t activate_e_override = ko_make_basic(MOD_BIT(KC_RIGHT_SHIFT), STD_LK_SPCE,  RSFT(KC_E));
+const key_override_t activate_i_override = ko_make_basic(MOD_BIT(KC_RIGHT_ALT),   STD_LK_SPCE,  RALT(KC_I));
+const key_override_t activate_o_override = ko_make_basic(MOD_BIT(KC_RIGHT_CTRL),  STD_LK_SPCE,  RCTL(KC_O));
 // turn space-hold onto command shortcut
 // DEPENDANT ON WORKMAN LAYOUT
 const key_override_t command_undo_override = ko_make_basic(MOD_MASK_CSA,   KC_Z,  S_UNDO);
@@ -187,7 +187,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         
         default:
             // flash the right when caps lock is on light anytime a key is pressed
-            if (host_keyboard_led_state().caps_lock && IS_LETTER(keycode)) {
+            if (host_keyboard_led_state().caps_lock && (IS_LETTER(keycode) || IS_MOD_TAP(keycode))) {
                 if (pressed) {
                     planck_ez_right_led_level(255);
                 } else {

@@ -4,6 +4,7 @@
 #include "rgb_stuff.h"
 #include "key_defs.h"
 #include "layers.h"
+#include "layouts.h"
 
 const HSV layer_colors[] = {[_QWERTY]  =   CL_QWERTY,
                             [_COLEMAK] =   CL_COLEMAK,
@@ -141,11 +142,17 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     if (IS_LETTER(kc)) {
         return CK_LETTERS(layer_color);
     } else if (IS_MOD_TAP(kc)) {
+        
         HSV key_color = get_keycode_color(MT_KEYCODE(kc), layer_color);
-        if (get_mods() & MT_MODS(kc)) {
-            return CF_OPPO(key_color);
+        if (kc == STD_LK_SPCE) key_color = CK_LETTERS(layer_color);
+        // if (get_mods() & MT_MODS(kc)) {
+        if ((~get_mods() & MT_MODS(kc)) == 0) {
+            return CF_OPPO(key_color);  // This mod key is currently held down
+        } else if (get_mods()) {
+            return C_WHITE;  // Some other mod key is being held down
+        } else {
+            return CK_MOD_TAP(key_color);  // no mods are active
         }
-        return CK_MOD_TAP(key_color);
     }
     /* SYMBOLS */
     else if (IS_SYM_COMMON(kc)) {
