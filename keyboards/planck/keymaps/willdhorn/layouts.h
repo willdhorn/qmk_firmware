@@ -34,10 +34,10 @@
 #   define STD_LK_LOWR MO(_SYMBOLS)
 #   define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #   define STD_LK_RGHT MO(_NUM)
-#   define STD_LK_SPCE LT(_APPS_WNDW, KC_CAPSLOCK)
+#   define STD_LK_SPCE MT(MOD_LSFT|MOD_RSFT, KC_CAPSLOCK)
 
-#   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
-#   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
+#   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
+#   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
 #   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) KC_EMPTY, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_EMPTY
 #   define STD_BASE(L1, L2, R2, R1) L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, STD_LK_SPCE, STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
 

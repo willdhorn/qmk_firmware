@@ -37,14 +37,74 @@ extern led_config_t g_led_config;
 */
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
 const key_override_t suppress_hide_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI), KC_H, KC_T);
+// turn space-tap into activator key
+// DEPENDANT ON WORKMAN LAYOUT
+const key_override_t activate_a_override = ko_make_basic(MOD_BIT(KC_LEFT_CTRL),   KC_CAPS,  LCTL(KC_A));
+const key_override_t activate_s_override = ko_make_basic(MOD_BIT(KC_LEFT_ALT),    KC_CAPS,  LALT(KC_S));
+const key_override_t activate_h_override = ko_make_basic(MOD_BIT(KC_LEFT_SHIFT),  KC_CAPS,  LSFT(KC_H));
+const key_override_t activate_t_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI),    KC_CAPS,  LGUI(KC_T));
+const key_override_t activate_n_override = ko_make_basic(MOD_BIT(KC_RIGHT_GUI),   KC_CAPS,  RGUI(KC_N));
+const key_override_t activate_e_override = ko_make_basic(MOD_BIT(KC_RIGHT_SHIFT), KC_CAPS,  RSFT(KC_E));
+const key_override_t activate_i_override = ko_make_basic(MOD_BIT(KC_RIGHT_ALT),   KC_CAPS,  RALT(KC_I));
+const key_override_t activate_o_override = ko_make_basic(MOD_BIT(KC_RIGHT_CTRL),  KC_CAPS,  RCTL(KC_O));
 
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &suppress_hide_override,
+    &activate_a_override,
+    &activate_s_override,
+    &activate_h_override,
+    &activate_t_override,
+    &activate_n_override,
+    &activate_e_override,
+    &activate_i_override,
+    &activate_o_override,
     NULL // Null terminate the array of overrides!
 };
+
+
+// /*
+//   === COMBOS ===
+// */
+// Need to figure out this:
+//     https://beta.docs.qmk.fm/using-qmk/software-features/feature_combo#modifier-combos
+// enum combo_events {
+//   COMB_EMAIL,
+//   COMB_CLR_LINE,
+//   COMBO_LENGTH
+// };
+// uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+// 
+// // Email - DHW + J (J is for @)
+// // Clear Line - N+Backspace
+// const uint16_t PROGMEM email_combo[] = {KC_D, KC_H, KC_W, KC_J, COMBO_END};
+// const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_N, COMBO_END};
+// 
+// 
+// combo_t key_combos[] = {
+//   [COMB_EMAIL] = COMBO_ACTION(email_combo),
+//   [COMB_CLR_LINE] = COMBO_ACTION(clear_line_combo),
+// };
+// /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
+// 
+// void process_combo_event(uint16_t combo_index, bool pressed) {
+//   switch(combo_index) {
+//     case COMB_EMAIL:
+//       if (pressed) {
+//         SEND_STRING("hornsbywilliamd@gmail.com");
+//       }
+//       break;
+//     case COMB_CLR_LINE:
+//       if (pressed) {
+//         tap_code16(KC_END);
+//         tap_code16(S(KC_HOME));
+//         tap_code16(KC_BSPC);
+//       }
+//       break;
+//   }
+// }
 
 /*
   === START CONFIG ===
@@ -71,6 +131,26 @@ void rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
+    if (get_mods() == MOD_MASK_SHIFT) {
+        // both shift keys are down
+        switch (keycode) {
+          // DEPENDENT ON WORKMAN
+          case KC_Z:
+              tap_code16(S_UNDO);
+              return true;
+          case KC_X:
+              tap_code16(S_CUT);
+              return true;
+          case KC_M:
+              tap_code16(S_COPY);
+              return true;
+          case KC_C:
+              tap_code16(S_PASTE);
+              return true;
+          default:
+              break;
+        }
+    }
     switch (keycode) {
         // Keycodes defined in planck_keycodes
         // Toggle layer coloring
