@@ -21,7 +21,7 @@ void handle_app_switch_mode_left(qk_tap_dance_state_t *state, void *user_data) {
 #endif
     switch(get_app_switch_dance_mode(state)) {
       case ATTD_SINGLE_TAP_OFF:
-          tap_code16(CTL(KC_DOWN));
+          tap_code16(CMD(SFT(KC_TAB)));
           break;
       case ATTD_DOUBLE_TAP_OFF:
           app_switch_on();

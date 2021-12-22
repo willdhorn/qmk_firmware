@@ -90,6 +90,8 @@ void set_layer_color(int layer, HSV color) {
                     if (kc != KC_TRANSPARENT) {
                         HSV keyColor = get_keycode_color(kc, color);
 
+                        
+
                         if (!is_top_layer) {
                             if (is_default && kc != KC_EMPTY) {
                                 keyColor = C_BLACK;
@@ -191,17 +193,17 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     /* VSCODE */
     else if (IS_VSC_KEY(kc)) {
         if (IS_VSC_CURSOR(kc)) {
-            return CK_VSC_DRK;
-        } else if (IS_VSC_SELECT(kc)) {
-            return CK_VSC_LGT;
-        } else if (IS_VSC_SIDEBAR(kc)) {
             return CK_VSCODE;
-        } else if (IS_VSC_PROBLEM(kc)) {
-            return CK_VSC_LGT;
         } else if (IS_VSC_FNDSRCH(kc)) {
             return CK_VSCODE;
+        } else if (IS_VSC_SELECT(kc)) {
+            return CK_VSC_LGT;
+        } else if (IS_VSC_PROBLEM(kc)) {
+            return CK_VSC_LGT;
         } else if (IS_VSC_GOTO(kc)) {
             return CK_VSC_DRK;
+        } else if (IS_VSC_SIDEBAR(kc)) {
+            return CK_VSC_SIDEBAR;
         } else if (IS_VSC_DEBUG(kc)) {
             return CK_VSC_DEBUG;
         } else if (IS_VSC_REFNCE(kc)) {

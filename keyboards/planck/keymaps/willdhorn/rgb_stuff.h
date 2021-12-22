@@ -104,36 +104,37 @@
 #define CK_SHORTCUT       C_GREEN
 
 #define CK_VSCODE         CL_VSCODE
-#define CK_VSC_LGT        C_VIOLET
-#define CK_VSC_DRK        CHSV((F_H_RGT(H_PURPLE,9)),220,240)
+#define CK_VSC_LGT        CHSV(F_H_RGT((CL_VSCODE).h, 10), F_SUB((CL_VSCODE).s, 25), (CL_VSCODE).v)
+#define CK_VSC_DRK        CHSV(F_H_LFT((CL_VSCODE).h, 10), (CL_VSCODE).s, F_SUB((CL_VSCODE).v, 25))
 
+#define CK_VSC_SIDEBAR    C_INDIGO
 #define CK_VSC_DEBUG      C_MAGENTA
 #define CK_VSC_REFNCE     CK_VSCODE
 #define CK_VSC_REFAC      CK_VSCODE
-#define CK_VSC_EDTFCS     CK_VSC_DRK
-#define CK_VSC_EDTSPLT    CK_VSC_LGT
+#define CK_VSC_EDTFCS     CK_VSC_LGT
+#define CK_VSC_EDTSPLT    CK_VSC_DRK
 
 #define CK_ADJ_VOL        CL_ADJUST
 #define CK_ADJ_MED        C_BLORNG
 #define CK_ADJ_RGB        C_HOTPINK
 
 // THE 16 COLORS ASSIGNED TO DIFFERNT CATEGORIES OF KEYS
-#define C_MODS      C_RED         // MOD KEYS
-#define C_APPNAV    C_BLORNG      // NAVIGATION WITHIN APPS...
-#define C_NAVSC     C_ORANGE      // NAVIGATION SHORTCUTS
-#define C_NAV       C_YELLOW      // NAVIGATION (GENERAL?)
-#define C_MISCSC    C_YGREEN      // MISC SHORTCUTS
-#define C_BASESC    C_LIME        // BASE? SHORTCUTS
-#define C_APPSC     C_GREEN       // APPLICATION SHORTCUTS
-#define C_SYSPEC    C_SEAGREEN    // SPECIAL CHARACTERS
-#define C_SYBRACKET C_TURQUOISE   // BRACKETS
-#define C_SYPROG    C_CYAN        // PROGRAMMING SYMBOLS   
-#define C_SYPARENS  C_BLUE        // PARENS
-#define C_SYCOMMON  C_INDIGO      // COMMON SYMBOLS
-#define C_SYPUNC    C_VIOLET      // PUNCTUATION SYMBOLS
-#define C_MISC      C_PURPLE      // MISC
-#define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
-#define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?
+// #define C_MODS      C_RED         // MOD KEYS
+// #define C_APPNAV    C_BLORNG      // NAVIGATION WITHIN APPS...
+// #define C_NAVSC     C_ORANGE      // NAVIGATION SHORTCUTS
+// #define C_NAV       C_YELLOW      // NAVIGATION (GENERAL?)
+// #define C_MISCSC    C_YGREEN      // MISC SHORTCUTS
+// #define C_BASESC    C_LIME        // BASE? SHORTCUTS
+// #define C_APPSC     C_GREEN       // APPLICATION SHORTCUTS
+// #define C_SYSPEC    C_SEAGREEN    // SPECIAL CHARACTERS
+// #define C_SYBRACKET C_TURQUOISE   // BRACKETS
+// #define C_SYPROG    C_CYAN        // PROGRAMMING SYMBOLS   
+// #define C_SYPARENS  C_BLUE        // PARENS
+// #define C_SYCOMMON  C_INDIGO      // COMMON SYMBOLS
+// #define C_SYPUNC    C_VIOLET      // PUNCTUATION SYMBOLS
+// #define C_MISC      C_PURPLE      // MISC
+// #define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
+// #define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?
 
 
 void toggle_color_mode(void);

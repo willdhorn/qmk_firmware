@@ -51,10 +51,10 @@ const key_override_t activate_i_override = ko_make_basic(MOD_BIT(KC_RIGHT_ALT), 
 const key_override_t activate_o_override = ko_make_basic(MOD_BIT(KC_RIGHT_CTRL),  STD_LK_SPCE,  RCTL(KC_O));
 // turn space-hold onto command shortcut
 // DEPENDANT ON WORKMAN LAYOUT
-const key_override_t command_undo_override = ko_make_basic(MOD_MASK_CSA,   KC_Z,  S_UNDO);
-const key_override_t command_cut_override = ko_make_basic(MOD_MASK_CSA,    KC_X,  S_CUT);
-const key_override_t command_copy_override = ko_make_basic(MOD_MASK_CSA,   KC_M,  S_COPY);
-const key_override_t command_paste_override = ko_make_basic(MOD_MASK_CSA,  KC_C,  S_PASTE);
+// const key_override_t command_undo_override = ko_make_basic(MOD_MASK_CSA,   KC_Z,  S_UNDO);
+// const key_override_t command_cut_override = ko_make_basic(MOD_MASK_CSA,    KC_X,  S_CUT);
+// const key_override_t command_copy_override = ko_make_basic(MOD_MASK_CSA,   KC_M,  S_COPY);
+// const key_override_t command_paste_override = ko_make_basic(MOD_MASK_CSA,  KC_C,  S_PASTE);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -69,10 +69,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &activate_e_override,
     &activate_i_override,
     &activate_o_override,
-    &command_undo_override,
-    &command_cut_override,
-    &command_copy_override,
-    &command_paste_override,
+    // &command_undo_override,
+    // &command_cut_override,
+    // &command_copy_override,
+    // &command_paste_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -164,7 +164,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_COLEMAX:
             set_single_persistent_default_layer(_COLEMAX);
             break;
+        
         // VSCode keys for chorded shortcuts (cmd-k used as leader)
+        
+        // Move current editor to left/right group
         case VSC_MV_EDTR_LFT:
             if (pressed) {
                 vscode_chord(ALT(KC_LEFT));
@@ -175,6 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 vscode_chord(ALT(KC_RIGHT));
             }
             break;
+        // Switch focus to prev/next group
         case VSC_FCS_G_PREV:
             if (pressed) {
                 vscode_chord(CMD(KC_LEFT));
@@ -185,6 +189,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 vscode_chord(CMD(KC_RIGHT));
             }
             break;
+        // Move the entire editor group to the left/right
+        case VSC_MV_EDTR_G_LFT:
+            if (pressed) {
+                vscode_chord(KC_LEFT);
+            }
+            break;
+        case VSC_MV_EDTR_G_RGT:
+            if (pressed) {
+                vscode_chord(KC_RIGHT);
+            }
+            break;
+        // Open statement definition to the side
         case VSC_OPN_DEF_SIDE:
             if (pressed) {
                 vscode_chord(KC_F12);

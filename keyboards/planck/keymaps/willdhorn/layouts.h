@@ -13,7 +13,7 @@
 #define MR3(kc) RSFT_T(kc)
 #define MR2(kc) RALT_T(kc)
 #define MR1(kc) RCTL_T(kc)
-
+ 
 #define MOD_LEFT(l1, l2, l3, l4, l5)  ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5
 #define MOD_RIGHT(r5, r4, r3, r2, r1) r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1)
 #define EMPTY_MOD_L MOD_LEFT(_______,_______,_______,_______,_______)
@@ -38,7 +38,7 @@
 
 #   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
 #   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
-#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) KC_EMPTY, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_EMPTY
+#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) OSX_HOME, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, OSX_END
 #   define STD_BASE(L1, L2, R2, R1) L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, STD_LK_SPCE, STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
 
 #   define STD_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) _______, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, _______
@@ -138,9 +138,9 @@
 
 // NAV
 
-#define NAV_1 ROW(NAV_CMD1,  NAV_R1)
-#define NAV_2 ROW(NAV_CMD2, NAV_R2)
-#define NAV_3 ROW(NAV_CMD3,  NAV_R3)
+#define NAV_1 ROW(NAV_L1,  NAV_R1)
+#define NAV_2 ROW(NAV_L2, NAV_R2)
+#define NAV_3 ROW(NAV_L3,  NAV_R3)
 #define NAV_4 EMPTY_BASE
 
 #define LAYER_NAV PLANCK_LAYOUT(NAV_1, NAV_2, NAV_3, NAV_4)

@@ -61,6 +61,9 @@
 /*
   === MAC SHORTCUTS ===
 */
+// HOME AND END KEYS
+#define OSX_HOME CMD(KC_LEFT)
+#define OSX_END CMD(KC_RIGHT)
 // GENERAL 
 #define S_UNDO CMD(KC_Z)
 #define S_CUT CMD(KC_X)
@@ -202,8 +205,8 @@ enum custom_keycodes {
 #define IS_VSC_DEBUG(kc) ( (kc) == VSC_DBG_RUN || (kc) == VSC_DBG_BRKP || (kc) == VSC_DBG_OVR || (kc) == VSC_DBG_IN )
 #define IS_VSC_REFNCE(kc) ( (kc) == VSC_GOTO_DEF || (kc) == VSC_PEEK_DEF || (kc) == VSC_SHOW_REF )
 #define IS_VSC_REFAC(kc) ( (kc) == VSC_RENAME )
-#define IS_VSC_EDTFCS(kc) ( (kc) == VSC_FCS_G_PREV || (kc) == VSC_FCS_G_NEXT )
-#define IS_VSC_EDTSPLT(kc) ( (kc) == VSC_EDTR_SPLT || (kc) == VSC_TOGL_VRT_HRZ || (kc) == VSC_MV_EDTR_LFT || (kc) == VSC_MV_EDTR_RGT || (kc) == VSC_MV_EDTR_G_LFT || (kc) == VSC_MV_EDTR_G_RGT )
+#define IS_VSC_EDTFCS(kc) ( (kc) == VSC_FCS_G_PREV || (kc) == VSC_FCS_G_NEXT || (kc) == VSC_MV_EDTR_LFT || (kc) == VSC_MV_EDTR_RGT )
+#define IS_VSC_EDTSPLT(kc) ( (kc) == VSC_EDTR_SPLT || (kc) == VSC_TOGL_VRT_HRZ || (kc) == VSC_MV_EDTR_G_LFT || (kc) == VSC_MV_EDTR_G_RGT )
 
 /*
   === FUNCTION DECLARATIONS ===

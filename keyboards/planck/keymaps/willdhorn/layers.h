@@ -70,23 +70,19 @@ enum planck_layers {
 #define SYMBOLS_R2 KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_COLON
 #define SYMBOLS_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
 
-// Old layout
-// #define SYMBOLS_L1 KC_PERC, KC_LBRC, KC_RBRC, KC_QUES, KC_HASH
-// #define SYMBOLS_L2 KC_SLSH, KC_ASTR, KC_MINS, KC_PLUS, KC_TILD
-// #define SYMBOLS_L3 KC_BSLS, KC_PIPE, KC_AMPR, KC_EXLM, _______
-// 
-// #define SYMBOLS_R1 KC_AT,   KC_CRRT, KC_LCBR, KC_RCBR, KC_DLR
-// #define SYMBOLS_R2 KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_COLON
-// #define SYMBOLS_R3 _______, KC_UNDS, KC_LABK, KC_RABK, KC_DQUO
 
 // NAV
 #define NAV_R1 XXXXXXX, S_TABL,   KC_UP,   S_TABR,   XXXXXXX
 #define NAV_R2 XXXXXXX, KC_LEFT,  KC_DOWN, KC_RIGHT, XXXXXXX
-#define NAV_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX
+#define NAV_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX 
 
-#define NAV_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______
-#define NAV_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,     VSC_SB_SRCTL
-#define NAV_CMD3 _______,      _______,       _______,       _______,      _______
+#define NAV_L1 _______, _______, _______, _______, _______
+#define NAV_L2 KC_LCTL, KC_LALT, KC_LSFT, KC_LCMD, _______
+#define NAV_L3 S_UNDO,  S_CUT,   S_COPY,  S_PASTE, _______
+
+// #define NAV_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
+// #define NAV_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
+// #define NAV_CMD3 S_UNDO,       S_CUT,         S_COPY,        S_PASTE,      _______
 
 // NUMPAD
 #define NUM_R1 _______,  KC_7, KC_8, KC_9, _______
@@ -97,33 +93,26 @@ enum planck_layers {
 #define NUM_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_GOTO_LINE 
 #define NUM_CMD3 _______,      VSC_FIND_PREV, VSC_FIND_NEXT, VSC_FIND,     _______
 
-// ADJUST
-#define ADJUST_L1 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ADJUST_L2 XXXXXXX, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP
-#define ADJUST_L3 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ADJUST_LB XXXXXXX, XXXXXXX
-
-
-#define ADJUST_R1 XXXXXXX, XXXXXXX, XXXXXXX,       KC_WORKMAN, KC_QWERTY
-#define ADJUST_R2 XXXXXXX, KC_MUTE, KC_VOLD,       KC_VOLU,    KC_COLEMAX
-#define ADJUST_R3 XXXXXXX, RGB_TOG, KC_LAYERCOLOR, RGB_MOD,    KC_COLEMAK_DH
-#define ADJUST_RB RESET, DEBUG
 /*
   === COMMANDS ===
 */
 
 // VSCODE
-#define VSCODE_L1 VSC_DBG_BRKP, VSC_DBG_IN, VSC_DBG_OVR,  VSC_SB_DEBUG, _______
-#define VSCODE_L2 _______,      _______,    _______,      VSC_DBG_RUN,  VSC_GOTO_DEF
-#define VSCODE_L3 _______,      _______,    VSC_SHOW_REF, VSC_PEEK_DEF, _______
+// #define VSCODE_L1 VSC_DBG_BRKP, VSC_DBG_IN, VSC_DBG_OVR,  VSC_SB_DEBUG, _______
+// #define VSCODE_L2 _______,      _______,    _______,      VSC_DBG_RUN,  VSC_GOTO_DEF
+// #define VSCODE_L3 _______,      _______,    VSC_SHOW_REF, VSC_PEEK_DEF, _______
+#define VSCODE_L1 _______,      VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_SB_DEBUG, _______
+#define VSCODE_L2 VSC_DBG_BRKP, VSC_DBG_IN,    VSC_DBG_OVR,   VSC_DBG_RUN,  _______
+#define VSCODE_L3 _______,      _______,       _______,       VSC_RENAME,   _______
 
-#define VSCODE_R1 _______, _______,    VSC_FCS_G_PREV,    VSC_FCS_G_NEXT,    _______
-#define VSCODE_R2 _______, VSC_RENAME, VSC_MV_EDTR_LFT,   VSC_MV_EDTR_RGT,   VSC_EDTR_SPLT
-#define VSCODE_R3 _______, _______,    VSC_MV_EDTR_G_LFT, VSC_MV_EDTR_G_RGT, VSC_TOGL_VRT_HRZ
+#define VSCODE_R1 _______, VSC_FCS_G_PREV,    VSC_TOGL_VRT_HRZ, VSC_FCS_G_NEXT,    _______
+#define VSCODE_R2 _______, VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   _______ 
+#define VSCODE_R3 _______, VSC_MV_EDTR_G_LFT, _______,          VSC_MV_EDTR_G_RGT, _______
 
 /*
   === APPS/WINDOW MANAGEMENT ===
 */
+
 #define APPS_WNDW_L1 XXXXXXX, WNDW_LAYER_6, WNDW_LAYER_V, XXXXXXX,      XXXXXXX
 #define APPS_WNDW_L2 WM_FULL, WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, XXXXXXX
 #define APPS_WNDW_L3 XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
@@ -157,4 +146,17 @@ enum planck_layers {
 #define WNDW_SIXT_R2 _______, XXXXXXX, XXXXXXX, XXXXXXX, _______
 #define WNDW_SIXT_R3 _______, WM_6_LL, WM_6_LM, WM_6_LR, _______
 
+/*
+  === ADJUST ===
+*/
 
+#define ADJUST_L1 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WORKMAN
+#define ADJUST_L2 XXXXXXX, KC_MPRV, KC_MNXT, KC_MPLY, XXXXXXX
+#define ADJUST_L3 XXXXXXX, XXXXXXX, XXXXXXX, KC_MSTP, XXXXXXX
+#define ADJUST_LB XXXXXXX, XXXXXXX
+
+
+#define ADJUST_R1 KC_QWERTY,     XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX
+#define ADJUST_R2 KC_COLEMAX,    KC_MUTE, KC_VOLD,       KC_VOLU, XXXXXXX
+#define ADJUST_R3 KC_COLEMAK_DH, RGB_TOG, KC_LAYERCOLOR, RGB_MOD, XXXXXXX
+#define ADJUST_RB RESET, DEBUG
