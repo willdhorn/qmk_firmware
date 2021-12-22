@@ -6,20 +6,21 @@
 #include "layers.h"
 #include "layouts.h"
 
-const HSV layer_colors[] = {[_QWERTY]  =   CL_QWERTY,
-                            [_COLEMAK] =   CL_COLEMAK,
-                            [_WORKMAN] =   CL_WORKMAN,
-                            [_SYMBOLS] =   CL_SYMBOLS,
-                            [_NAV]     =   CL_NAV,
-                            [_NUM]     =   CL_NUM,
-                            [_VSCODE]  =   CL_VSCODE,
-                            [_APPS_WNDW] = CL_APPS_WNDW,
-                            [_WNDW_HALF] = CL_WNDW_HALF,
-                            [_WNDW_QUAD] = CL_WNDW_QUAD,
-                            [_WNDW_VERT] = CL_WNDW_VERT,
-                            [_WNDW_THRD] = CL_WNDW_THRD,
-                            [_WNDW_SIXT] = CL_WNDW_SIXT,
-                            [_ADJUST]  =   CL_ADJUST};
+const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
+                            [_COLEMAK_DH] =   CL_COLEMAK_DH,
+                            [_COLEMAX] =      CL_COLEMAX,
+                            [_WORKMAN] =      CL_WORKMAN,
+                            [_SYMBOLS] =      CL_SYMBOLS,
+                            [_NAV]     =      CL_NAV,
+                            [_NUM]     =      CL_NUM,
+                            [_VSCODE]  =      CL_VSCODE,
+                            [_APPS_WNDW] =    CL_APPS_WNDW,
+                            [_WNDW_HALF] =    CL_WNDW_HALF,
+                            [_WNDW_QUAD] =    CL_WNDW_QUAD,
+                            [_WNDW_VERT] =    CL_WNDW_VERT,
+                            [_WNDW_THRD] =    CL_WNDW_THRD,
+                            [_WNDW_SIXT] =    CL_WNDW_SIXT,
+                            [_ADJUST]  =      CL_ADJUST};
 
 bool layer_stack_color = true;
 #ifdef DEBUG_LAYER_PRINT
@@ -135,8 +136,10 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return CF_PALE(CL_QWERTY);
         case KC_WORKMAN:
             return CF_PALE(CL_WORKMAN);
-        case KC_COLEMAK:
-            return CF_PALE(CL_COLEMAK);
+        case KC_COLEMAK_DH:
+            return CF_PALE(CL_COLEMAK_DH);
+        case KC_COLEMAX:
+            return CF_PALE(CL_COLEMAX);
     }
 
     if (IS_LETTER(kc)) {

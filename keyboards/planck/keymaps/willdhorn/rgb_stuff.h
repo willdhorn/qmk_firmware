@@ -65,9 +65,10 @@
   === LAYER COLORS ===
 */
 
-#define CL_QWERTY       CHSV(45, 200, 240)
-#define CL_COLEMAK      CHSV(12, 255, 240)
-#define CL_WORKMAN      CHSV(85, 255, 240)
+#define CL_QWERTY           CHSV(12, 200, 170)
+#define CL_COLEMAK_DH       CHSV(45, 255, 240)
+#define CL_COLEMAX          CHSV(85, 255, 240)
+#define CL_WORKMAN          CHSV(170, 255, 240)
 
 #define CL_SYMBOLS      C_INDIGO
 #define CL_NAV          C_YELLOW

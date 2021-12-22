@@ -13,20 +13,21 @@
 #include "rgb_stuff.h"
 #include "user_debug.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]    = LAYER_QWERTY,
-                                                              [_COLEMAK]   = LAYER_COLEMAK,
-                                                              [_WORKMAN]   = LAYER_WORKMAN,
-                                                              [_SYMBOLS]   = LAYER_SYMBOLS,
-                                                              [_NAV]       = LAYER_NAV,
-                                                              [_NUM]       = LAYER_NUM,
-                                                              [_VSCODE]    = LAYER_VSCODE,
-                                                              [_APPS_WNDW] = LAYER_APPS_WNDW,
-                                                              [_WNDW_HALF] = LAYER_WNDW_HALF,
-                                                              [_WNDW_QUAD] = LAYER_WNDW_QUAD,
-                                                              [_WNDW_VERT] = LAYER_WNDW_VERT,
-                                                              [_WNDW_THRD] = LAYER_WNDW_THRD,
-                                                              [_WNDW_SIXT] = LAYER_WNDW_SIXT,
-                                                              [_ADJUST]    = LAYER_ADJUST};
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = LAYER_QWERTY,
+                                                              [_COLEMAK_DH]   = LAYER_COLEMAK_DH,
+                                                              [_COLEMAX]      = LAYER_COLEMAX,
+                                                              [_WORKMAN]      = LAYER_WORKMAN,
+                                                              [_SYMBOLS]      = LAYER_SYMBOLS,
+                                                              [_NAV]          = LAYER_NAV,
+                                                              [_NUM]          = LAYER_NUM,
+                                                              [_VSCODE]       = LAYER_VSCODE,
+                                                              [_APPS_WNDW]    = LAYER_APPS_WNDW,
+                                                              [_WNDW_HALF]    = LAYER_WNDW_HALF,
+                                                              [_WNDW_QUAD]    = LAYER_WNDW_QUAD,
+                                                              [_WNDW_VERT]    = LAYER_WNDW_VERT,
+                                                              [_WNDW_THRD]    = LAYER_WNDW_THRD,
+                                                              [_WNDW_SIXT]    = LAYER_WNDW_SIXT,
+                                                              [_ADJUST]       = LAYER_ADJUST};
 
 extern bool         g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
@@ -37,6 +38,7 @@ extern led_config_t g_led_config;
 */
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
 const key_override_t suppress_hide_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI), ML3(KC_H), KC_T);
+const key_override_t suppress_hide_override2 = ko_make_basic(MOD_BIT(KC_LEFT_GUI), KC_H, KC_T);
 // turn space-tap into activator key
 // DEPENDANT ON WORKMAN LAYOUT
 const key_override_t activate_a_override = ko_make_basic(MOD_BIT(KC_LEFT_CTRL),   STD_LK_SPCE,  LCTL(KC_A));
@@ -58,6 +60,7 @@ const key_override_t command_paste_override = ko_make_basic(MOD_MASK_CSA,  KC_C,
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &suppress_hide_override,
+    &suppress_hide_override2,
     &activate_a_override,
     &activate_s_override,
     &activate_h_override,
@@ -155,8 +158,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_WORKMAN:
             set_single_persistent_default_layer(_WORKMAN);
             break;
-        case KC_COLEMAK:
-            set_single_persistent_default_layer(_COLEMAK);
+        case KC_COLEMAK_DH:
+            set_single_persistent_default_layer(_COLEMAK_DH);
+            break;
+        case KC_COLEMAX:
+            set_single_persistent_default_layer(_COLEMAX);
             break;
         // VSCode keys for chorded shortcuts (cmd-k used as leader)
         case VSC_MV_EDTR_LFT:

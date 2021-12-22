@@ -1,6 +1,6 @@
 #pragma once
 
-enum default_layers { _QWERTY, _WORKMAN, _COLEMAK, _DEFAULT_RANGE_ };
+enum default_layers { _QWERTY, _COLEMAK_DH, _COLEMAX, _WORKMAN, _DEFAULT_RANGE_ };
 
 enum planck_layers {
     _SYMBOLS  = _DEFAULT_RANGE_,
@@ -30,6 +30,24 @@ enum planck_layers {
 #define QWERTY_R2 KC_H, KC_J, KC_K, KC_L, KC_SCLN
 #define QWERTY_R3 KC_N, KC_M, KC_COMMA, KC_DOT, KC_QUOTE
 
+// 'OLEMAK-DH
+#define COLEMAK_DH_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
+#define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
+#define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
+
+#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
+#define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
+#define COLEMAK_DH_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
+
+// COLEMAX
+#define COLEMAX_L1 KC_Q, KC_W, KC_C, KC_G, KC_Z
+#define COLEMAX_L2 KC_A, KC_R, KC_S, KC_T, KC_P
+#define COLEMAX_L3 KC_X, KC_V, KC_F, KC_D, KC_B
+
+#define COLEMAX_R1 KC_J,    KC_L, KC_U, KC_Y, KC_K
+#define COLEMAX_R2 KC_M,    KC_N, KC_E, KC_I, KC_O
+#define COLEMAX_R3 KC_SCLN, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
+
 // WORKMAN
 #define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
 #define WORKMAN_L2 KC_A, KC_S, KC_H, KC_T, KC_G
@@ -38,15 +56,6 @@ enum planck_layers {
 #define WORKMAN_R1 KC_J, KC_F, KC_U, KC_P, KC_SCLN
 #define WORKMAN_R2 KC_Y, KC_N, KC_E, KC_I, KC_O
 #define WORKMAN_R3 KC_K, KC_L, KC_COMMA, KC_DOT, KC_QUOTE
-
-// COLEMAK
-#define COLEMAK_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
-#define COLEMAK_L2 KC_A, KC_R, KC_S, KC_T, KC_G
-#define COLEMAK_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
-
-#define COLEMAK_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
-#define COLEMAK_R2 KC_M, KC_N, KC_E, KC_I, KC_O
-#define COLEMAK_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
 /*
   === COMMON LAYERS ===
@@ -95,9 +104,9 @@ enum planck_layers {
 #define ADJUST_LB XXXXXXX, XXXXXXX
 
 
-#define ADJUST_R1 XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, KC_QWERTY
-#define ADJUST_R2 XXXXXXX, KC_MUTE, KC_VOLD,       KC_VOLU, KC_WORKMAN
-#define ADJUST_R3 XXXXXXX, RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_COLEMAK
+#define ADJUST_R1 XXXXXXX, XXXXXXX, XXXXXXX,       KC_WORKMAN, KC_QWERTY
+#define ADJUST_R2 XXXXXXX, KC_MUTE, KC_VOLD,       KC_VOLU,    KC_COLEMAX
+#define ADJUST_R3 XXXXXXX, RGB_TOG, KC_LAYERCOLOR, RGB_MOD,    KC_COLEMAK_DH
 #define ADJUST_RB RESET, DEBUG
 /*
   === COMMANDS ===

@@ -126,7 +126,8 @@ enum custom_keycodes {
     // PDRSISTANT DEFALT LAYER
     KC_QWERTY,
     KC_WORKMAN,
-    KC_COLEMAK,
+    KC_COLEMAK_DH,
+    KC_COLEMAX,
     // RGB
     KC_LAYERCOLOR,
     // VSCODE
