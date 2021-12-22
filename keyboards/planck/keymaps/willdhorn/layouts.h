@@ -27,13 +27,12 @@
 #define EMPTY_ROW _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 #define EMPTY_HALF _______, _______, _______, _______, _______
 
-
-
 #ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
-#   define STD_LK_LEFT MO(_VSCODE)
-#   define STD_LK_LOWR MO(_SYMBOLS)
-#   define STD_LK_RAIS LT(_NAV, KC_SPACE)
-#   define STD_LK_RGHT MO(_NUM)
+#   define STD_LK_LEFT MO(_NUM)
+#   define STD_LK_LOWR KC_LSFT
+#   define STD_LK_RAIS LT(_EXT, KC_SPACE)
+#   define STD_LK_RGHT MO(_SYMBOLS) 
+
 #   define STD_LK_SPCE MT(MOD_MEH, KC_CAPSLOCK)
 
 #   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
@@ -46,26 +45,22 @@
 #   define STD_DEFAULT_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_DEFAULT_HOME(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 #   define STD_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_ROW(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 
-#   define EMPTY_STD_BASE STD_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
-
 #   define DEF_TOP(...)  STD_DEFAULT_TOP(__VA_ARGS__)
 #   define DEF_MID(...)  STD_DEFAULT_HOME_MOD(__VA_ARGS__)
-#   define DEF_BOT(...)  STD_DEFAULT_TOP(__VA_ARGS__)
+#   define DEF_BOT(...)  STD_DEFAULT_BOTTOM(__VA_ARGS__)
 #   define BASE_ROW(...) STD_BASE(__VA_ARGS__)
 
 #   define ROW(...)      STD_ROW(__VA_ARGS__)
 #   define MOD_ROW(...)  STD_HOME_MOD(__VA_ARGS__)
 
-#   define EMPTY_BASE     EMPTY_STD_BASE
+#   define EMPTY_BASE    STD_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
 
 #else // SPLIT LAYOUT - WITH 3 LAYERKEYS
 #   define SPLT_KL1 LT(_APPS_WNDW, KC_ESC)
 #   define SPLT_KL2 LT(_SYMBOLS, KC_SPACE)
 #   define SPLT_KL3 LT(_VSCODE, KC_TAB)
-#   define SPLT_KR3 LT(_NUM, KC_BSPACE)
-#   define SPLT_KR2 LT(_NAV, KC_SPACE)
-#   define SPLT_KR1 LT(_ADJUST, KC_ENTER)
-
+#   define SPLT_KR3 LT(_BSPACE)_NUM
+#   define SPLT_KR2 LT(_SYMBOLS, KC_SPACE)#   define SPLT_KR1 LT(_ADJUST, KC_ENTEEXT
 #   define SPLIT_ROW_DEFAULT(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 #   define SPLIT_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 #   define SPLIT_BASE_5(l1, l2, space, r2, r1) l1, l2, SPLT_KL1, SPLT_KL2, SPLT_KL3, space, SPLT_KR3, SPLT_KR2, SPLT_KR1, r2, r1
@@ -136,14 +131,14 @@
 
 #define LAYER_SYMBOLS PLANCK_LAYOUT(SYMBOLS_1, SYMBOLS_2, SYMBOLS_3, SYMBOLS_4)
 
-// NAV
+// EXT
 
-#define NAV_1 ROW(NAV_L1,  NAV_R1)
-#define NAV_2 ROW(NAV_L2, NAV_R2)
-#define NAV_3 ROW(NAV_L3,  NAV_R3)
-#define NAV_4 EMPTY_BASE
+#define EXT_1 ROW(EXT_L1, EXT_R1)
+#define EXT_2 ROW(EXT_L2, EXT_R2)
+#define EXT_3 ROW(EXT_L3, EXT_R3)
+#define EXT_4 EMPTY_BASE
 
-#define LAYER_NAV PLANCK_LAYOUT(NAV_1, NAV_2, NAV_3, NAV_4)
+#define LAYER_EXT PLANCK_LAYOUT(EXT_1, EXT_2, EXT_3, EXT_4)
 
 // NUM
 

@@ -11,7 +11,7 @@ const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
                             [_COLEMAX] =      CL_COLEMAX,
                             [_WORKMAN] =      CL_WORKMAN,
                             [_SYMBOLS] =      CL_SYMBOLS,
-                            [_NAV]     =      CL_NAV,
+                            [_EXT]     =      CL_EXT,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
                             [_APPS_WNDW] =    CL_APPS_WNDW,
@@ -159,6 +159,12 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return CK_MOD_TAP(key_color);  // no mods are active
         }
     }
+    else if (IS_MOD_KEY(kc)) {
+        return CK_MODIFIERS;
+    }
+    else if (IS_OSL_LAYER(kc)) {
+        return C_HOTPINK;
+    }
     /* SYMBOLS */
     else if (IS_SYM_COMMON(kc)) {
         return CK_SYM_COMMON;
@@ -177,10 +183,6 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         return CK_ARROWS;
     } else if (IS_NAV_SC(kc)) {
         return CK_NAV_SC;
-    }
-    /* LAYER */
-    else if (IS_DF_LAYER(kc)) {
-        return CK_LAYER_DF;
     }
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {

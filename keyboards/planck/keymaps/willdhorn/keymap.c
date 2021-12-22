@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = 
                                                               [_COLEMAX]      = LAYER_COLEMAX,
                                                               [_WORKMAN]      = LAYER_WORKMAN,
                                                               [_SYMBOLS]      = LAYER_SYMBOLS,
-                                                              [_NAV]          = LAYER_NAV,
+                                                              [_EXT]          = LAYER_EXT,
                                                               [_NUM]          = LAYER_NUM,
                                                               [_VSCODE]       = LAYER_VSCODE,
                                                               [_APPS_WNDW]    = LAYER_APPS_WNDW,
@@ -232,8 +232,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _SYMBOLS, _NAV, _APPS_WNDW);
-    state = update_tri_layer_state(state, _VSCODE, _NUM, _ADJUST);
+    // state = update_tri_layer_state(state, _SYMBOLS, _EXT, _APPS_WNDW);
+    // state = update_tri_layer_state(state, _VSCODE, _NUM, _ADJUST);
     return state;
 }
 

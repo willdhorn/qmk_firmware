@@ -3,8 +3,8 @@
 enum default_layers { _QWERTY, _COLEMAK_DH, _COLEMAX, _WORKMAN, _DEFAULT_RANGE_ };
 
 enum planck_layers {
-    _SYMBOLS  = _DEFAULT_RANGE_,
-    _NAV,
+    _EXT = _DEFAULT_RANGE_,
+    _SYMBOLS,
     _NUM,
     _VSCODE,
     _APPS_WNDW,
@@ -40,13 +40,13 @@ enum planck_layers {
 #define COLEMAK_DH_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
 // COLEMAX
-#define COLEMAX_L1 KC_Q, KC_W, KC_C, KC_G, KC_Z
-#define COLEMAX_L2 KC_A, KC_R, KC_S, KC_T, KC_P
-#define COLEMAX_L3 KC_X, KC_V, KC_F, KC_D, KC_B
+#define COLEMAX_L1 KC_Q, KC_W, KC_C, KC_P, KC_B
+#define COLEMAX_L2 KC_A, KC_R, KC_S, KC_T, KC_G
+#define COLEMAX_L3 KC_Z, KC_X, KC_F, KC_D, KC_V
 
-#define COLEMAX_R1 KC_J,    KC_L, KC_U, KC_Y, KC_K
-#define COLEMAX_R2 KC_M,    KC_N, KC_E, KC_I, KC_O
-#define COLEMAX_R3 KC_SCLN, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
+#define COLEMAX_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
+#define COLEMAX_R2 KC_M, KC_N, KC_E, KC_I, KC_O
+#define COLEMAX_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
 // WORKMAN
 #define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
@@ -71,27 +71,27 @@ enum planck_layers {
 #define SYMBOLS_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
 
 
-// NAV
-#define NAV_R1 XXXXXXX, S_TABL,   KC_UP,   S_TABR,   XXXXXXX
-#define NAV_R2 XXXXXXX, KC_LEFT,  KC_DOWN, KC_RIGHT, XXXXXXX
-#define NAV_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX 
+// EXT
+#define EXT_R1 XXXXXXX, S_TABL,   KC_UP,   S_TABR,   XXXXXXX
+#define EXT_R2 XXXXXXX, KC_LEFT,  KC_DOWN, KC_RIGHT, XXXXXXX
+#define EXT_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX 
 
-#define NAV_L1 _______, _______, _______, _______, _______
-#define NAV_L2 KC_LCTL, KC_LALT, KC_LSFT, KC_LCMD, _______
-#define NAV_L3 S_UNDO,  S_CUT,   S_COPY,  S_PASTE, _______
+#define EXT_L1 OSL(_ADJUST), OSL(_VSCODE), OSL(_APPS_WNDW), _______, _______
+#define EXT_L2 KC_LCTL,      KC_LALT,      KC_LSFT,         KC_LCMD, _______
+#define EXT_L3 S_UNDO,       S_CUT,        S_COPY,          S_PASTE, _______
 
-// #define NAV_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
-// #define NAV_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
-// #define NAV_CMD3 S_UNDO,       S_CUT,         S_COPY,        S_PASTE,      _______
+// #define EXT_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
+// #define EXT_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
+// #define EXT_CMD3 S_UNDO,       S_CUT,         S_COPY,        S_PASTE,      _______
 
 // NUMPAD
 #define NUM_R1 _______,  KC_7, KC_8, KC_9, _______
 #define NUM_R2 KC_COMMA, KC_4, KC_5, KC_6, KC_0
 #define NUM_R3 _______,  KC_1, KC_2, KC_3, KC_DOT
 
-#define NUM_CMD1 VSC_BP_PRBLM, VSC_PROB_PREV, VSC_PROB_NEXT, VSC_SB_SEARC, VSC_GOTO_SYMB
-#define NUM_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_GOTO_LINE 
-#define NUM_CMD3 _______,      VSC_FIND_PREV, VSC_FIND_NEXT, VSC_FIND,     _______
+#define NUM_CMD1 _______, _______, _______, _______, _______
+#define NUM_CMD2 KC_LCTL, KC_LALT, KC_LSFT, KC_LCMD, _______ 
+#define NUM_CMD3 S_UNDO,  S_CUT,   S_COPY,  S_PASTE, _______
 
 /*
   === COMMANDS ===
@@ -156,7 +156,7 @@ enum planck_layers {
 #define ADJUST_LB XXXXXXX, XXXXXXX
 
 
-#define ADJUST_R1 KC_QWERTY,     XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX
+#define ADJUST_R1 KC_QWERTY,     XXXXXXX, XXXXXXX,       XXXXXXX, TO(0)
 #define ADJUST_R2 KC_COLEMAX,    KC_MUTE, KC_VOLD,       KC_VOLU, XXXXXXX
 #define ADJUST_R3 KC_COLEMAK_DH, RGB_TOG, KC_LAYERCOLOR, RGB_MOD, XXXXXXX
 #define ADJUST_RB RESET, DEBUG

@@ -71,7 +71,7 @@
 #define CL_WORKMAN          CHSV(170, 255, 240)
 
 #define CL_SYMBOLS      C_INDIGO
-#define CL_NAV          C_YELLOW
+#define CL_EXT          C_YELLOW
 #define CL_NUM          C_TURQUOISE
 #define CL_VSCODE       C_PURPLE
 #define CL_ADJUST       C_RED
@@ -89,7 +89,7 @@
 #define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_SHFT(color)) : (color))
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
-#define CK_LAYER_DF       C_MAGENTA
+#define CK_MODIFIERS      C_RED
 
 #define CK_SYM_COMMON     C_CYAN
 #define CK_SYM_BRACKET    C_TURQUOISE
@@ -98,7 +98,7 @@
 
 #define CK_NUMBERS        CL_NUM
 
-#define CK_ARROWS         CL_NAV
+#define CK_ARROWS         CL_EXT
 
 #define CK_NAV_SC         C_LIME
 #define CK_SHORTCUT       C_GREEN
@@ -120,9 +120,9 @@
 
 // THE 16 COLORS ASSIGNED TO DIFFERNT CATEGORIES OF KEYS
 // #define C_MODS      C_RED         // MOD KEYS
-// #define C_APPNAV    C_BLORNG      // NAVIGATION WITHIN APPS...
-// #define C_NAVSC     C_ORANGE      // NAVIGATION SHORTCUTS
-// #define C_NAV       C_YELLOW      // NAVIGATION (GENERAL?)
+// #define C_APPEXT    C_BLORNG      // EXTEND...
+// #define C_EXTSC     C_ORANGE      // EXTEND SHORTCUTS
+// #define C_EXT       C_YELLOW      // EXTEND(GENERAL?)
 // #define C_MISCSC    C_YGREEN      // MISC SHORTCUTS
 // #define C_BASESC    C_LIME        // BASE? SHORTCUTS
 // #define C_APPSC     C_GREEN       // APPLICATION SHORTCUTS
