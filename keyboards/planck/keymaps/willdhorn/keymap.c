@@ -36,43 +36,25 @@ extern led_config_t g_led_config;
 /*
   === KEY OVERRIDES ===
 */
-const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPACE, KC_DELETE);
+const key_override_t delete_key_override = SHIFT_OVERRIDE(KC_BSPACE, KC_DELETE);
+const key_override_t period_exlm_override = SHIFT_OVERRIDE(KC_DOT, KC_EXLM);
+const key_override_t comma_question_override = SHIFT_OVERRIDE(KC_COMMA, KC_QUES);
+const key_override_t lparen_lbracket_override = SHIFT_OVERRIDE(KC_LPRN, KC_LBRC);
+const key_override_t rparen_rbracket_override = SHIFT_OVERRIDE(KC_RPRN, KC_RBRC);
+const key_override_t lbrace_langlebr_override = SHIFT_OVERRIDE(KC_LCBR, KC_LABK);
+const key_override_t rbrace_ranglebr_override = SHIFT_OVERRIDE(KC_RCBR, KC_RABK);
+
+
 const key_override_t suppress_hide_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI), ML3(KC_H), KC_T);
 const key_override_t suppress_hide_override2 = ko_make_basic(MOD_BIT(KC_LEFT_GUI), KC_H, KC_T);
-// turn space-tap into activator key
-// DEPENDANT ON WORKMAN LAYOUT
-const key_override_t activate_a_override = ko_make_basic(MOD_BIT(KC_LEFT_CTRL),   STD_LK_SPCE,  LCTL(KC_A));
-const key_override_t activate_s_override = ko_make_basic(MOD_BIT(KC_LEFT_ALT),    STD_LK_SPCE,  LALT(KC_S));
-const key_override_t activate_h_override = ko_make_basic(MOD_BIT(KC_LEFT_SHIFT),  STD_LK_SPCE,  LSFT(KC_H));
-const key_override_t activate_t_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI),    STD_LK_SPCE,  LGUI(KC_T));
-const key_override_t activate_n_override = ko_make_basic(MOD_BIT(KC_RIGHT_GUI),   STD_LK_SPCE,  RGUI(KC_N));
-const key_override_t activate_e_override = ko_make_basic(MOD_BIT(KC_RIGHT_SHIFT), STD_LK_SPCE,  RSFT(KC_E));
-const key_override_t activate_i_override = ko_make_basic(MOD_BIT(KC_RIGHT_ALT),   STD_LK_SPCE,  RALT(KC_I));
-const key_override_t activate_o_override = ko_make_basic(MOD_BIT(KC_RIGHT_CTRL),  STD_LK_SPCE,  RCTL(KC_O));
-// turn space-hold onto command shortcut
-// DEPENDANT ON WORKMAN LAYOUT
-// const key_override_t command_undo_override = ko_make_basic(MOD_MASK_CSA,   KC_Z,  S_UNDO);
-// const key_override_t command_cut_override = ko_make_basic(MOD_MASK_CSA,    KC_X,  S_CUT);
-// const key_override_t command_copy_override = ko_make_basic(MOD_MASK_CSA,   KC_M,  S_COPY);
-// const key_override_t command_paste_override = ko_make_basic(MOD_MASK_CSA,  KC_C,  S_PASTE);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &suppress_hide_override,
     &suppress_hide_override2,
-    &activate_a_override,
-    &activate_s_override,
-    &activate_h_override,
-    &activate_t_override,
-    &activate_n_override,
-    &activate_e_override,
-    &activate_i_override,
-    &activate_o_override,
-    // &command_undo_override,
-    // &command_cut_override,
-    // &command_copy_override,
-    // &command_paste_override,
+    &period_exlm_override,
+    &comma_question_override,
     NULL // Null terminate the array of overrides!
 };
 

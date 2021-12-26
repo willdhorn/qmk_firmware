@@ -209,8 +209,10 @@ enum custom_keycodes {
 #define IS_VSC_EDTSPLT(kc) ( (kc) == VSC_EDTR_SPLT || (kc) == VSC_TOGL_VRT_HRZ || (kc) == VSC_MV_EDTR_G_LFT || (kc) == VSC_MV_EDTR_G_RGT )
 
 /*
-  === FUNCTION DECLARATIONS ===
+  === FUNCTIONS ===
 */
+
+#define SHIFT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_SHIFT, (kc), (ovrrde));
 
 // Functions for handling vscode short cut sequences
 void two_tap(uint16_t kc1, uint16_t kc2);
