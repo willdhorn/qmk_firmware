@@ -44,9 +44,8 @@ const key_override_t rparen_rbracket_override = SHIFT_OVERRIDE(KC_RPRN, KC_RBRC)
 const key_override_t lbrace_langlebr_override = SHIFT_OVERRIDE(KC_LCBR, KC_LABK);
 const key_override_t rbrace_ranglebr_override = SHIFT_OVERRIDE(KC_RCBR, KC_RABK);
 
-
-const key_override_t suppress_hide_override = ko_make_basic(MOD_BIT(KC_LEFT_GUI), ML3(KC_H), KC_T);
-const key_override_t suppress_hide_override2 = ko_make_basic(MOD_BIT(KC_LEFT_GUI), KC_H, KC_T);
+const key_override_t suppress_hide_override = ko_make_basic(MOD_MASK_GUI, ML3(KC_H), KC_T);
+const key_override_t suppress_hide_override2 = ko_make_basic(MOD_MASK_GUI, KC_H, KC_T);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -55,6 +54,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &suppress_hide_override2,
     &period_exlm_override,
     &comma_question_override,
+    &lparen_lbracket_override,
+    &rparen_rbracket_override,
+    &lbrace_langlebr_override,
+    &rbrace_ranglebr_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -126,11 +129,22 @@ void rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
     switch (keycode) {
-        // Keycodes defined in planck_keycodes
+        // Keycodes defined in custom_keycodes
         // Toggle layer coloring
         case KC_LAYERCOLOR:
             if (pressed) {
                 toggle_color_mode();
+            }
+            break;
+        // Control led brightness
+        case KC_LED_INC_BRGT:
+            if (pressed) {
+              increase_led_brightness();
+            }
+            break;
+        case KC_LED_DCR_BRGT:
+            if (pressed) {
+              decrease_led_brightness();
             }
             break;
         // DEFAULT LAYER
@@ -232,7 +246,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef KB_LAYOUT_STANDARD
       case STD_LK_RAIS: // LT(space)
-          return 185;
+          return 200;
 #else
       case SPLT_KL1:
       case SPLT_KL2:
@@ -243,10 +257,14 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       case SPLT_KR2:  // Space
           return 250;
 #endif
-      case MR1(KC_O):
-      case MR2(KC_I):
       case ML1(KC_A):
       case ML2(KC_S):
+      case ML3(KC_R):
+      case ML4(KC_T):
+      case MR4(KC_N):
+      case MR3(KC_E):
+      case MR2(KC_I):
+      case MR1(KC_O):
           return 250;
       case OSX_APP_PREV:
       case OSX_APP_WNDW:

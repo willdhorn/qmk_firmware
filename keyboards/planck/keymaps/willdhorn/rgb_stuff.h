@@ -136,7 +136,10 @@
 // #define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
 // #define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?
 
+#define LED_BRIGHTNESS_STEP 10
 
+void increase_led_brightness(void);
+void decrease_led_brightness(void);
 void toggle_color_mode(void);
 HSV get_keycode_color(uint16_t, HSV);
 void set_key_layer_color(int, int, HSV);

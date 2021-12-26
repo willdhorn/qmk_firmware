@@ -27,6 +27,7 @@ bool layer_stack_color = true;
     uint8_t print_lock = 0;
 #endif
 uint8_t g_active_layer = 0;
+uint8_t brightness_level = 255;
 
 void set_g_active_layer(layer_state_t state) {
     for (uint8_t i = _MAX_LAYER_ - 1; i >= 0; i--) {
@@ -90,20 +91,19 @@ void set_layer_color(int layer, HSV color) {
                     if (kc != KC_TRANSPARENT) {
                         HSV keyColor = get_keycode_color(kc, color);
 
-                        
-
                         if (!is_top_layer) {
                             if (is_default && kc != KC_EMPTY) {
                                 keyColor = C_BLACK;
                             } else {
                                 // dim colors in lower layers based on 'height'
-                                int satDim = g_active_layer > 0 ? C_SAT_DIM_FACTOR * (g_active_layer - layer) : 0;
-                                keyColor.s = (keyColor.s < satDim) ? 0 : keyColor.s - satDim;
-                                int valDim = g_active_layer > 0 ? C_VAL_DIM_FACTOR * (g_active_layer - layer) : 0;
-                                keyColor.v = (keyColor.v < valDim) ? 0 : keyColor.v - valDim;
+                                uint8_t satDim = g_active_layer > 0 ? C_SAT_DIM_FACTOR * (g_active_layer - layer) : 0;
+                                keyColor.s = F_SUB(keyColor.s, satDim);
+                                uint8_t valDim = g_active_layer > 0 ? C_VAL_DIM_FACTOR * (g_active_layer - layer) : 0;
+                                keyColor.v = F_SUB(keyColor.v, valDim);
                             }
                         }
 
+                        keyColor.v = F_SUB(brightness_level, (255 - keyColor.v));
                         set_key_layer_color(index, layer, keyColor);
                     }
                 }
@@ -234,3 +234,6 @@ void set_key_layer_color(int index, int layer, HSV hsv) {
 }
 
 void toggle_color_mode() { layer_stack_color = !layer_stack_color; }
+
+void increase_led_brightness() { brightness_level = F_ADD(brightness_level, LED_BRIGHTNESS_STEP); }
+void decrease_led_brightness() { brightness_level = F_SUB(brightness_level, LED_BRIGHTNESS_STEP); }
