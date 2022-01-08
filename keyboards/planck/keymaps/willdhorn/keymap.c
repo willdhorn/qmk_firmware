@@ -37,27 +37,44 @@ extern led_config_t g_led_config;
   === KEY OVERRIDES ===
 */
 const key_override_t delete_key_override = SHIFT_OVERRIDE(KC_BSPACE, KC_DELETE);
-const key_override_t period_exlm_override = SHIFT_OVERRIDE(KC_DOT, KC_EXLM);
-const key_override_t comma_question_override = SHIFT_OVERRIDE(KC_COMMA, KC_QUES);
-const key_override_t lparen_lbracket_override = SHIFT_OVERRIDE(KC_LPRN, KC_LBRC);
-const key_override_t rparen_rbracket_override = SHIFT_OVERRIDE(KC_RPRN, KC_RBRC);
-const key_override_t lbrace_langlebr_override = SHIFT_OVERRIDE(KC_LCBR, KC_LABK);
-const key_override_t rbrace_ranglebr_override = SHIFT_OVERRIDE(KC_RCBR, KC_RABK);
+
+const key_override_t period_question_override = SHIFT_OVERRIDE(KC_DOT, KC_QUES);
+const key_override_t comma_exclamation_override = SHIFT_OVERRIDE(KC_COMMA, KC_EXLM);
+
+const key_override_t sym_lparen_lbracket_override = SHIFT_OVERRIDE(KC_LPRN, KC_LBRC);
+const key_override_t sym_rparen_rbracket_override = SHIFT_OVERRIDE(KC_RPRN, KC_RBRC);
+const key_override_t sym_lbrace_langlebr_override = SHIFT_OVERRIDE(KC_LCBR, KC_LABK);
+const key_override_t sym_rbrace_ranglebr_override = SHIFT_OVERRIDE(KC_RCBR, KC_RABK);
+
+const key_override_t sym_plus_carrot_override = SHIFT_OVERRIDE(KC_PLUS, KC_CRRT);
+const key_override_t sym_astrick_dollar_override = SHIFT_OVERRIDE(KC_ASTR, KC_DLR);
+const key_override_t sym_equal_tilde_override = SHIFT_OVERRIDE(KC_EQL, KC_TILD);
+const key_override_t sym_minus_ampersand_override = SHIFT_OVERRIDE(KC_MINS, KC_AMPR);
+const key_override_t sym_slash_pipe_override = SHIFT_OVERRIDE(KC_SLSH, KC_PIPE);
+const key_override_t sym_colon_at_override = SHIFT_OVERRIDE(KC_COLN, KC_AT);
+const key_override_t sym_underscore_grave_override = SHIFT_OVERRIDE(KC_UNDS, KC_GRV);
 
 const key_override_t suppress_hide_override = ko_make_basic(MOD_MASK_GUI, ML3(KC_H), KC_T);
-const key_override_t suppress_hide_override2 = ko_make_basic(MOD_MASK_GUI, KC_H, KC_T);
+const key_override_t suppress_hide_override2 = ko_make_basic(MOD_MASK_GUI, KC_H, KC_NO);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &suppress_hide_override,
     &suppress_hide_override2,
-    &period_exlm_override,
-    &comma_question_override,
-    &lparen_lbracket_override,
-    &rparen_rbracket_override,
-    &lbrace_langlebr_override,
-    &rbrace_ranglebr_override,
+    &period_question_override,
+    &comma_exclamation_override,
+    &sym_lparen_lbracket_override,
+    &sym_rparen_rbracket_override,
+    &sym_lbrace_langlebr_override,
+    &sym_rbrace_ranglebr_override,
+    &sym_plus_carrot_override,
+    &sym_astrick_dollar_override,
+    &sym_equal_tilde_override,
+    &sym_minus_ampersand_override,
+    &sym_slash_pipe_override,
+    &sym_colon_at_override,
+    &sym_underscore_grave_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -130,7 +147,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
     switch (keycode) {
         // Keycodes defined in custom_keycodes
-        // Toggle layer coloring
+        case KC_EMPTY:
+            return false;
+        // Toggle layer coloring"
         case KC_LAYERCOLOR:
             if (pressed) {
                 toggle_color_mode();
@@ -228,8 +247,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // state = update_tri_layer_state(state, _SYMBOLS, _EXT, _APPS_WNDW);
-    // state = update_tri_layer_state(state, _VSCODE, _NUM, _ADJUST);
+    state = update_tri_layer_state(state, _SYMBOLS, _EXT, _APPS_WNDW);
+    state = update_tri_layer_state(state, _NUM, _EXT, _ADJUST);
     return state;
 }
 

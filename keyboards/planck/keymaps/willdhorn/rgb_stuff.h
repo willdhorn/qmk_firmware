@@ -24,7 +24,7 @@
 
 // COLORS
 #define CHSV(h,s,v)    (HSV) {h,s,v}
-// 16 COLORS THAT ARE VISUALLY DISTINCT
+
 #define C_RED       CHSV( H_RED, 255, 255 )
 #define C_BLORNG    CHSV( H_BLORNG, 255, 255 )
 #define C_ORANGE    CHSV( H_ORANGE, 255, 255 )
@@ -46,36 +46,24 @@
 #define C_WHITE C_W(255)
 #define C_BLACK C_W(0)
 
-#define F_ADD(num, add) (num>=255-add ? 255 : num+add)
-#define F_SUB(num, sub) (num<=sub ? 0 : num-sub)
-#define F_H_LFT(hue, amt) ((hue-amt)%255)
-#define F_H_RGT(hue, amt) ((hue+amt)%255)
-
-#define CF_PALE(color) CHSV((color).h,  (F_SUB((color).s, 50)), (color).v)
-#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 75))
-#define CF_BRGT(color) CHSV((color).h, (color).s, F_ADD((color).v, 100))
-
-#define CF_SHFT(color) CHSV(F_H_RGT((color).h, 64), (color).s, F_ADD((color).v, 15))
-#define CF_OPPO(color) CHSV(F_H_RGT((color).h, 128), (color).s, (color).v)
-
-#define C_VAL_DIM_FACTOR 10
-#define C_SAT_DIM_FACTOR 5
-
 /*
   === LAYER COLORS ===
 */
 
-#define CL_QWERTY           CHSV(12, 200, 170)
-#define CL_COLEMAK_DH       CHSV(45, 255, 240)
-#define CL_COLEMAX          CHSV(85, 255, 240)
-#define CL_WORKMAN          CHSV(170, 255, 240)
+// Default Layers
+#define CL_QWERTY           CHSV(12, 200, 170) // Dull pink/beige
+#define CL_COLEMAK_DH       CHSV(85, 255, 240) // Green
+#define CL_COLEMAX          CHSV(45, 255, 240) // Yellow
+#define CL_WORKMAN          CHSV(170, 255, 240) // Purple
 
+// Additional Layers
 #define CL_SYMBOLS      C_INDIGO
 #define CL_EXT          C_YELLOW
 #define CL_NUM          C_TURQUOISE
 #define CL_VSCODE       C_PURPLE
 #define CL_ADJUST       C_RED
 
+// Apps/Window Layersr
 #define CL_APPS_WNDW    C_TURQUOISE
 #define CL_WNDW_HALF    C_INDIGO
 #define CL_WNDW_QUAD    C_RED
@@ -135,6 +123,21 @@
 // #define C_MISC      C_PURPLE      // MISC
 // #define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
 // #define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?
+
+#define F_ADD(num, add) (num>=255-add ? 255 : num+add)
+#define F_SUB(num, sub) (num<=sub ? 0 : num-sub)
+#define F_H_LFT(hue, amt) ((hue-amt)%255)
+#define F_H_RGT(hue, amt) ((hue+amt)%255)
+
+#define CF_PALE(color) CHSV((color).h,  (F_SUB((color).s, 50)), (color).v)
+#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 75))
+#define CF_BRGT(color) CHSV((color).h, (color).s, F_ADD((color).v, 100))
+
+#define CF_SHFT(color) CHSV(F_H_RGT((color).h, 64), (color).s, F_ADD((color).v, 15))
+#define CF_OPPO(color) CHSV(F_H_RGT((color).h, 128), (color).s, (color).v)
+
+#define C_VAL_DIM_FACTOR 10
+#define C_SAT_DIM_FACTOR 5
 
 #define LED_BRIGHTNESS_STEP 10
 
