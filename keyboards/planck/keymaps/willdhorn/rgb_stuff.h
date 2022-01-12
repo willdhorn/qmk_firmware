@@ -64,7 +64,7 @@
 #define CL_ADJUST       C_RED
 
 // Apps/Window Layersr
-#define CL_APPS_WNDW    C_TURQUOISE
+#define CL_SWITCH    C_TURQUOISE
 #define CL_WNDW_HALF    C_INDIGO
 #define CL_WNDW_QUAD    C_RED
 #define CL_WNDW_VERT    C_ORANGE
