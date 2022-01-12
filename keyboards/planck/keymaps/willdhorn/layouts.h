@@ -5,14 +5,14 @@
 
 
 // define home mods arrangement
-#define ML1(kc) LSFT_T(kc)
+#define ML1(kc) LMEH_T(kc)
 #define ML2(kc) LCTL_T(kc)
 #define ML3(kc) LALT_T(kc)
 #define ML4(kc) LGUI_T(kc)
 #define MR4(kc) RGUI_T(kc)
 #define MR3(kc) RALT_T(kc)
 #define MR2(kc) RCTL_T(kc)
-#define MR1(kc) RSFT_T(kc)
+#define MR1(kc) RMEH_T(kc)
 
 #define MOD_LEFT(l1, l2, l3, l4, l5)  ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5
 #define MOD_RIGHT(r5, r4, r3, r2, r1) r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1)
@@ -37,18 +37,19 @@
 
 #   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
 #   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
-#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) OSX_HOME, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, OSX_END
+#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) _______,  l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, _______
 #   define STD_DEFAULT_BASE(L1, L2, R2, R1) L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, STD_LK_SPCE, STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
 #   define STD_BASE(L1, L2, R2, R1)         L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, TO(0),       STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
 
 #   define STD_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) _______, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, _______
 
 #   define STD_DEFAULT_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_DEFAULT_HOME(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
+#   define STD_DEFAULT_BOTTOM_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_DEFAULT_BOTTOM(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 #   define STD_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_ROW(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 
 #   define DEF_TOP(...)  STD_DEFAULT_TOP(__VA_ARGS__)
-#   define DEF_MID(...)  STD_DEFAULT_HOME_MOD(__VA_ARGS__)
-#   define DEF_BOT(...)  STD_DEFAULT_BOTTOM(__VA_ARGS__)
+#   define DEF_MID(...)  STD_DEFAULT_HOME(__VA_ARGS__)
+#   define DEF_BOT(...)  STD_DEFAULT_BOTTOM_MOD(__VA_ARGS__)
 #   define BASE_ROW(...) STD_BASE(__VA_ARGS__)
 
 #   define ROW(...)      STD_ROW(__VA_ARGS__)
@@ -58,7 +59,7 @@
 #   define DEFAULT_BASE  STD_DEFAULT_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
 
 #else // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#   define SPLT_KL1 LT(_APPS_WNDW, KC_ESC)
+#   define SPLT_KL1 LT(_SWITCH, KC_ESC)
 #   define SPLT_KL2 LT(_SYMBOLS, KC_SPACE)
 #   define SPLT_KL3 LT(_VSCODE, KC_TAB)
 #   define SPLT_KR3 LT(_BSPACE)_NUM
@@ -163,12 +164,12 @@
 
 // APPS/WINDOWS - App switching and window arrangement
 
-#define APPS_WNDW_1 ROW(APPS_WNDW_L1, APPS_WNDW_R1)
-#define APPS_WNDW_2 ROW(APPS_WNDW_L2, APPS_WNDW_R2)
-#define APPS_WNDW_3 ROW(APPS_WNDW_L3, APPS_WNDW_R3)
-#define APPS_WNDW_4 EMPTY_BASE
+#define SWITCH_1 ROW(SWITCH_L1, SWITCH_R1)
+#define SWITCH_2 ROW(SWITCH_L2, SWITCH_R2)
+#define SWITCH_3 ROW(SWITCH_L3, SWITCH_R3)
+#define SWITCH_4 EMPTY_BASE
 
-#define LAYER_APPS_WNDW PLANCK_LAYOUT(APPS_WNDW_1, APPS_WNDW_2, APPS_WNDW_3, APPS_WNDW_4)
+#define LAYER_SWITCH PLANCK_LAYOUT(SWITCH_1, SWITCH_2, SWITCH_3, SWITCH_4)
 
 #define WNDW_HALF_1 ROW(EMPTY_HALF, WNDW_HALF_R1)
 #define WNDW_HALF_2 ROW(EMPTY_HALF, WNDW_HALF_R2)

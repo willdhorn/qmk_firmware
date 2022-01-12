@@ -7,7 +7,7 @@ enum planck_layers {
     _SYMBOLS,
     _NUM,
     _VSCODE,
-    _APPS_WNDW,
+    _SWITCH,
     _WNDW_HALF,
     _WNDW_QUAD,
     _WNDW_VERT,
@@ -71,8 +71,8 @@ enum planck_layers {
 // #define SYMBOLS_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
 
 
-#define SYMBOLS_L1 KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, _______
-#define SYMBOLS_L2 EXT_L2
+#define SYMBOLS_L1 KC_LABK, KC_LBRC, KC_RBRC, KC_RABK, _______
+#define SYMBOLS_L2 KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, _______
 #define SYMBOLS_L3 EXT_L3
 
 #define SYMBOLS_R1 _______, KC_HASH, KC_PLUS, KC_ASTR, KC_PERC
@@ -81,14 +81,14 @@ enum planck_layers {
 
 
 // EXT
-#define EXT_R1 XXXXXXX, S_TABL,   KC_UP,   S_TABR,   XXXXXXX
+#define EXT_R1 XXXXXXX, OSX_HOME, KC_UP,   OSX_END,  XXXXXXX
 #define EXT_R2 XXXXXXX, KC_LEFT,  KC_DOWN, KC_RIGHT, XXXXXXX
 #define EXT_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX 
 
-#define EXT_L1 EMPTY_HALF
+#define EXT_L1 _______,       _______,       OSX_MC_DESKS,  OSX_APP_WNDW,  _______
 // #define EXT_L2 KC_LCTL,      KC_LALT,      KC_LSFT,         KC_LCMD, _______
-#define EXT_L2 OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), _______
-#define EXT_L3 S_UNDO,        S_CUT,         S_COPY,        S_PASTE,       _______
+#define EXT_L2 S_UNDO,        S_CUT,         S_COPY,        S_PASTE,       _______
+#define EXT_L3 OSM(MOD_LMEH), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), _______
 
 // #define EXT_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
 // #define EXT_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
@@ -124,13 +124,13 @@ enum planck_layers {
   === APPS/WINDOW MANAGEMENT ===
 */
 
-#define APPS_WNDW_L1 XXXXXXX, WNDW_LAYER_6, WNDW_LAYER_V, XXXXXXX,      XXXXXXX
-#define APPS_WNDW_L2 WM_FULL, WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, XXXXXXX
-#define APPS_WNDW_L3 XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
+#define SWITCH_L1 XXXXXXX, WNDW_LAYER_6, WNDW_LAYER_V, XXXXXXX,      XXXXXXX
+#define SWITCH_L2 WM_FULL, WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, XXXXXXX
+#define SWITCH_L3 XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
 
-#define APPS_WNDW_R1 APPS_DESK_R1
-#define APPS_WNDW_R2 APPS_DESK_R2
-#define APPS_WNDW_R3 APPS_DESK_R3
+#define SWITCH_R1 APPS_DESK_R1
+#define SWITCH_R2 APPS_DESK_R2
+#define SWITCH_R3 APPS_DESK_R3
 
 // APPS/DESKTOPS
 #define APPS_DESK_R1 XXXXXXX, OSX_DESK_PREV, OSX_MC_DESKS, OSX_DESK_RIGHT, XXXXXXX

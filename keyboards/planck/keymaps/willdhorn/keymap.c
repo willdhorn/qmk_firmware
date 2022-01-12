@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = 
                                                               [_EXT]          = LAYER_EXT,
                                                               [_NUM]          = LAYER_NUM,
                                                               [_VSCODE]       = LAYER_VSCODE,
-                                                              [_APPS_WNDW]    = LAYER_APPS_WNDW,
+                                                              [_SWITCH]    = LAYER_SWITCH,
                                                               [_WNDW_HALF]    = LAYER_WNDW_HALF,
                                                               [_WNDW_QUAD]    = LAYER_WNDW_QUAD,
                                                               [_WNDW_VERT]    = LAYER_WNDW_VERT,
@@ -260,7 +260,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _NUM, _EXT, _APPS_WNDW);
+    state = update_tri_layer_state(state, _NUM, _EXT, _SWITCH);
     state = update_tri_layer_state(state, _NUM, _SYMBOLS, _ADJUST);
     return state;
 }
@@ -277,8 +277,8 @@ void two_tap(uint16_t kc1, uint16_t kc2) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef KB_LAYOUT_STANDARD
-      case STD_LK_RAIS: // LT(space)
-          return 180; // smart retro tapping enabled (see below)
+      // case STD_LK_RAIS: // LT(space)
+      //     return 180; // smart retro tapping enabled (see below)
 #else
       case SPLT_KL1:
       case SPLT_KL2:
@@ -289,6 +289,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       case SPLT_KR2:  // Space
           return 250;
 #endif
+#ifndef BILATERAL_COMBINATIONS
       case ML1(KC_A):
       case ML2(KC_S):
       case ML3(KC_R):
@@ -298,6 +299,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       case MR2(KC_I):
       case MR1(KC_O):
           return 350;
+#endif
       case OSX_APP_PREV:
       case OSX_APP_WNDW:
       case OSX_APP_NEXT:
@@ -312,7 +314,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
       case STD_LK_RAIS:
         // allows tapping term to be low for arrow key movements and faster reporting of space presses
         // while still registering space when typing slower
-        if (timer_elapsed(space_timer) < 250) {
+        if (timer_elapsed(space_timer) < SPACE_RETRO_TAP_TERM) {
           return true;
         }
         else {

@@ -15,6 +15,24 @@
 #define CMD(kc) LCMD(kc)
 #define MOD_LCMD MOD_LGUI
 
+#define MOD_LHYP 0xF
+#define MOD_LMEH 0x7
+#define MOD_RHYP 0x1F
+#define MOD_RMEH 0x17
+
+#define MOD_MASK_MEH MOD_MASK_CSA
+#define MOD_MASK_HYP MOD_MASK_CSAG
+
+#define LHYP(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
+#define LMEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
+#define RHYP(kc) (QK_RCTL | QK_RSFT | QK_RALT | QK_RGUI | (kc))
+#define RMEH(kc) (QK_RCTL | QK_RSFT | QK_RALT | (kc))
+
+#define LHYP_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
+#define LMEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)
+#define RHYP_T(kc) MT(MOD_RCTL | MOD_RSFT | MOD_RALT | MOD_RGUI, kc)
+#define RMEH_T(kc) MT(MOD_RCTL | MOD_RSFT | MOD_RALT, kc)
+
 /*
   === WINDOW ARRANGEMENT ===
 */
@@ -176,7 +194,8 @@ enum custom_keycodes {
 #define IS_NAV_SC(kc) ((kc) == S_TABL || (kc) == S_TABR)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
-#define IS_MOD_KEY(kc) (((kc>>5) & 0x07) == 0x07)
+#define IS_MOD_KEY(kc) ((((kc>>5) & 0x07) == 0x07) || IS_OSM(kc))
+
 
 #define IS_MO_LAYER(kc) ((kc) >= QK_MOMENTARY && (kc) <= QK_MOMENTARY_MAX)
 #define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
@@ -184,6 +203,7 @@ enum custom_keycodes {
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_TAP_DANCE(kc) ((kc) >= QK_TAP_DANCE && (kc) <= QK_TAP_DANCE_MAX)
 #define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
+#define IS_OSM(kc) ((kc) >= QK_ONE_SHOT_MOD && (kc) <= QK_ONE_SHOT_MOD_MAX)
 
 #define MT_KEYCODE(mt) ((mt)&0xFF)
 #define MT_MODS(mt) ((((mt)>>8)&0x10) ? (((mt)>>4)&0xF0) : (((mt)>>8)&0x0F)) // get correct (L/R) mod mask 
@@ -215,6 +235,7 @@ enum custom_keycodes {
 */
 
 #define SHIFT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_SHIFT, (kc), (ovrrde));
+#define MEH_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_MEH, (kc), (ovrrde));
 
 // Functions for handling vscode short cut sequences
 void two_tap(uint16_t kc1, uint16_t kc2);
