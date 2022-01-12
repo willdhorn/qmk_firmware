@@ -86,23 +86,23 @@ enum planck_layers {
 #define EXT_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX 
 
 #define EXT_L1 EMPTY_HALF
-#define EXT_L2 KC_LCTL,      KC_LALT,      KC_LSFT,         KC_LCMD, _______
-#define EXT_L3 S_UNDO,       S_CUT,        S_COPY,          S_PASTE, _______
+// #define EXT_L2 KC_LCTL,      KC_LALT,      KC_LSFT,         KC_LCMD, _______
+#define EXT_L2 OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), _______
+#define EXT_L3 S_UNDO,        S_CUT,         S_COPY,        S_PASTE,       _______
 
 // #define EXT_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
 // #define EXT_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
 // #define EXT_CMD3 S_UNDO,       S_CUT,         S_COPY,        S_PASTE,      _______
 
 // NUMPAD
-#define NUM_R1 KC_ASTR,  KC_7, KC_8, KC_9, KC_MINS
-#define NUM_R2 KC_SLSH,  KC_4, KC_5, KC_6, KC_PLUS
-#define NUM_R3 KC_COMMA, KC_1, KC_2, KC_3, KC_EQL
-#define NUM_RB KC_0,     KC_DOT
+#define NUM_R1 KC_MINS, KC_7, KC_8, KC_9, KC_COMMA
+#define NUM_R2 KC_PLUS, KC_4, KC_5, KC_6, KC_0
+#define NUM_R3 KC_EQL,  KC_1, KC_2, KC_3, KC_DOT
 
 #define NUM_L1 EMPTY_HALF
 #define NUM_L2 EXT_L2
 #define NUM_L3 EXT_L3
-#define NUM_LB _______, _______
+
 
 /*
   === COMMANDS ===

@@ -5,15 +5,15 @@
 
 
 // define home mods arrangement
-#define ML1(kc) LCTL_T(kc)
-#define ML2(kc) LALT_T(kc)
-#define ML3(kc) LSFT_T(kc)
+#define ML1(kc) LSFT_T(kc)
+#define ML2(kc) LCTL_T(kc)
+#define ML3(kc) LALT_T(kc)
 #define ML4(kc) LGUI_T(kc)
 #define MR4(kc) RGUI_T(kc)
-#define MR3(kc) RSFT_T(kc)
-#define MR2(kc) RALT_T(kc)
-#define MR1(kc) RCTL_T(kc)
- 
+#define MR3(kc) RALT_T(kc)
+#define MR2(kc) RCTL_T(kc)
+#define MR1(kc) RSFT_T(kc)
+
 #define MOD_LEFT(l1, l2, l3, l4, l5)  ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5
 #define MOD_RIGHT(r5, r4, r3, r2, r1) r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1)
 #define EMPTY_MOD_L MOD_LEFT(_______,_______,_______,_______,_______)
@@ -29,9 +29,9 @@
 
 #ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
 #   define STD_LK_LEFT MO(_NUM)
-#   define STD_LK_LOWR MO(_SYMBOLS)
+#   define STD_LK_LOWR KC_LSFT
 #   define STD_LK_RAIS LT(_EXT, KC_SPACE)
-#   define STD_LK_RGHT KC_LSFT  
+#   define STD_LK_RGHT MO(_SYMBOLS)
 
 #   define STD_LK_SPCE KC_CAPSLOCK
 
@@ -147,7 +147,8 @@
 #define NUM_1 ROW(NUM_L1, NUM_R1)
 #define NUM_2 ROW(NUM_L2, NUM_R2)
 #define NUM_3 ROW(NUM_L3, NUM_R3)
-#define NUM_4 KC_EMPTY, KC_EMPTY, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, TO(0), KC_0, KC_DOT, KC_EMPTY, KC_EMPTY, KC_EMPTY
+#define NUM_4 EMPTY_BASE
+
 
 #define LAYER_NUM PLANCK_LAYOUT(NUM_1, NUM_2, NUM_3, NUM_4)
 

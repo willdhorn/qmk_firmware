@@ -143,12 +143,22 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
+static uint16_t space_timer = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
     switch (keycode) {
         // Keycodes defined in custom_keycodes
-        case KC_EMPTY:
+        case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
             return false;
+        case STD_LK_RAIS: // LT(space)
+            if (pressed) {
+                space_timer = record->event.time;
+            }
+            break;
+            
+        // CUSTOM KEYS
+
         // Toggle layer coloring"
         case KC_LAYERCOLOR:
             if (pressed) {
@@ -223,18 +233,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            break;  
         
         default:
-            // flash the right when caps lock is on light anytime a key is pressed
-            if (host_keyboard_led_state().caps_lock && (IS_LETTER(keycode) || IS_MOD_TAP(keycode))) {
-                if (pressed) {
-                    planck_ez_right_led_level(255);
-                } else {
-                    planck_ez_right_led_level(0);
-                }
-            } else {
-                planck_ez_right_led_level(0);
-            }
             break;
     }
+
+    // flash the right when caps lock is on light anytime a key is pressed
+    if (host_keyboard_led_state().caps_lock && (IS_LETTER(keycode) || IS_MOD_TAP(keycode))) {
+        if (pressed) {
+            planck_ez_right_led_level(255);
+        } else {
+            planck_ez_right_led_level(0);
+        }
+    } else {
+        planck_ez_right_led_level(0);
+    }
+
+    
 
 #ifdef DEBUG_KEYCODE_PRINT
     if (pressed) {
@@ -247,8 +260,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _SYMBOLS, _EXT, _APPS_WNDW);
-    state = update_tri_layer_state(state, _NUM, _EXT, _ADJUST);
+    state = update_tri_layer_state(state, _NUM, _EXT, _APPS_WNDW);
+    state = update_tri_layer_state(state, _NUM, _SYMBOLS, _ADJUST);
     return state;
 }
 
@@ -265,7 +278,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef KB_LAYOUT_STANDARD
       case STD_LK_RAIS: // LT(space)
-          return 200;
+          return 180; // smart retro tapping enabled (see below)
 #else
       case SPLT_KL1:
       case SPLT_KL2:
@@ -284,7 +297,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       case MR3(KC_E):
       case MR2(KC_I):
       case MR1(KC_O):
-          return 250;
+          return 350;
       case OSX_APP_PREV:
       case OSX_APP_WNDW:
       case OSX_APP_NEXT:
@@ -292,6 +305,23 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       default:
           return TAPPING_TERM;
   }
+}
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+      case STD_LK_RAIS:
+        // allows tapping term to be low for arrow key movements and faster reporting of space presses
+        // while still registering space when typing slower
+        if (timer_elapsed(space_timer) < 250) {
+          return true;
+        }
+        else {
+          return false;
+        }
+        
+      default:
+        return false;
+    }
 }
 
 // Audio and Music

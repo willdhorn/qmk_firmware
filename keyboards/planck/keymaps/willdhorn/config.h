@@ -1,26 +1,28 @@
 #pragma once
 
-
 #define ENCODER_RESOLUTION 4
 
 /*
   Set any config.h overrides for your specific keymap here.
-  See config.h and rules.mk options at 
+  See config.h and rules.mk options at
   https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
 // Layout switch
-#define KB_LAYOUT_STANDARD // otherwise, use split layout
+#define KB_LAYOUT_STANDARD  // otherwise, use split layout
 
 // Key Behaviour
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 
 #define TAPPING_TERM_PER_KEY
+#define RETRO_TAPPING_PER_KEY
 
 // !! ABSOLUTELY NEEDED FOR HOME ROW MODS !!
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
+
+#define TAPPING_TOGGLE 1
 
 // ONESHOT CONFIGS
 #define ONESHOT_TAP_TOGGLE 5
@@ -30,7 +32,6 @@
 #define DEBUG_KEYCODE_PRINT
 // #define DEBUG_LAYER_PRINT
 #define DEBUG_TAP_DANCE
-
 
 // Disable deprecated features for binary size
 #define NO_ACTION_MACRO
@@ -70,9 +71,8 @@
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 75
 
-
 // Audio
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(PLANCK_SOUND)
-#define MIDI_BASIC
+#    define STARTUP_SONG SONG(PLANCK_SOUND)
+#    define MIDI_BASIC
 #endif
