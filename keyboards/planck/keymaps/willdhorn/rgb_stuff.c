@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 
+#include "config.h"
 #include "rgb_stuff.h"
 #include "key_defs.h"
 #include "layers.h"
@@ -14,7 +15,7 @@ const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
                             [_EXT]     =      CL_EXT,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
-                            [_SWITCH] =    CL_SWITCH,
+                            [_SWITCH] =       CL_SWITCH,
                             [_WNDW_HALF] =    CL_WNDW_HALF,
                             [_WNDW_QUAD] =    CL_WNDW_QUAD,
                             [_WNDW_VERT] =    CL_WNDW_VERT,
@@ -28,6 +29,8 @@ bool layer_stack_color = true;
 #endif
 uint8_t g_active_layer = 0;
 uint8_t brightness_level = 255;
+uint16_t mod_tap_timer = 0;
+uint8_t mod_tap_active = 0;
 
 void set_g_active_layer(layer_state_t state) {
     for (uint8_t i = _MAX_LAYER_ - 1; i >= 0; i--) {
@@ -42,7 +45,7 @@ void set_g_active_layer(layer_state_t state) {
             break;
         }
     }
-  }
+}
 
 /*
   === User functions for handling layer colors ===
@@ -117,7 +120,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         case KC_NO:
             return C_BLACK;
         case KC_EMPTY:
-            return layer_color;
+            return C_W(100);
         case RESET:
             return C_RED;
         case DEBUG:
@@ -153,7 +156,15 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         // if (get_mods() & MT_MODS(kc)) {
         if ((~get_mods() & MT_MODS(kc)) == 0) {
             return CF_OPPO(key_color);  // This mod key is currently held down
-        } else if (get_mods()) {
+        }
+#ifdef BILATERAL_COMBINATIONS
+    #if  (BILATERAL_COMBINATIONS + 0) 
+        else if (mod_tap_active && timer_elapsed(mod_tap_timer) > BILATERAL_COMBINATIONS) {
+            return C_RED;
+        }
+    #endif
+#endif
+        else if (get_mods()) {
             return C_WHITE;  // Some other mod key is being held down
         } else {
             return CK_MOD_TAP(key_color);  // no mods are active
@@ -183,6 +194,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         return CK_ARROWS;
     } else if (IS_NAV_SC(kc)) {
         return CK_NAV_SC;
+    } else if (IS_SYSTEM_SC(kc)) {
+        return CK_SYS_SC;
     }
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {

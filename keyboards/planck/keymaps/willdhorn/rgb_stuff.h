@@ -59,12 +59,12 @@
 // Additional Layers
 #define CL_SYMBOLS      C_INDIGO
 #define CL_EXT          C_YELLOW
-#define CL_NUM          C_TURQUOISE
+#define CL_NUM          C_SEAGREEN
 #define CL_VSCODE       C_PURPLE
 #define CL_ADJUST       C_RED
 
 // Apps/Window Layersr
-#define CL_SWITCH    C_TURQUOISE
+#define CL_SWITCH       C_HOTPINK
 #define CL_WNDW_HALF    C_INDIGO
 #define CL_WNDW_QUAD    C_RED
 #define CL_WNDW_VERT    C_ORANGE
@@ -89,7 +89,7 @@
 #define CK_ARROWS         CL_EXT
 
 #define CK_NAV_SC         C_LIME
-#define CK_SHORTCUT       C_GREEN
+#define CK_SYS_SC         C_GREEN
 
 #define CK_VSCODE         CL_VSCODE
 #define CK_VSC_LGT        CHSV(F_H_RGT((CL_VSCODE).h, 10), F_SUB((CL_VSCODE).s, 25), (CL_VSCODE).v)
@@ -111,7 +111,7 @@
 // #define C_APPEXT    C_BLORNG      // EXTEND...
 // #define C_EXTSC     C_ORANGE      // EXTEND SHORTCUTS
 // #define C_EXT       C_YELLOW      // EXTEND(GENERAL?)
-// #define C_MISCSC    C_YGREEN      // MISC SHORTCUTS
+// #define C _MISCSC    C_YGREEN      // MISC SHORTCUTS
 // #define C_BASESC    C_LIME        // BASE? SHORTCUTS
 // #define C_APPSC     C_GREEN       // APPLICATION SHORTCUTS
 // #define C_SYSPEC    C_SEAGREEN    // SPECIAL CHARACTERS

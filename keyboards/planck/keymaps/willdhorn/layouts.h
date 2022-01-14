@@ -28,18 +28,11 @@
 #define EMPTY_HALF _______, _______, _______, _______, _______
 
 #ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
-#   define STD_LK_LEFT MO(_NUM)
-#   define STD_LK_LOWR KC_LSFT
-#   define STD_LK_RAIS LT(_EXT, KC_SPACE)
-#   define STD_LK_RGHT MO(_SYMBOLS)
-
-#   define STD_LK_SPCE KC_CAPSLOCK
-
 #   define STD_DEFAULT_TOP(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)    KC_TAB,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_BSPACE
 #   define STD_DEFAULT_HOME(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1)   KC_ESC,   l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_ENT
-#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) _______,  l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, _______
+#   define STD_DEFAULT_BOTTOM(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) KC_EMPTY, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, KC_EMPTY
 #   define STD_DEFAULT_BASE(L1, L2, R2, R1) L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, STD_LK_SPCE, STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
-#   define STD_BASE(L1, L2, R2, R1)         L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, TO(0),       STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
+// #   define STD_BASE(L1, L2, R2, R1)         L1, L2, KC_EMPTY, STD_LK_LEFT, STD_LK_LOWR, TO(0),       STD_LK_RAIS, STD_LK_RGHT, KC_EMPTY, R2, R1
 
 #   define STD_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) _______, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, _______
 
@@ -48,22 +41,17 @@
 #   define STD_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) STD_ROW(ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1))
 
 #   define DEF_TOP(...)  STD_DEFAULT_TOP(__VA_ARGS__)
-#   define DEF_MID(...)  STD_DEFAULT_HOME(__VA_ARGS__)
-#   define DEF_BOT(...)  STD_DEFAULT_BOTTOM_MOD(__VA_ARGS__)
-#   define BASE_ROW(...) STD_BASE(__VA_ARGS__)
+#   define DEF_MID(...)  STD_DEFAULT_HOME_MOD(__VA_ARGS__)
+#   define DEF_BOT(...)  STD_DEFAULT_BOTTOM(__VA_ARGS__)
+#   define BASE_ROW(...) STD_DEFAULT_BASE(__VA_ARGS__)
 
 #   define ROW(...)      STD_ROW(__VA_ARGS__)
 #   define MOD_ROW(...)  STD_HOME_MOD(__VA_ARGS__)
 
-#   define EMPTY_BASE    STD_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
+#   define EMPTY_BASE    STD_DEFAULT_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
 #   define DEFAULT_BASE  STD_DEFAULT_BASE(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
 
 #else // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#   define SPLT_KL1 LT(_SWITCH, KC_ESC)
-#   define SPLT_KL2 LT(_SYMBOLS, KC_SPACE)
-#   define SPLT_KL3 LT(_VSCODE, KC_TAB)
-#   define SPLT_KR3 LT(_BSPACE)_NUM
-#   define SPLT_KR2 LT(_SYMBOLS, KC_SPACE)#   define SPLT_KR1 LT(_ADJUST, KC_ENTEEXT
 #   define SPLIT_ROW_DEFAULT(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 #   define SPLIT_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 #   define SPLIT_BASE_5(l1, l2, space, r2, r1) l1, l2, SPLT_KL1, SPLT_KL2, SPLT_KL3, space, SPLT_KR3, SPLT_KR2, SPLT_KR1, r2, r1

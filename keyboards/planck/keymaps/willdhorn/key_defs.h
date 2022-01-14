@@ -144,7 +144,7 @@
 // CUSTOM KEYCODES
 enum custom_keycodes {
     KC_EMPTY = EZ_SAFE_RANGE,
-    // PDRSISTANT DEFALT LAYER
+    // PERSISTANT DEFALT LAYER
     KC_QWERTY,
     KC_WORKMAN,
     KC_COLEMAK_DH,
@@ -176,7 +176,7 @@ enum custom_keycodes {
 
 /*
   === KEY TEST MACROS ===
-*/
+*/ 
 
 #define IS_LETTER(kc) (KC_A <= (kc) && (kc) <= KC_Z)
 
@@ -191,7 +191,9 @@ enum custom_keycodes {
 
 #define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
 #define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
-#define IS_NAV_SC(kc) ((kc) == S_TABL || (kc) == S_TABR)
+
+#define IS_NAV_SC(kc) ((kc) == S_TABL || (kc) == S_TABR || (kc) == OSX_HOME || (kc) == OSX_END)
+#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || (kc) == S_CUT || (kc) == S_COPY || (kc) == S_PASTE)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
 #define IS_MOD_KEY(kc) ((((kc>>5) & 0x07) == 0x07) || IS_OSM(kc))
@@ -236,7 +238,7 @@ enum custom_keycodes {
 
 #define SHIFT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_SHIFT, (kc), (ovrrde));
 #define MEH_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_MEH, (kc), (ovrrde));
-
+ 
 // Functions for handling vscode short cut sequences
 void two_tap(uint16_t kc1, uint16_t kc2);
 void vscode_chord(uint16_t kc);

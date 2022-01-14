@@ -54,14 +54,10 @@ const key_override_t sym_slash_pipe_override = SHIFT_OVERRIDE(KC_SLSH, KC_PIPE);
 const key_override_t sym_colon_at_override = SHIFT_OVERRIDE(KC_COLN, KC_AT);
 const key_override_t sym_underscore_grave_override = SHIFT_OVERRIDE(KC_UNDS, KC_GRV);
 
-const key_override_t suppress_hide_override = ko_make_basic(MOD_MASK_GUI, ML3(KC_H), KC_T);
-const key_override_t suppress_hide_override2 = ko_make_basic(MOD_MASK_GUI, KC_H, KC_NO);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
-    &suppress_hide_override,
-    &suppress_hide_override2,
     &period_question_override,
     &comma_exclamation_override,
     &sym_lparen_lbracket_override,
@@ -144,6 +140,8 @@ void rgb_matrix_indicators_user(void) {
 }
 
 static uint16_t space_timer = 0;
+extern uint16_t mod_tap_timer;
+extern uint8_t mod_tap_active;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
@@ -233,6 +231,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            break;  
         
         default:
+            if (IS_MOD_TAP(keycode)) {
+              if (pressed) {
+                  mod_tap_timer = record->event.time;
+                  mod_tap_active += 1;
+              } else {
+                  mod_tap_active -= 1;
+              }
+            }
             break;
     }
 
@@ -260,8 +266,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _NUM, _EXT, _SWITCH);
-    state = update_tri_layer_state(state, _NUM, _SYMBOLS, _ADJUST);
+    state = update_tri_layer_state(state, _SWITCH, _EXT, _VSCODE);
+    state = update_tri_layer_state(state, _NUM, _SWITCH, _ADJUST);
     return state;
 }
 

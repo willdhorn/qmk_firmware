@@ -1,11 +1,13 @@
 #pragma once
 
+#include "config.h"
+
 enum default_layers { _QWERTY, _COLEMAK_DH, _COLEMAX, _WORKMAN, _DEFAULT_RANGE_ };
 
 enum planck_layers {
     _EXT = _DEFAULT_RANGE_,
-    _SYMBOLS,
     _NUM,
+    _SYMBOLS,
     _VSCODE,
     _SWITCH,
     _WNDW_HALF,
@@ -16,6 +18,23 @@ enum planck_layers {
     _ADJUST,
     _MAX_LAYER_
 };
+
+#ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
+#   define STD_LK_LEFT TT(_NUM)
+#   define STD_LK_LOWR KC_LSFT
+#   define STD_LK_RAIS LT(_SYMBOLS, KC_SPACE)
+#   define STD_LK_RGHT TT(_EXT)
+
+#   define STD_LK_SPCE LT(_SWITCH, KC_CAPSLOCK)
+
+#else // SPLIT LAYOUT - WITH 3 LAYERKEYS
+#   define SPLT_KL1 LT(_SWITCH, KC_ESC)
+#   define SPLT_KL2 LT(_SYMBOLS, KC_SPACE)
+#   define SPLT_KL3 LT(_VSCODE, KC_TAB)
+#   define SPLT_KR3 LT(_BSPACE)_NUM
+#   define SPLT_KR2 LT(_SYMBOLS, KC_SPACE)
+#   define SPLT_KR1 LT(_ADJUST, KC_ENTER)
+#endif
 
 /*
   === DEFAULT LAYERS ===
@@ -71,9 +90,9 @@ enum planck_layers {
 // #define SYMBOLS_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
 
 
-#define SYMBOLS_L1 KC_LABK, KC_LBRC, KC_RBRC, KC_RABK, _______
-#define SYMBOLS_L2 KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, _______
-#define SYMBOLS_L3 EXT_L3
+#define SYMBOLS_L1 KC_LABK, KC_LCBR, KC_RCBR, KC_RABK, _______
+#define SYMBOLS_L2 KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, _______
+#define SYMBOLS_L3 EMPTY_HALF
 
 #define SYMBOLS_R1 _______, KC_HASH, KC_PLUS, KC_ASTR, KC_PERC
 #define SYMBOLS_R2 _______, KC_EQL,  KC_MINS, KC_SLSH, KC_COLN
@@ -87,8 +106,8 @@ enum planck_layers {
 
 #define EXT_L1 _______,       _______,       OSX_MC_DESKS,  OSX_APP_WNDW,  _______
 // #define EXT_L2 KC_LCTL,      KC_LALT,      KC_LSFT,         KC_LCMD, _______
-#define EXT_L2 S_UNDO,        S_CUT,         S_COPY,        S_PASTE,       _______
-#define EXT_L3 OSM(MOD_LMEH), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), _______
+#define EXT_L2 OSM(MOD_LMEH), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), _______
+#define EXT_L3 S_UNDO,        S_CUT,         S_COPY,        S_PASTE,       _______
 
 // #define EXT_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
 // #define EXT_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
@@ -112,13 +131,13 @@ enum planck_layers {
 // #define VSCODE_L1 VSC_DBG_BRKP, VSC_DBG_IN, VSC_DBG_OVR,  VSC_SB_DEBUG, _______
 // #define VSCODE_L2 _______,      _______,    _______,      VSC_DBG_RUN,  VSC_GOTO_DEF
 // #define VSCODE_L3 _______,      _______,    VSC_SHOW_REF, VSC_PEEK_DEF, _______
-#define VSCODE_L1 _______,      VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_SB_DEBUG, _______
-#define VSCODE_L2 VSC_DBG_BRKP, VSC_DBG_IN,    VSC_DBG_OVR,   VSC_DBG_RUN,  _______
-#define VSCODE_L3 _______,      _______,       _______,       VSC_RENAME,   _______
+#define VSCODE_L1 XXXXXXX,      VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_SB_DEBUG, XXXXXXX
+#define VSCODE_L2 VSC_DBG_BRKP, VSC_DBG_IN,    VSC_DBG_OVR,   VSC_DBG_RUN,  XXXXXXX
+#define VSCODE_L3 XXXXXXX,      XXXXXXX,       XXXXXXX,       VSC_RENAME,   XXXXXXX
 
-#define VSCODE_R1 _______, VSC_FCS_G_PREV,    VSC_TOGL_VRT_HRZ, VSC_FCS_G_NEXT,    _______
-#define VSCODE_R2 _______, VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   _______ 
-#define VSCODE_R3 _______, VSC_MV_EDTR_G_LFT, _______,          VSC_MV_EDTR_G_RGT, _______
+#define VSCODE_R1 XXXXXXX, VSC_FCS_G_PREV,    VSC_TOGL_VRT_HRZ, VSC_FCS_G_NEXT,    XXXXXXX
+#define VSCODE_R2 XXXXXXX, VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   XXXXXXX 
+#define VSCODE_R3 XXXXXXX, VSC_MV_EDTR_G_LFT, XXXXXXX,          VSC_MV_EDTR_G_RGT, XXXXXXX
 
 /*
   === APPS/WINDOW MANAGEMENT ===
