@@ -2,12 +2,14 @@
 
 #include "config.h"
 
-enum default_layers { _QWERTY, _COLEMAK_DH, _COLEMAX, _WORKMAN, _DEFAULT_RANGE_ };
+enum default_layers { _QWERTY, _COLEMAK_DH, _ISRT, _WORKMAN, _DEFAULT_RANGE_ };
 
 enum planck_layers {
+    // EXT contains the edge keys (for split 5x3 layout)
     _EXT = _DEFAULT_RANGE_,
+    // NUM contains a numpad under the RH and more symbols (that are also commonly used with numbers)
     _NUM,
-    _SYMBOLS,
+    _NAV,
     _VSCODE,
     _SWITCH,
     _WNDW_HALF,
@@ -22,18 +24,18 @@ enum planck_layers {
 #ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
 #   define STD_LK_LEFT TT(_NUM)
 #   define STD_LK_LOWR KC_LSFT
-#   define STD_LK_RAIS LT(_SYMBOLS, KC_SPACE)
+#   define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #   define STD_LK_RGHT TT(_EXT)
 
-#   define STD_LK_SPCE LT(_SWITCH, KC_CAPSLOCK)
+#   define STD_LK_SPCE LT(_ADJUST, KC_CAPSLOCK)
 
 #else // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#   define SPLT_KL1 LT(_SWITCH, KC_ESC)
-#   define SPLT_KL2 LT(_SYMBOLS, KC_SPACE)
-#   define SPLT_KL3 LT(_VSCODE, KC_TAB)
-#   define SPLT_KR3 LT(_BSPACE)_NUM
-#   define SPLT_KR2 LT(_SYMBOLS, KC_SPACE)
-#   define SPLT_KR1 LT(_ADJUST, KC_ENTER)
+#   define SPLT_KL3 
+#   define SPLT_KL2 KC_SPACE
+#   define SPLT_KL1 OSM(KC_LSFT)
+#   define SPLT_KR1 
+#   define SPLT_KR2 
+#   define SPLT_KR3 
 #endif
 
 /*
@@ -54,18 +56,18 @@ enum planck_layers {
 #define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
 #define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
 
-#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
+#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, KC_BSPACE
 #define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
 #define COLEMAK_DH_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
-// COLEMAX - Colemak dh with CF swap and PG swap
-#define COLEMAX_L1 KC_Q, KC_W, KC_C, KC_G, KC_B
-#define COLEMAX_L2 KC_A, KC_R, KC_S, KC_T, KC_P
-#define COLEMAX_L3 KC_Z, KC_X, KC_F, KC_D, KC_V
+// ISRT
+#define ISRT_L1 KC_Y, KC_C, KC_L, KC_M, KC_K
+#define ISRT_L2 KC_I, KC_S, KC_R, KC_T, KC_G
+#define ISRT_L3 KC_Q, KC_V, KC_W, KC_D, KC_J
 
-#define COLEMAX_R1 KC_J, KC_L, KC_U, KC_Y, KC_SCLN
-#define COLEMAX_R2 KC_M, KC_N, KC_E, KC_I, KC_O
-#define COLEMAX_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
+#define ISRT_R1 KC_Z, KC_F, KC_U, KC_COMMA, KC_QUOTE
+#define ISRT_R2 KC_M, KC_N, KC_E, KC_A, KC_O
+#define ISRT_R3 KC_B, KC_H, KC_SLASH, KC_DOT, KC_O
 
 // WORKMAN
 #define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
@@ -80,113 +82,104 @@ enum planck_layers {
   === COMMON LAYERS ===
 */
 
-// SYMBOLS
-// #define SYMBOLS_L1 KC_BSLS, KC_LBRC, KC_RBRC, KC_PIPE, _______
-// #define SYMBOLS_L2 KC_SLSH, KC_ASTR, KC_MINS, KC_PLUS, KC_HASH
-// #define SYMBOLS_L3 KC_PERC, KC_CRRT, KC_DLR,  KC_AMPR, KC_TILD
+#define SHORTCUT_ROW S_UNDO,  S_CUT,   S_COPY,  S_PASTE,  S_CLIPBOARD
+
+// NAV
+// #define NAV_L1 KC_BSLS, KC_LBRC, KC_RBRC, KC_PIPE, _______
+// #define NAV_L2 KC_SLSH, KC_ASTR, KC_MINS, KC_PLUS, KC_HASH
+// #define NAV_L3 KC_PERC, KC_CRRT, KC_DLR,  KC_AMPR, KC_TILD
 // 
-// #define SYMBOLS_R1 KC_AT,   KC_LABK, KC_LCBR, KC_RCBR, KC_RABK
-// #define SYMBOLS_R2 KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_COLON
-// #define SYMBOLS_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
+// #define NAV_R1 KC_AT,   KC_LABK, KC_LCBR, KC_RCBR, KC_RABK
+// #define NAV_R2 KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_COLON
+// #define NAV_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
+
+#define EXT_L1 KC_TAB,  KC_ASTR, KC_PLUS, KC_PIPE,  _x_
+#define EXT_L2 KC_ESC,  KC_SLSH, KC_MINS, KC_EQUAL, KC_BSLS
+#define EXT_L3 SHORTCUT_ROW
+
+#define EXT_R1 _x_,     KC_AMPR, KC_LCBR, KC_RCBR, KC_BSPACE
+#define EXT_R2 KC_HASH, KC_COLN, KC_LPRN, KC_RPRN, KC_ENTER
+#define EXT_R3 KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, TO(_NAV)
 
 
-#define SYMBOLS_L1 KC_LABK, KC_LCBR, KC_RCBR, KC_RABK, _______
-#define SYMBOLS_L2 KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, _______
-#define SYMBOLS_L3 EMPTY_HALF
+// NUM
+#define NUM_L1 KC_CRRT, KC_ASTR, KC_PLUS, KC_DLR,   _x_
+#define NUM_L2 KC_PERC, KC_SLSH, KC_MINS, KC_EQUAL, KC_HASH
+#define NUM_L3 TO(0),   KC_LABK, KC_RABK, KC_TILD,  _x_
 
-#define SYMBOLS_R1 _______, KC_HASH, KC_PLUS, KC_ASTR, KC_PERC
-#define SYMBOLS_R2 _______, KC_EQL,  KC_MINS, KC_SLSH, KC_COLN
-#define SYMBOLS_R3 _______, KC_UNDS, KC_EXLM, KC_QUES, KC_BSLS
+#define NUM_R1 _x_,       KC_7, KC_8, KC_9, KC_BSPACE
+#define NUM_R2 KC_DOT,    KC_4, KC_5, KC_6, KC_0
+#define NUM_R3 KC_COMMA,  KC_1, KC_2, KC_3, TO(_NAV)
 
 
-// EXT
-#define EXT_R1 XXXXXXX, OSX_HOME, KC_UP,   OSX_END,  XXXXXXX
-#define EXT_R2 XXXXXXX, KC_LEFT,  KC_DOWN, KC_RIGHT, XXXXXXX
-#define EXT_R3 XXXXXXX, VSC_BACK, XXXXXXX, VSC_FWRD, XXXXXXX 
+// NAV
+#define NAV_L1 KC_TAB,   _x_,     _x_,           _x_,           _x_
+#define NAV_L2 KC_ESC,   _x_,     OSM(MOD_LCTL), OSM(MOD_LALT), _x_
+#define NAV_L3 SHORTCUT_ROW
 
-#define EXT_L1 _______,       _______,       OSX_MC_DESKS,  OSX_APP_WNDW,  _______
-// #define EXT_L2 KC_LCTL,      KC_LALT,      KC_LSFT,         KC_LCMD, _______
-#define EXT_L2 OSM(MOD_LMEH), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), _______
-#define EXT_L3 S_UNDO,        S_CUT,         S_COPY,        S_PASTE,       _______
-
-// #define EXT_CMD1 VSC_SB_EXPLR, VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_BP_TERML, _______ 
-// #define EXT_CMD2 KC_LCTL,      KC_LALT,       KC_LSFT,       KC_LCMD,      VSC_SB_SRCTL
-// #define EXT_CMD3 S_UNDO,       S_CUT,         S_COPY,        S_PASTE,      _______
-
-// NUMPAD
-#define NUM_R1 KC_MINS, KC_7, KC_8, KC_9, KC_COMMA
-#define NUM_R2 KC_PLUS, KC_4, KC_5, KC_6, KC_0
-#define NUM_R3 KC_EQL,  KC_1, KC_2, KC_3, KC_DOT
-
-#define NUM_L1 EMPTY_HALF
-#define NUM_L2 EXT_L2
-#define NUM_L3 EXT_L3
+#define NAV_R1 _x_,     OSX_HOME, KC_UP,       OSX_END,  KC_BSPACE
+#define NAV_R2 _x_,     KC_LEFT,  KC_DOWN,     KC_RIGHT, KC_ENTER
+#define NAV_R3 _x_,     VSC_BACK, TO(_SWITCH), VSC_FWRD, TO(_EXT)  
 
 
 /*
   === COMMANDS ===
 */
-
 // VSCODE
-// #define VSCODE_L1 VSC_DBG_BRKP, VSC_DBG_IN, VSC_DBG_OVR,  VSC_SB_DEBUG, _______
-// #define VSCODE_L2 _______,      _______,    _______,      VSC_DBG_RUN,  VSC_GOTO_DEF
-// #define VSCODE_L3 _______,      _______,    VSC_SHOW_REF, VSC_PEEK_DEF, _______
-#define VSCODE_L1 XXXXXXX,      VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_SB_DEBUG, XXXXXXX
-#define VSCODE_L2 VSC_DBG_BRKP, VSC_DBG_IN,    VSC_DBG_OVR,   VSC_DBG_RUN,  XXXXXXX
-#define VSCODE_L3 XXXXXXX,      XXXXXXX,       XXXXXXX,       VSC_RENAME,   XXXXXXX
+#define VSCODE_L1 _x_,          VSC_SEL_SHRNK, VSC_SEL_EXPND, VSC_SB_DEBUG, _x_
+#define VSCODE_L2 VSC_DBG_BRKP, VSC_DBG_IN,    VSC_DBG_OVR,   VSC_DBG_RUN,  _x_
+#define VSCODE_L3 _x_,          _x_,           _x_,           VSC_RENAME,   _x_
 
-#define VSCODE_R1 XXXXXXX, VSC_FCS_G_PREV,    VSC_TOGL_VRT_HRZ, VSC_FCS_G_NEXT,    XXXXXXX
-#define VSCODE_R2 XXXXXXX, VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   XXXXXXX 
-#define VSCODE_R3 XXXXXXX, VSC_MV_EDTR_G_LFT, XXXXXXX,          VSC_MV_EDTR_G_RGT, XXXXXXX
+#define VSCODE_R1 _x_,     VSC_FCS_G_PREV,    VSC_TOGL_VRT_HRZ, VSC_FCS_G_NEXT,    _x_
+#define VSCODE_R2 _x_,     VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   _x_ 
+#define VSCODE_R3 _x_,     VSC_MV_EDTR_G_LFT, _x_,              VSC_MV_EDTR_G_RGT, _x_
 
 /*
   === APPS/WINDOW MANAGEMENT ===
 */
 
-#define SWITCH_L1 XXXXXXX, WNDW_LAYER_6, WNDW_LAYER_V, XXXXXXX,      XXXXXXX
-#define SWITCH_L2 WM_FULL, WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, XXXXXXX
-#define SWITCH_L3 XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
+#define SWITCH_L1 _x_,     WNDW_LAYER_6, WNDW_LAYER_V, _x_,          _x_
+#define SWITCH_L2 WM_FULL, WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, _x_
+#define SWITCH_L3 _x_,     _x_,          _x_,          _x_,          _x_
 
 #define SWITCH_R1 APPS_DESK_R1
 #define SWITCH_R2 APPS_DESK_R2
 #define SWITCH_R3 APPS_DESK_R3
 
 // APPS/DESKTOPS
-#define APPS_DESK_R1 XXXXXXX, OSX_DESK_PREV, OSX_MC_DESKS, OSX_DESK_RIGHT, XXXXXXX
-#define APPS_DESK_R2 XXXXXXX, OSX_APP_PREV,  OSX_APP_WNDW, OSX_APP_NEXT,   XXXXXXX
-#define APPS_DESK_R3 XXXXXXX, XXXXXXX,       OSX_MC_APPS,  XXXXXXX,        XXXXXXX
+#define APPS_DESK_R1 _x_,     OSX_DESK_PREV, OSX_MC_DESKS, OSX_DESK_RIGHT, _x_
+#define APPS_DESK_R2 _x_,     OSX_APP_PREV,  OSX_APP_WNDW, OSX_APP_NEXT,   _x_
+#define APPS_DESK_R3 _x_,     _x_,           OSX_MC_APPS,  _x_,            TO(_NAV)
 // HALF TILING
-#define WNDW_HALF_R1 _______, XXXXXXX, WM_H_U, XXXXXXX, _______
-#define WNDW_HALF_R2 _______, WM_H_L,  WM_H_M, WM_H_R,  _______
-#define WNDW_HALF_R3 _______, XXXXXXX, WM_H_D, XXXXXXX, _______
+#define WNDW_HALF_R1 _x_,     _x_,     WM_H_U, _x_,        _x_
+#define WNDW_HALF_R2 _x_,     WM_H_L,  WM_H_M, WM_H_R,     _x_
+#define WNDW_HALF_R3 _x_,     _x_,     WM_H_D, _x_,        TO(_NAV)
 // QUAD TILING
-#define WNDW_QUAD_R1 _______, WM_4Q_UL, XXXXXXX, WM_4Q_UR, _______
-#define WNDW_QUAD_R2 _______, XXXXXXX,  XXXXXXX, XXXXXXX,  _______
-#define WNDW_QUAD_R3 _______, WM_4Q_LL, XXXXXXX, WM_4Q_LR, _______
+#define WNDW_QUAD_R1 _x_,     WM_4Q_UL, _x_,     WM_4Q_UR, _x_
+#define WNDW_QUAD_R2 _x_,     _x_,      _x_,     _x_,      _x_
+#define WNDW_QUAD_R3 _x_,     WM_4Q_LL, _x_,     WM_4Q_LR, TO(_NAV)
 // VERTICAL FOURTH TILING
-#define WNDW_VERT_R1 _______, XXXXXXX,  XXXXXXX, XXXXXXX,  _______
-#define WNDW_VERT_R2 _______, WM_4V_L,  XXXXXXX, WM_4V_R,  _______
-#define WNDW_VERT_R3 _______, WM_4V_LC, XXXXXXX, WM_4V_RC, _______
+#define WNDW_VERT_R1 _x_,     _x_,      _x_,     _x_,      _x_
+#define WNDW_VERT_R2 _x_,     WM_4V_L,  _x_,     WM_4V_R,  _x_
+#define WNDW_VERT_R3 _x_,     WM_4V_LC, _x_,     WM_4V_RC, TO(_NAV)
 // THRID TILING
-#define WNDW_THRD_R1 _______, WM_3_LL, XXXXXXX, WM_3_RR, _______
-#define WNDW_THRD_R2 _______, WM_3_L,  WM_3_M,  WM_3_R,  _______
-#define WNDW_THRD_R3 _______, XXXXXXX, XXXXXXX, XXXXXXX, _______
+#define WNDW_THRD_R1 _x_,     WM_3_LL, _x_,     WM_3_RR,   _x_
+#define WNDW_THRD_R2 _x_,     WM_3_L,  WM_3_M,  WM_3_R,    _x_
+#define WNDW_THRD_R3 _x_,     _x_,     _x_,     _x_,       TO(_NAV)
 // SIXTH TILING
-#define WNDW_SIXT_R1 _______, WM_6_UL, WM_6_UM, WM_6_UR, _______
-#define WNDW_SIXT_R2 _______, XXXXXXX, XXXXXXX, XXXXXXX, _______
-#define WNDW_SIXT_R3 _______, WM_6_LL, WM_6_LM, WM_6_LR, _______
+#define WNDW_SIXT_R1 _x_,     WM_6_UL, WM_6_UM, WM_6_UR,   _x_
+#define WNDW_SIXT_R2 _x_,     _x_,     _x_,     _x_,       _x_
+#define WNDW_SIXT_R3 _x_,     WM_6_LL, WM_6_LM, WM_6_LR,   TO(_NAV)
 
 /*
   === ADJUST ===
 */
 
-#define ADJUST_L1 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_WORKMAN
-#define ADJUST_L2 XXXXXXX, KC_MPRV, KC_MNXT, KC_MPLY, XXXXXXX
-#define ADJUST_L3 XXXXXXX, XXXXXXX, XXXXXXX, KC_MSTP, XXXXXXX
-#define ADJUST_LB XXXXXXX, XXXXXXX
+#define ADJUST_L1 RESET,   DEBUG,     _x_,     _x_,     KC_WORKMAN
+#define ADJUST_L2 _x_,     KC_MPRV, KC_MNXT, KC_MPLY, _x_
+#define ADJUST_L3 _x_,     _x_,     _x_,     KC_MSTP, _x_
 
 
-#define ADJUST_R1 KC_QWERTY,     XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX
+#define ADJUST_R1 KC_QWERTY,     _x_,     _x_,           _x_,     _x_
 #define ADJUST_R2 KC_COLEMAK_DH, KC_MUTE, KC_VOLD,       KC_VOLU, KC_LED_INC_BRGT
-#define ADJUST_R3 KC_COLEMAX,    RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_LED_DCR_BRGT
-#define ADJUST_RB RESET, DEBUG
+#define ADJUST_R3 KC_ISRT,    RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_LED_DCR_BRGT

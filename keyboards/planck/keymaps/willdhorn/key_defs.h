@@ -33,6 +33,33 @@
 #define RHYP_T(kc) MT(MOD_RCTL | MOD_RSFT | MOD_RALT | MOD_RGUI, kc)
 #define RMEH_T(kc) MT(MOD_RCTL | MOD_RSFT | MOD_RALT, kc)
 
+#define _x_ KC_NO
+
+/*
+  === MAC SHORTCUTS ===
+*/
+// HOME AND END KEYS
+#define OSX_HOME CMD(KC_LEFT)
+#define OSX_END CMD(KC_RIGHT)
+// GENERAL 
+#define S_UNDO CMD(KC_Z)
+#define S_CUT CMD(KC_X)
+#define S_COPY CMD(KC_C)
+#define S_PASTE CMD(KC_V)
+#define S_CLIPBOARD MEH(KC_V) // PASTE FROM CLIPBOARD
+// TABS
+#define S_TABL SFT(CMD(KC_LBRC))
+#define S_TABR SFT(CMD(KC_RBRC))
+// DESKTOPS AND MISSION CONTROL
+#define OSX_DESK_PREV CTL(KC_LEFT)
+#define OSX_DESK_RIGHT CTL(KC_RIGHT)
+#define OSX_MC_DESKS CTL(KC_UP)
+#define OSX_MC_APPS CTL(KC_DOWN)
+// TAP DANCE
+#define OSX_APP_PREV TD(TD_APPSW_L)
+#define OSX_APP_WNDW TD(TD_APPSW_M)
+#define OSX_APP_NEXT TD(TD_APPSW_R)
+
 /*
   === WINDOW ARRANGEMENT ===
 */
@@ -77,30 +104,6 @@
 #define WNDW_LAYER_6 OSL(_WNDW_SIXT)
 
 /*
-  === MAC SHORTCUTS ===
-*/
-// HOME AND END KEYS
-#define OSX_HOME CMD(KC_LEFT)
-#define OSX_END CMD(KC_RIGHT)
-// GENERAL 
-#define S_UNDO CMD(KC_Z)
-#define S_CUT CMD(KC_X)
-#define S_COPY CMD(KC_C)
-#define S_PASTE CMD(KC_V)
-// TABS
-#define S_TABL SFT(CMD(KC_LBRC))
-#define S_TABR SFT(CMD(KC_RBRC))
-// DESKTOPS AND MISSION CONTROL
-#define OSX_DESK_PREV CTL(KC_LEFT)
-#define OSX_DESK_RIGHT CTL(KC_RIGHT)
-#define OSX_MC_DESKS CTL(KC_UP)
-#define OSX_MC_APPS CTL(KC_DOWN)
-// TAP DANCE
-#define OSX_APP_PREV TD(TD_APPSW_L)
-#define OSX_APP_WNDW TD(TD_APPSW_M)
-#define OSX_APP_NEXT TD(TD_APPSW_R)
-
-/*
   === VISUAL STUDIO CODE ===
 */
 // MOVE CURSOR TO PREVIOUS LOCATION
@@ -115,7 +118,7 @@
 #define VSC_FIND        CMD(KC_F)
 #define VSC_FIND_PREV   SFT(CMD(KC_G))
 #define VSC_FIND_NEXT   CMD(KC_G)
-// LOOKUP SYMBOLS
+// LOOKUP CODE
 #define VSC_RENAME   KC_F2
 #define VSC_GOTO_DEF KC_F12
 #define VSC_PEEK_DEF ALT(KC_F12)
@@ -148,7 +151,7 @@ enum custom_keycodes {
     KC_QWERTY,
     KC_WORKMAN,
     KC_COLEMAK_DH,
-    KC_COLEMAX,
+    KC_ISRT,
     // RGB
     KC_LAYERCOLOR,
     KC_LED_INC_BRGT,
@@ -179,6 +182,7 @@ enum custom_keycodes {
 */ 
 
 #define IS_LETTER(kc) (KC_A <= (kc) && (kc) <= KC_Z)
+#define IS_SYSTEM_KEY(kc) ((kc) == KC_BACKSPACE || (kc) == KC_ENTER || (kc) == KC_TAB || (kc) == KC_ESCAPE || (kc) == KC_SPACE)
 
 // .,;?!'"()@
 #define IS_SYM_COMMON(kc) ((kc) == KC_DOT || (kc) == KC_COMM || (kc) == KC_SCLN || (kc) == KC_QUES || (kc) == KC_EXLM || (kc) == KC_QUOT || (kc) == KC_DQUO || (kc) == KC_LPRN || (kc) == KC_RPRN || (kc) == KC_AT)
@@ -191,15 +195,16 @@ enum custom_keycodes {
 
 #define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
 #define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
-
+ 
 #define IS_NAV_SC(kc) ((kc) == S_TABL || (kc) == S_TABR || (kc) == OSX_HOME || (kc) == OSX_END)
-#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || (kc) == S_CUT || (kc) == S_COPY || (kc) == S_PASTE)
+#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || (kc) == S_CUT || (kc) == S_COPY || (kc) == S_PASTE || (kc) == S_CLIPBOARD)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
-#define IS_MOD_KEY(kc) ((((kc>>5) & 0x07) == 0x07) || IS_OSM(kc))
+#define IS_MOD_KEY(kc) ((((kc>>5) & 0x07) == 0x07) || (IS_OSM(kc) && MT_KEYCODE(kc) != KC_SPACE))
 
 
 #define IS_MO_LAYER(kc) ((kc) >= QK_MOMENTARY && (kc) <= QK_MOMENTARY_MAX)
+#define IS_TO_LAYER(kc) ((kc) >= QK_TO && (kc) <= QK_TO_MAX)
 #define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
 #define IS_LT_LAYER(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)

@@ -53,18 +53,18 @@
 // Default Layers
 #define CL_QWERTY           CHSV(12, 200, 170) // Dull pink/beige
 #define CL_COLEMAK_DH       CHSV(85, 255, 240) // Green
-#define CL_COLEMAX          CHSV(45, 255, 240) // Yellow
-#define CL_WORKMAN          CHSV(170, 255, 240) // Purple
+#define CL_WORKMAN          CHSV(45, 255, 240) // Yellow
+#define CL_ISRT             CHSV(170, 255, 240) // Purple
 
 // Additional Layers
-#define CL_SYMBOLS      C_INDIGO
-#define CL_EXT          C_YELLOW
+#define CL_EXT          C_BLUE
+#define CL_NAV          C_YELLOW
 #define CL_NUM          C_SEAGREEN
-#define CL_VSCODE       C_PURPLE
+#define CL_VSCODE       C_VIOLET
 #define CL_ADJUST       C_RED
 
 // Apps/Window Layersr
-#define CL_SWITCH       C_HOTPINK
+#define CL_SWITCH       C_MAGENTA
 #define CL_WNDW_HALF    C_INDIGO
 #define CL_WNDW_QUAD    C_RED
 #define CL_WNDW_VERT    C_ORANGE
@@ -77,19 +77,19 @@
 #define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_SHFT(color)) : (color))
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
-#define CK_MODIFIERS      C_RED
+#define CK_MODIFIERS      CF_PALE(C_RED)
 
 #define CK_SYM_COMMON     C_CYAN
 #define CK_SYM_BRACKET    C_TURQUOISE
-#define CK_SYM_PROGRAM    CL_SYMBOLS
+#define CK_SYM_PROGRAM    C_INDIGO
 #define CK_SYM_OTHER      C_SEAGREEN
 
-#define CK_NUMBERS        CL_NUM
+#define CK_NUMBERS        C_GREEN
 
-#define CK_ARROWS         CL_EXT
+#define CK_ARROWS         CL_NAV
 
 #define CK_NAV_SC         C_LIME
-#define CK_SYS_SC         C_GREEN
+#define CK_SYS_SC         C_PURPLE
 
 #define CK_VSCODE         CL_VSCODE
 #define CK_VSC_LGT        CHSV(F_H_RGT((CL_VSCODE).h, 10), F_SUB((CL_VSCODE).s, 25), (CL_VSCODE).v)
@@ -116,10 +116,10 @@
 // #define C_APPSC     C_GREEN       // APPLICATION SHORTCUTS
 // #define C_SYSPEC    C_SEAGREEN    // SPECIAL CHARACTERS
 // #define C_SYBRACKET C_TURQUOISE   // BRACKETS
-// #define C_SYPROG    C_CYAN        // PROGRAMMING SYMBOLS   
+// #define C_SYPROG    C_CYAN        // PROGRAMMING NAV   
 // #define C_SYPARENS  C_BLUE        // PARENS
-// #define C_SYCOMMON  C_INDIGO      // COMMON SYMBOLS
-// #define C_SYPUNC    C_VIOLET      // PUNCTUATION SYMBOLS
+// #define C_SYCOMMON  C_INDIGO      // COMMON NAV
+// #define C_SYPUNC    C_VIOLET      // PUNCTUATION NAV
 // #define C_MISC      C_PURPLE      // MISC
 // #define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
 // #define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?

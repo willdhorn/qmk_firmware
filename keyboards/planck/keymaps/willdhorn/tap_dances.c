@@ -5,13 +5,18 @@
 #include "key_defs.h"
 #include "layers.h"
 
-
 qk_tap_dance_action_t tap_dance_actions[] = {
-    //[TD_SPACE] = ACTION_TAP_DANCE_DOUBLE(MO(_SWITCH), KC_CAPS),
+    // Switch layer
     [TD_APPSW_L] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_left),
     [TD_APPSW_M] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_mid),
     [TD_APPSW_R] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_right)
-};
+    // One shot - tap: osm, hold: mod, 2tap: del osm, 3tap:lock mod until next tap
+    
+    // tap: backspace, hold: cmd+backspace
+    
+    // tap: ext, hold: default
+}
+;
 
 bool app_switch_mode = false;
 

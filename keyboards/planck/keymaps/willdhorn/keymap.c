@@ -15,9 +15,9 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = LAYER_QWERTY,
                                                               [_COLEMAK_DH]   = LAYER_COLEMAK_DH,
-                                                              [_COLEMAX]      = LAYER_COLEMAX,
+                                                              [_ISRT]      = LAYER_ISRT,
                                                               [_WORKMAN]      = LAYER_WORKMAN,
-                                                              [_SYMBOLS]      = LAYER_SYMBOLS,
+                                                              [_NAV]      = LAYER_NAV,
                                                               [_EXT]          = LAYER_EXT,
                                                               [_NUM]          = LAYER_NUM,
                                                               [_VSCODE]       = LAYER_VSCODE,
@@ -41,18 +41,18 @@ const key_override_t delete_key_override = SHIFT_OVERRIDE(KC_BSPACE, KC_DELETE);
 const key_override_t period_question_override = SHIFT_OVERRIDE(KC_DOT, KC_QUES);
 const key_override_t comma_exclamation_override = SHIFT_OVERRIDE(KC_COMMA, KC_EXLM);
 
-const key_override_t sym_lparen_lbracket_override = SHIFT_OVERRIDE(KC_LPRN, KC_LBRC);
-const key_override_t sym_rparen_rbracket_override = SHIFT_OVERRIDE(KC_RPRN, KC_RBRC);
+// const key_override_t sym_lparen_lbracket_override = SHIFT_OVERRIDE(KC_LPRN, KC_LBRC);
+// const key_override_t sym_rparen_rbracket_override = SHIFT_OVERRIDE(KC_RPRN, KC_RBRC);
 const key_override_t sym_lbrace_langlebr_override = SHIFT_OVERRIDE(KC_LCBR, KC_LABK);
 const key_override_t sym_rbrace_ranglebr_override = SHIFT_OVERRIDE(KC_RCBR, KC_RABK);
 
-const key_override_t sym_plus_carrot_override = SHIFT_OVERRIDE(KC_PLUS, KC_CRRT);
-const key_override_t sym_astrick_dollar_override = SHIFT_OVERRIDE(KC_ASTR, KC_DLR);
+// const key_override_t sym_plus_carrot_override = SHIFT_OVERRIDE(KC_PLUS, KC_CRRT);
+// const key_override_t sym_astrick_dollar_override = SHIFT_OVERRIDE(KC_ASTR, KC_DLR);
 const key_override_t sym_equal_tilde_override = SHIFT_OVERRIDE(KC_EQL, KC_TILD);
-const key_override_t sym_minus_ampersand_override = SHIFT_OVERRIDE(KC_MINS, KC_AMPR);
-const key_override_t sym_slash_pipe_override = SHIFT_OVERRIDE(KC_SLSH, KC_PIPE);
-const key_override_t sym_colon_at_override = SHIFT_OVERRIDE(KC_COLN, KC_AT);
-const key_override_t sym_underscore_grave_override = SHIFT_OVERRIDE(KC_UNDS, KC_GRV);
+// const key_override_t sym_minus_ampersand_override = SHIFT_OVERRIDE(KC_MINS, KC_AMPR);
+const key_override_t sym_slash_bsls_override = SHIFT_OVERRIDE(KC_SLSH, KC_BSLS);
+const key_override_t sym_colon_semicolon_override = SHIFT_OVERRIDE(KC_COLN, KC_SCLN);
+// const key_override_t sym_underscore_grave_override = SHIFT_OVERRIDE(KC_UNDS, KC_GRV);
 
 
 // This globally defines all key overrides to be used
@@ -60,17 +60,17 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &period_question_override,
     &comma_exclamation_override,
-    &sym_lparen_lbracket_override,
-    &sym_rparen_rbracket_override,
-    &sym_lbrace_langlebr_override,
+    // &sym_lparen_lbracket_override,
+    // &sym_rparen_rbracket_override,
+    &sym_lbrace_langlebr_override, 
     &sym_rbrace_ranglebr_override,
-    &sym_plus_carrot_override,
-    &sym_astrick_dollar_override,
+    // &sym_plus_carrot_override,
+    // &sym_astrick_dollar_override,
     &sym_equal_tilde_override,
-    &sym_minus_ampersand_override,
-    &sym_slash_pipe_override,
-    &sym_colon_at_override,
-    &sym_underscore_grave_override,
+    // &sym_minus_ampersand_override,
+    &sym_slash_bsls_override,
+    &sym_colon_semicolon_override,
+    // &sym_underscore_grave_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -139,7 +139,7 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-static uint16_t space_timer = 0;
+static uint16_t bspace_timer = 0;
 extern uint16_t mod_tap_timer;
 extern uint8_t mod_tap_active;
 
@@ -149,10 +149,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Keycodes defined in custom_keycodes
         case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
             return false;
-        case STD_LK_RAIS: // LT(space)
+        case KC_BACKSPACE: // LT(space)
             if (pressed) {
-                space_timer = record->event.time;
+                bspace_timer = record->event.time;
+            } else {
+              if (timer_elapsed(bspace_timer) > TAPPING_TERM) {
+                  // holding backspace; delete line
+                  tap_code16(CMD(KC_BACKSPACE));
+                  return false;
+              } else {
+                  // tapping; handle normally
+                  return true;
+              }
             }
+            
             break;
             
         // CUSTOM KEYS
@@ -184,8 +194,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_COLEMAK_DH:
             set_single_persistent_default_layer(_COLEMAK_DH);
             break;
-        case KC_COLEMAX:
-            set_single_persistent_default_layer(_COLEMAX);
+        case KC_ISRT:
+            set_single_persistent_default_layer(_ISRT);
             break;
         
         // VSCode keys for chorded shortcuts (cmd-k used as leader)
@@ -265,11 +275,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _SWITCH, _EXT, _VSCODE);
-    state = update_tri_layer_state(state, _NUM, _SWITCH, _ADJUST);
-    return state;
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     state = update_tri_layer_state(state, _SWITCH, _EXT, _VSCODE);
+//     state = update_tri_layer_state(state, _NUM, _SWITCH, _ADJUST);
+//     return state;
+// }
 
 void vscode_chord(uint16_t kc) { 
     two_tap(CMD(KC_K), kc);
@@ -288,7 +298,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #else
       case SPLT_KL1:
       case SPLT_KL2:
-      case SPLT_KL3:
+      case SPLT_K L3:
       case SPLT_KR3:
       case SPLT_KR1:
           return 200;
@@ -315,22 +325,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-      case STD_LK_RAIS:
-        // allows tapping term to be low for arrow key movements and faster reporting of space presses
-        // while still registering space when typing slower
-        if (timer_elapsed(space_timer) < SPACE_RETRO_TAP_TERM) {
-          return true;
-        }
-        else {
-          return false;
-        }
-        
-      default:
-        return false;
-    }
-}
+// bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+//     switch (keycode) {
+//       case STD_LK_RAIS:
+//         // allows tapping term to be low for arrow key movements and faster reporting of space presses
+//         // while still registering space when typing slower
+//         if (timer_elapsed(space_timer) < SPACE_RETRO_TAP_TERM) {
+//           return true;
+//         }
+//         else {
+//           return false;
+//         }
+//         
+//       default:
+//         return false;
+//     }
+// }
 
 // Audio and Music
 

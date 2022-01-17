@@ -9,9 +9,9 @@
 
 const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
                             [_COLEMAK_DH] =   CL_COLEMAK_DH,
-                            [_COLEMAX] =      CL_COLEMAX,
+                            [_ISRT] =      CL_ISRT,
                             [_WORKMAN] =      CL_WORKMAN,
-                            [_SYMBOLS] =      CL_SYMBOLS,
+                            [_NAV] =      CL_NAV,
                             [_EXT]     =      CL_EXT,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
@@ -75,8 +75,8 @@ void set_all_layer_colors(layer_state_t state) {
 }
 
 void set_layer_color(int layer, HSV color) {
-    bool is_default   = (layer < _DEFAULT_RANGE_);
-    bool is_top_layer = is_default ? g_active_layer == 0 : g_active_layer == layer;
+    //bool is_default   = (layer < _DEFAULT_RANGE_);
+    //bool is_top_layer = is_default ? g_active_layer == 0 : g_active_layer == layer;
 #ifdef DEBUG_LAYER_PRINT
     if (print_lock == 0) {
         dprintf("[layer %d]\n", layer);
@@ -94,17 +94,17 @@ void set_layer_color(int layer, HSV color) {
                     if (kc != KC_TRANSPARENT) {
                         HSV keyColor = get_keycode_color(kc, color);
 
-                        if (!is_top_layer) {
-                            if (is_default && kc != KC_EMPTY) {
-                                keyColor = C_BLACK;
-                            } else {
-                                // dim colors in lower layers based on 'height'
-                                uint8_t satDim = g_active_layer > 0 ? C_SAT_DIM_FACTOR * (g_active_layer - layer) : 0;
-                                keyColor.s = F_SUB(keyColor.s, satDim);
-                                uint8_t valDim = g_active_layer > 0 ? C_VAL_DIM_FACTOR * (g_active_layer - layer) : 0;
-                                keyColor.v = F_SUB(keyColor.v, valDim);
-                            }
-                        }
+                        // if (!is_top_layer) {
+                        //     if (is_default && kc != KC_EMPTY) {
+                        //         keyColor = C_BLACK;
+                        //     } else {
+                        //         // dim colors in lower layers based on 'height'
+                        //         uint8_t satDim = g_active_layer > 0 ? C_SAT_DIM_FACTOR * (g_active_layer - layer) : 0;
+                        //         keyColor.s = F_SUB(keyColor.s, satDim);
+                        //         uint8_t valDim = g_active_layer > 0 ? C_VAL_DIM_FACTOR * (g_active_layer - layer) : 0;
+                        //         keyColor.v = F_SUB(keyColor.v, valDim);
+                        //     }
+                        // }
 
                         keyColor.v = F_SUB(brightness_level, (255 - keyColor.v));
                         set_key_layer_color(index, layer, keyColor);
@@ -120,7 +120,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         case KC_NO:
             return C_BLACK;
         case KC_EMPTY:
-            return C_W(100);
+            return C_W(20);
         case RESET:
             return C_RED;
         case DEBUG:
@@ -143,8 +143,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return CF_PALE(CL_WORKMAN);
         case KC_COLEMAK_DH:
             return CF_PALE(CL_COLEMAK_DH);
-        case KC_COLEMAX:
-            return CF_PALE(CL_COLEMAX);
+        case KC_ISRT:
+            return CF_PALE(CL_ISRT);
     }
 
     if (IS_LETTER(kc)) {
@@ -170,13 +170,13 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return CK_MOD_TAP(key_color);  // no mods are active
         }
     }
-    else if (IS_MOD_KEY(kc)) {
-        return CK_MODIFIERS;
+    else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
+        return C_RED;
     }
-    else if (IS_OSL_LAYER(kc)) {
+    else if (IS_OSL_LAYER(kc) || IS_TO_LAYER(kc)) {
         return C_HOTPINK;
     }
-    /* SYMBOLS */
+    /* NAV */
     else if (IS_SYM_COMMON(kc)) {
         return CK_SYM_COMMON;
     }
