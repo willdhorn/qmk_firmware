@@ -165,13 +165,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     key = CMD(key);
                 }
                 // remove shift mod since some programs treat shift+delete differently
-                del_mods(MOD_MASK_SHIFT);
-                del_oneshot_mods(MOD_MASK_SHIFT);
+                del_mods((mod_state) & MOD_MASK_SHIFT);
+                del_oneshot_mods((osm_mod_state) & MOD_MASK_SHIFT);
 
                 tap_code16(key);
 
                 if (mod_shift) {
-                    add_mods(MOD_MASK_SHIFT);
+                    add_mods((mod_state) & MOD_MASK_SHIFT);
                 }
                 return false;
             }
@@ -304,19 +304,6 @@ void two_tap(uint16_t kc1, uint16_t kc2) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-#ifdef KB_LAYOUT_STANDARD
-      // case STD_LK_RAIS: // LT(space)
-      //     return 180; // smart retro tapping enabled (see below)
-#else
-      case SPLT_KL1:
-      case SPLT_KL2:
-      case SPLT_K L3:
-      case SPLT_KR3:
-      case SPLT_KR1:
-          return 200;
-      case SPLT_KR2:  // Space
-          return 250;
-#endif
 #ifndef BILATERAL_COMBINATIONS
       case ML1(KC_A):
       case ML2(KC_S):

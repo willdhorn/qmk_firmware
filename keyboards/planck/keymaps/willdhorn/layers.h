@@ -96,13 +96,13 @@ enum planck_layers {
 
 
 // NAV
-#define NAV_L1 KC_TAB,   _x_,     _x_,           _x_,           _x_
-#define NAV_L2 KC_ESC,   _x_,     OSM(MOD_LCTL), OSM(MOD_LALT), _x_
+#define NAV_L1 KC_TAB, _x_, TO(_SWITCH), _x_,         _x_
+#define NAV_L2 KC_ESC, _x_, _x_,         TO(_VSCODE), _x_
 #define NAV_L3 SHORTCUT_ROW
 
-#define NAV_R1 _x_,     OSX_HOME, KC_UP,       OSX_END,  KC_BSPACE
-#define NAV_R2 _x_,     KC_LEFT,  KC_DOWN,     KC_RIGHT, KC_ENTER
-#define NAV_R3 _x_,     VSC_BACK, TO(_SWITCH), VSC_FWRD, TO(_EXT)  
+#define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  KC_BSPACE
+#define NAV_R2 _x_,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
+#define NAV_R3 _x_,     VSC_BACK, _x_,     VSC_FWRD, TO(_EXT)  
 
 
 /*

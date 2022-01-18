@@ -53,28 +53,27 @@
 #else // SPLIT LAYOUT - WITH 3 LAYERKEYS
 // #   define SPLIT_ROW_DEFAULT(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 #   define SPLIT_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
-// #   define SPLIT_BASE(l1, l2, l3, l4, l5, space, r5, r4, r3, r2, r1) l1, l2, SPLT_KL1, SPLT_KL2, SPLT_KL3, space, SPLT_KR3, SPLT_KR2, SPLT_KR1, r2, r1
-// #   define SPLIT_BASE_5(l1, l2, space, r2, r1) l1, l2, SPLT_KL1, SPLT_KL2, SPLT_KL3, space, SPLT_KR3, SPLT_KR2, SPLT_KR1, r2, r1
-// #   define SPLIT_BASE_4(l1, l2, r2, r1) SPLIT_BASE_5(l1, l2, KC_CAPSLOCK, r2, r1)
+//#   define SPLIT_BASE(l1, l2, l3, l4, l5, space, r5, r4, r3, r2, r1) l1, l2, SPLT_KL1, SPLT_KL2, SPLT_KL3, space, SPLT_KR3, SPLT_KR2, SPLT_KR1, r2, r1
+#    define SPLIT_BASE_5(l1, l2, space, r2, r1) KC_EMPTY, KC_EMPTY, OSM(MOD_LCMD), l1, OSM(MOD_LSFT), space, OSM(MOD_LALT), r1, OSM(MOD_LCTL), KC_EMPTY, KC_EMPTY
+#    define SPLIT_BASE_4(l2, l1, r1, r2) SPLIT_BASE_5(l1, l2, LK_SPACE_BAR, r2, r1)
 
 // #   define SPLIT_HOME_MOD_DEFAULT(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) MOD_LEFT(l1,l2,l3,l4,l5), KC_EMPTY, KC_EMPTY, MOD_RIGHT(r5,r4,r3,r2,r1)
-#   define SPLIT_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) MOD_LEFT(l1,l2,l3,l4,l5), KC_EMPTY, KC_EMPTY, MOD_RIGHT(r5,r4,r3,r2,r1)
+#    define SPLIT_HOME_MOD(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) ML1(l1), ML2(l2), ML3(l3), ML4(l4), l5, KC_EMPTY, KC_EMPTY, r5, MR4(r4), MR3(r3), MR2(r2), MR1(r1)
 
+#    define DEF_TOP(...) SPLIT_ROW(__VA_ARGS__)
+#    define DEF_MID(...) SPLIT_HOME_MOD(__VA_ARGS__)
+#    define DEF_BOT(...) SPLIT_ROW(__VA_ARGS__)
+#    define BASE_ROW(...) SPLIT_BASE_4(__VA_ARGS__)
 
-#   define DEF_TOP(...)  SPLIT_ROW(__VA_ARGS__)
-#   define DEF_MID(...)  SPLIT_HOME_MOD(__VA_ARGS__)
-#   define DEF_BOT(...)  SPLIT_ROW(__VA_ARGS__)
-#   define BASE_ROW(...) SPLIT_ROW(__VA_ARGS__)
+#    define ROW(...) SPLIT_ROW(__VA_ARGS__)
+#    define MOD_ROW(...) SPLIT_HOME_MOD(__VA_ARGS__)
 
-#   define ROW(...)      SPLIT_ROW(__VA_ARGS__)
-#   define MOD_ROW(...)  SPLIT_HOME_MOD(__VA_ARGS__)
-
-#   define EMPTY_BASE    SPLIT_BASE(XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX)
+#    define EMPTY_BASE SPLIT_BASE_4(KC_EMPTY, KC_EMPTY, KC_EMPTY, KC_EMPTY)
 
 #endif
 
-#define DEFAULT_BASE BASE_ROW(OSM(MOD_LCMD), TO(_EXT), MT(MOD_LMEH,KC_SPACE), OSM(MOD_RSFT))
-#define FALLBACK_BASE BASE_ROW(OSM(MOD_LCMD), TO(_EXT), TO(0), OSM(MOD_RSFT))
+#define DEFAULT_BASE BASE_ROW(OSM(MOD_LCMD), TO(_EXT), MT(MOD_LMEH,KC_SPACE), OSM(MOD_LSFT))
+#define FALLBACK_BASE BASE_ROW(OSM(MOD_LCMD), TO(_EXT), TO(0), OSM(MOD_LSFT))
 /*
   === BEGIN LAYOUTS  ===
 */

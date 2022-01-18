@@ -74,6 +74,8 @@
 /* 
   === KEY COLORS === 
 */
+#define CK_EMPTY CF_PALE(CF_DIM(top_layer_color))
+
 #define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_SHFT(color)) : (color))
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
@@ -114,7 +116,7 @@
 #define CK_NAV_SC       C_LIME
 #define CK_NUMBERS      C_GREEN
 #define CK_OSM_LCK      C_GREEN
-#define CK_SYM_SPEC     C_YGREEN
+#define CK_SYM_SPEC     CF_PALE(C_GREEN)
 #define CK_SYM_PROG     C_SEAGREEN
 #define CK_SYM_PUNC     C_TURQUOISE
 #define CK_SYM_PAREN    C_CYAN
@@ -130,7 +132,7 @@
 #define F_H_RGT(hue, amt) ((hue+amt)%255)
 
 #define CF_PALE(color) CHSV((color).h,  (F_SUB((color).s, 50)), (color).v)
-#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 210))
+#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 230))
 #define CF_BRGT(color) CHSV((color).h, (color).s, F_ADD((color).v, 100))
 
 #define CF_SHFT(color) CHSV(F_H_RGT((color).h, 64), (color).s, F_ADD((color).v, 15))

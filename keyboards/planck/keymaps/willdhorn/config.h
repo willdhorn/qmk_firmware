@@ -9,7 +9,7 @@
 */
 
 // Layout switch
-#define KB_LAYOUT_STANDARD  // otherwise, use split layout
+// #define KB_LAYOUT_STANDARD  // otherwise, use split layout
 
 // Key Behaviour
 #undef TAPPING_TERM
@@ -25,10 +25,10 @@
 // This should make accidental mod triggers less likely
 #define BILATERAL_COMBINATIONS 400
 
-#define TAPPING_TOGGLE 1
+// #define TAPPING_TOGGLE 1
 
 // ONESHOT CONFIGS
-#define ONESHOT_TAP_TOGGLE 3
+#define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 3000
 
 // DEBUG FLAGS

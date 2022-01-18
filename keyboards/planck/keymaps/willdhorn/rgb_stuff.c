@@ -31,6 +31,7 @@ uint8_t g_active_layer = 0;
 uint8_t brightness_level = 255;
 uint16_t mod_tap_timer = 0;
 uint8_t mod_tap_active = 0;
+HSV top_layer_color;
 
 void set_g_active_layer(layer_state_t state) {
     for (uint8_t i = _MAX_LAYER_ - 1; i >= 0; i--) {
@@ -58,19 +59,22 @@ void set_default_layer_colors(layer_state_t state) {
               dprintf("\n\ndefault layer: %04X\n", layer);
             }
 #endif
+            if (g_active_layer < _DEFAULT_RANGE_) {
+                top_layer_color = layer_colors[layer];
+            }
             set_layer_color(layer, layer_colors[layer]);
         }
     }
 }
 
-HSV top_layer_color;
+
 
 void set_all_layer_colors(layer_state_t state) {
     set_g_active_layer(state);
+    top_layer_color = layer_colors[g_active_layer]; 
     set_default_layer_colors(default_layer_state);
 
-    top_layer_color = layer_colors[g_active_layer];
-    for (uint8_t layer = _DEFAULT_RANGE_; layer <= g_active_layer + 1; layer++) {
+    for ( int8_t layer = _DEFAULT_RANGE_; layer <= g_active_layer + 1; layer++) {
         if (layer_state_cmp(state, layer)) {
             set_layer_color(layer, layer_colors[layer]);
         }
@@ -124,7 +128,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         case KC_NO:
             return C_BLACK;
         case KC_EMPTY:
-            return CF_DIM(top_layer_color);
+            return CK_EMPTY;
         case RESET:
             return C_RED;
         case DEBUG:

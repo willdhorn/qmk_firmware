@@ -40,17 +40,16 @@
 #    define STD_LK_LOWR KC_LSFT
 #    define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #    define STD_LK_RGHT TT(_EXT)
-
-#    define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
-
 #else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#    define SPLT_KL3
-#    define SPLT_KL2 KC_SPACE
-#    define SPLT_KL1 OSM(KC_LSFT)
-#    define SPLT_KR1
-#    define SPLT_KR2
-#    define SPLT_KR3
+#    define SPLT_KL3 KC_EMPTY
+#    define SPLT_KL2 TT(_NUM)
+#    define SPLT_KL1 KC_LSFT
+#    define SPLT_KR1 LT(_NAV, KC_SPACE)
+#    define SPLT_KR2 TT(_EXT)
+#    define SPLT_KR3 KC_EMPTY
 #endif
+
+#define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
 
 /*
   === MAC SHORTCUTS ===
@@ -227,6 +226,7 @@ enum custom_keycodes {
   (kc) == KC_UNDS || \
   (kc) == KC_AMPR || \
   (kc) == KC_PIPE || \
+  (kc) == KC_HASH || \
   (kc) == KC_PERC || \
   (kc) == KC_BSLS )
 // =+-*/
@@ -241,7 +241,6 @@ enum custom_keycodes {
   (kc) == KC_CRRT || \
   (kc) == KC_DLR || \
   (kc) == KC_AT || \
-  (kc) == KC_HASH || \
   (kc) == KC_TILD || \
   (kc) == KC_GRV )
 
