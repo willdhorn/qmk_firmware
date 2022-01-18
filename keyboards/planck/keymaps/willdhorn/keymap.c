@@ -36,7 +36,7 @@ extern led_config_t g_led_config;
 /*
   === KEY OVERRIDES ===
 */
-const key_override_t delete_key_override = SHIFT_OVERRIDE(KC_BSPACE, KC_DELETE);
+//const key_override_t delete_key_override = SHIFT_OVERRIDE(KC_BSPACE, KC_DELETE);
 
 const key_override_t period_question_override = SHIFT_OVERRIDE(KC_DOT, KC_QUES);
 const key_override_t comma_exclamation_override = SHIFT_OVERRIDE(KC_COMMA, KC_EXLM);
@@ -57,7 +57,7 @@ const key_override_t sym_colon_semicolon_override = SHIFT_OVERRIDE(KC_COLN, KC_S
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
-    &delete_key_override,
+    //&delete_key_override,
     &period_question_override,
     &comma_exclamation_override,
     // &sym_lparen_lbracket_override,
@@ -70,7 +70,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     // &sym_minus_ampersand_override,
     &sym_slash_bsls_override,
     &sym_colon_semicolon_override,
-    // &sym_underscore_grave_override,
+
     NULL // Null terminate the array of overrides!
 };
 
@@ -145,24 +145,36 @@ extern uint8_t mod_tap_active;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
+    uint8_t mod_state = get_mods();
+    uint8_t osm_mod_state = get_oneshot_mods();
     switch (keycode) {
         // Keycodes defined in custom_keycodes
         case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
             return false;
-        case KC_BACKSPACE: // LT(space)
+        case KC_BACKSPACE:
+            // because key overrides cant handle this
             if (pressed) {
                 bspace_timer = record->event.time;
+                return false;
             } else {
-              if (timer_elapsed(bspace_timer) > TAPPING_TERM) {
-                  // holding backspace; delete line
-                  tap_code16(CMD(KC_BACKSPACE));
-                  return false;
-              } else {
-                  // tapping; handle normally
-                  return true;
-              }
+                bool mod_shift = (mod_state) & MOD_MASK_SHIFT; 
+                bool osm_shift = (osm_mod_state) & MOD_MASK_SHIFT; 
+                uint16_t key       = (mod_shift | osm_shift) ? KC_DELETE : KC_BACKSPACE;
+                if (timer_elapsed(bspace_timer) > TAPPING_TERM) {
+                    // holding key; delete line
+                    key = CMD(key);
+                }
+                // remove shift mod since some programs treat shift+delete differently
+                del_mods(MOD_MASK_SHIFT);
+                del_oneshot_mods(MOD_MASK_SHIFT);
+
+                tap_code16(key);
+
+                if (mod_shift) {
+                    add_mods(MOD_MASK_SHIFT);
+                }
+                return false;
             }
-            
             break;
             
         // CUSTOM KEYS

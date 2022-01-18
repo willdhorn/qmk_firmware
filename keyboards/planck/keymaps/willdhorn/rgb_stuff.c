@@ -63,10 +63,13 @@ void set_default_layer_colors(layer_state_t state) {
     }
 }
 
+HSV top_layer_color;
+
 void set_all_layer_colors(layer_state_t state) {
     set_g_active_layer(state);
     set_default_layer_colors(default_layer_state);
 
+    top_layer_color = layer_colors[g_active_layer];
     for (uint8_t layer = _DEFAULT_RANGE_; layer <= g_active_layer + 1; layer++) {
         if (layer_state_cmp(state, layer)) {
             set_layer_color(layer, layer_colors[layer]);
@@ -74,6 +77,7 @@ void set_all_layer_colors(layer_state_t state) {
     }
 }
 
+// Call this function layer by layer from the bottom up 
 void set_layer_color(int layer, HSV color) {
     //bool is_default   = (layer < _DEFAULT_RANGE_);
     //bool is_top_layer = is_default ? g_active_layer == 0 : g_active_layer == layer;
@@ -120,7 +124,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         case KC_NO:
             return C_BLACK;
         case KC_EMPTY:
-            return C_W(20);
+            return CF_DIM(top_layer_color);
         case RESET:
             return C_RED;
         case DEBUG:
@@ -149,53 +153,69 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
 
     if (IS_LETTER(kc)) {
         return CK_LETTERS(layer_color);
-    } else if (IS_MOD_TAP(kc)) {
+    } 
+    else if (IS_NUMBER(kc)) {
+        return CK_NUMBERS;
+    } else if (IS_ARROW(kc)) {
+        return CK_NAV;
+    } else if (IS_NAV_SC(kc)) {
+        return CK_NAV_SC;
+    } else if (IS_SYSTEM_SC(kc)) {
+        return CK_SYS_SC;
+    }
+    /* Modifiers */
+    else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
+        return C_RED;
+    }
+    else if (IS_MOD_TAP(kc)) {   
+        if (MT_KEYCODE(kc) == KC_SPACE) {
+          return CK_LETTERS(layer_color);
+        }
         
         HSV key_color = get_keycode_color(MT_KEYCODE(kc), layer_color);
-        if (kc == STD_LK_SPCE) key_color = CK_LETTERS(layer_color);
-        // if (get_mods() & MT_MODS(kc)) {
         if ((~get_mods() & MT_MODS(kc)) == 0) {
             return CF_OPPO(key_color);  // This mod key is currently held down
         }
+
 #ifdef BILATERAL_COMBINATIONS
-    #if  (BILATERAL_COMBINATIONS + 0) 
+    #if  (BILATERAL_COMBINATIONS + 0) // turn mod tap keys red when they can be used on the same hand
         else if (mod_tap_active && timer_elapsed(mod_tap_timer) > BILATERAL_COMBINATIONS) {
             return C_RED;
         }
     #endif
 #endif
-        else if (get_mods()) {
-            return C_WHITE;  // Some other mod key is being held down
-        } else {
+
+        // else if (get_mods()) {
+        //     return C_WHITE;  // Some other mod key is being held down
+        // }
+        else {
             return CK_MOD_TAP(key_color);  // no mods are active
         }
     }
-    else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
-        return C_RED;
+    else if (IS_OSM(kc)) {
+        uint8_t mods = OSM_MODS(kc);
+        if (get_oneshot_mods() & mods) {
+            return CK_OSM_ON;
+        } else if (get_mods() & mods) {
+            return CK_OSM;
+        } else {
+            return CK_MODS;
+        }
     }
-    else if (IS_OSL_LAYER(kc) || IS_TO_LAYER(kc)) {
-        return C_HOTPINK;
+    else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
+        return CK_LAYERS;
     }
-    /* NAV */
-    else if (IS_SYM_COMMON(kc)) {
-        return CK_SYM_COMMON;
-    }
-    if (IS_SYM_BRACKET(kc)) {
-        return CK_SYM_BRACKET;
-    } else if (IS_SYM_PROGRAM(kc)) {
-        return CK_SYM_PROGRAM;
-    } else if (IS_SYM_OTHER(kc)) {
-        return CK_SYM_OTHER;
-    }
-    /* UTILITY */
-    else if (IS_NUMBER(kc)) {
-        return CK_NUMBERS;
-    } else if (IS_ARROW(kc)) {
-        return CK_ARROWS;
-    } else if (IS_NAV_SC(kc)) {
-        return CK_NAV_SC;
-    } else if (IS_SYSTEM_SC(kc)) {
-        return CK_SYS_SC;
+    /* Symbols */
+    else if (IS_SYM_PUNCTUATION(kc)) {
+        return CK_SYM_PUNC;
+    } else if (IS_SYM_PAREN(kc)) {
+        return CK_SYM_PAREN;
+    } else if (IS_SYM_PROGRAMMING(kc)) {
+        return CK_SYM_PROG;
+    } else if (IS_SYM_MATH(kc)) {
+        return CK_SYM_MATH;
+    } else if (IS_SYM_SPECIAL(kc)) {
+        return CK_SYM_SPEC;
     }
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {

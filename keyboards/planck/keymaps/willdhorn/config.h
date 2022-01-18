@@ -21,7 +21,7 @@
 
 // !! ABSOLUTELY NEEDED FOR HOME ROW MODS !!
 #define IGNORE_MOD_TAP_INTERRUPT
-#define TAPPING_FORCE_HOLD
+// #define TAPPING_FORCE_HOLD
 // This should make accidental mod triggers less likely
 #define BILATERAL_COMBINATIONS 400
 

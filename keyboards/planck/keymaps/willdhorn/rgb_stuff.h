@@ -59,9 +59,9 @@
 // Additional Layers
 #define CL_EXT          C_BLUE
 #define CL_NAV          C_YELLOW
-#define CL_NUM          C_SEAGREEN
-#define CL_VSCODE       C_VIOLET
-#define CL_ADJUST       C_RED
+#define CL_NUM          C_GREEN
+#define CL_VSCODE       C_PURPLE
+#define CL_ADJUST       C_BLORNG
 
 // Apps/Window Layersr
 #define CL_SWITCH       C_MAGENTA
@@ -77,19 +77,19 @@
 #define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_SHFT(color)) : (color))
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
-#define CK_MODIFIERS      CF_PALE(C_RED)
-
-#define CK_SYM_COMMON     C_CYAN
-#define CK_SYM_BRACKET    C_TURQUOISE
-#define CK_SYM_PROGRAM    C_INDIGO
-#define CK_SYM_OTHER      C_SEAGREEN
-
-#define CK_NUMBERS        C_GREEN
-
-#define CK_ARROWS         CL_NAV
-
-#define CK_NAV_SC         C_LIME
-#define CK_SYS_SC         C_PURPLE
+// #define CK_MODIFIERS      CF_PALE(C_RED)
+// 
+// #define CK_SYM_COMMON     C_CYAN
+// #define CK_SYM_BRACKET    C_TURQUOISE
+// #define CK_SYM_PROGRAM    C_INDIGO
+// #define CK_SYM_OTHER      C_SEAGREEN
+// 
+// #define CK_NUMBERS        C_GREEN
+// 
+// #define CK_ARROWS         CL_NAV
+// 
+// #define CK_NAV_SC         C_LIME
+// #define CK_SYS_SC         C_PURPLE
 
 #define CK_VSCODE         CL_VSCODE
 #define CK_VSC_LGT        CHSV(F_H_RGT((CL_VSCODE).h, 10), F_SUB((CL_VSCODE).s, 25), (CL_VSCODE).v)
@@ -107,22 +107,22 @@
 #define CK_ADJ_RGB        C_HOTPINK
 
 // THE 16 COLORS ASSIGNED TO DIFFERNT CATEGORIES OF KEYS
-// #define C_MODS      C_RED         // MOD KEYS
-// #define C_APPEXT    C_BLORNG      // EXTEND...
-// #define C_EXTSC     C_ORANGE      // EXTEND SHORTCUTS
-// #define C_EXT       C_YELLOW      // EXTEND(GENERAL?)
-// #define C _MISCSC    C_YGREEN      // MISC SHORTCUTS
-// #define C_BASESC    C_LIME        // BASE? SHORTCUTS
-// #define C_APPSC     C_GREEN       // APPLICATION SHORTCUTS
-// #define C_SYSPEC    C_SEAGREEN    // SPECIAL CHARACTERS
-// #define C_SYBRACKET C_TURQUOISE   // BRACKETS
-// #define C_SYPROG    C_CYAN        // PROGRAMMING NAV   
-// #define C_SYPARENS  C_BLUE        // PARENS
-// #define C_SYCOMMON  C_INDIGO      // COMMON NAV
-// #define C_SYPUNC    C_VIOLET      // PUNCTUATION NAV
-// #define C_MISC      C_PURPLE      // MISC
-// #define C_LAYERSW   C_MAGENTA     // LAYER SWITCHING
-// #define C_CMPLXMOD  C_HOTPINK     // COMPLEX MODS?
+#define CK_MODS         C_RED
+#define CK_OSM          C_BLORNG
+#define CK_NAV          C_YELLOW
+#define CK_OSM_ON       C_YELLOW
+#define CK_NAV_SC       C_LIME
+#define CK_NUMBERS      C_GREEN
+#define CK_OSM_LCK      C_GREEN
+#define CK_SYM_SPEC     C_YGREEN
+#define CK_SYM_PROG     C_SEAGREEN
+#define CK_SYM_PUNC     C_TURQUOISE
+#define CK_SYM_PAREN    C_CYAN
+#define CK_SYM_MATH     C_BLUE
+#define CK_neio         C_VIOLET
+#define CK_SYS_SC       C_PURPLE
+#define CK_arst         C_MAGENTA
+#define CK_LAYERS       C_HOTPINK
 
 #define F_ADD(num, add) (num>=255-add ? 255 : num+add)
 #define F_SUB(num, sub) (num<=sub ? 0 : num-sub)
@@ -130,7 +130,7 @@
 #define F_H_RGT(hue, amt) ((hue+amt)%255)
 
 #define CF_PALE(color) CHSV((color).h,  (F_SUB((color).s, 50)), (color).v)
-#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 75))
+#define CF_DIM(color)  CHSV((color).h, (color).s, F_SUB((color).v, 210))
 #define CF_BRGT(color) CHSV((color).h, (color).s, F_ADD((color).v, 100))
 
 #define CF_SHFT(color) CHSV(F_H_RGT((color).h, 64), (color).s, F_ADD((color).v, 15))

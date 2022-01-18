@@ -35,6 +35,23 @@
 
 #define _x_ KC_NO
 
+#ifdef KB_LAYOUT_STANDARD  // STANDARD LAYOUT
+#    define STD_LK_LEFT TT(_NUM)
+#    define STD_LK_LOWR KC_LSFT
+#    define STD_LK_RAIS LT(_NAV, KC_SPACE)
+#    define STD_LK_RGHT TT(_EXT)
+
+#    define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
+
+#else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
+#    define SPLT_KL3
+#    define SPLT_KL2 KC_SPACE
+#    define SPLT_KL1 OSM(KC_LSFT)
+#    define SPLT_KR1
+#    define SPLT_KR2
+#    define SPLT_KR3
+#endif
+
 /*
   === MAC SHORTCUTS ===
 */
@@ -182,40 +199,86 @@ enum custom_keycodes {
 */ 
 
 #define IS_LETTER(kc) (KC_A <= (kc) && (kc) <= KC_Z)
+#define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
 #define IS_SYSTEM_KEY(kc) ((kc) == KC_BACKSPACE || (kc) == KC_ENTER || (kc) == KC_TAB || (kc) == KC_ESCAPE || (kc) == KC_SPACE)
 
-// .,;?!'"()@
-#define IS_SYM_COMMON(kc) ((kc) == KC_DOT || (kc) == KC_COMM || (kc) == KC_SCLN || (kc) == KC_QUES || (kc) == KC_EXLM || (kc) == KC_QUOT || (kc) == KC_DQUO || (kc) == KC_LPRN || (kc) == KC_RPRN || (kc) == KC_AT)
-// {}[]
-#define IS_SYM_BRACKET(kc) ( (kc) == KC_LBRC || (kc) == KC_RBRC || (kc) == KC_LCBR || (kc) == KC_RCBR )
-// =_+-*/&|%<>
-#define IS_SYM_PROGRAM(kc) ( (kc) == KC_EQL || (kc) == KC_UNDS || (kc) == KC_PLUS || (kc) == KC_MINS || (kc) == KC_ASTR || (kc) == KC_SLSH || (kc) == KC_AMPR || (kc) == KC_PIPE || (kc) == KC_PERC || (kc) == KC_LABK || (kc) == KC_RABK )
-// \^$#~`
-#define IS_SYM_OTHER(kc) ( (kc) == KC_BSLS || (kc) == KC_CRRT || (kc) == KC_DLR || (kc) == KC_HASH || (kc) == KC_TILD || (kc) == KC_GRV )
+// .,;:?!'"
+#define IS_SYM_PUNCTUATION(kc) ( \
+  (kc) == KC_DOT || \
+  (kc) == KC_COMM || \
+  (kc) == KC_SCLN || \
+  (kc) == KC_COLN || \
+  (kc) == KC_QUES || \
+  (kc) == KC_EXLM || \
+  (kc) == KC_QUOT || \
+  (kc) == KC_DQUO )
+// (){}[]<>
+#define IS_SYM_PAREN(kc) ( \
+  (kc) == KC_LPRN || \
+  (kc) == KC_RPRN || \
+  (kc) == KC_LBRC || \
+  (kc) == KC_RBRC || \
+  (kc) == KC_LCBR || \
+  (kc) == KC_RCBR || \
+  (kc) == KC_LABK || \
+  (kc) == KC_RABK )
+// _\&|%
+#define IS_SYM_PROGRAMMING(kc) ( \
+  (kc) == KC_UNDS || \
+  (kc) == KC_AMPR || \
+  (kc) == KC_PIPE || \
+  (kc) == KC_PERC || \
+  (kc) == KC_BSLS )
+// =+-*/
+#define IS_SYM_MATH(kc) ( \
+  (kc) == KC_EQL || \
+  (kc) == KC_PLUS || \
+  (kc) == KC_MINS || \
+  (kc) == KC_ASTR || \
+  (kc) == KC_SLSH )
+// ^$#~`
+#define IS_SYM_SPECIAL(kc) ( \
+  (kc) == KC_CRRT || \
+  (kc) == KC_DLR || \
+  (kc) == KC_AT || \
+  (kc) == KC_HASH || \
+  (kc) == KC_TILD || \
+  (kc) == KC_GRV )
 
-#define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
 #define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
  
-#define IS_NAV_SC(kc) ((kc) == S_TABL || (kc) == S_TABR || (kc) == OSX_HOME || (kc) == OSX_END)
-#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || (kc) == S_CUT || (kc) == S_COPY || (kc) == S_PASTE || (kc) == S_CLIPBOARD)
+#define IS_NAV_SC(kc) ((kc) == S_TABL || \
+  (kc) == S_TABR || \
+  (kc) == OSX_HOME || \
+  (kc) == OSX_END)
+#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || \
+  (kc) == S_CUT || \
+  (kc) == S_COPY || \
+  (kc) == S_PASTE || \
+  (kc) == S_CLIPBOARD)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
-#define IS_MOD_KEY(kc) ((((kc>>5) & 0x07) == 0x07) || (IS_OSM(kc) && MT_KEYCODE(kc) != KC_SPACE))
+#define IS_MOD_KEY(kc) ((((kc)>>5) & 0x07) == 0x07)
 
+#define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
+#define IS_OSM(kc) ((kc) >= QK_ONE_SHOT_MOD && (kc) <= QK_ONE_SHOT_MOD_MAX)
+
+#define IS_LAYER_KEY(kc) (IS_MO_LAYER(kc) || IS_TO_LAYER(kc) || IS_DF_LAYER(kc) || IS_LT_LAYER(kc) || IS_OSL_LAYER(kc))
 
 #define IS_MO_LAYER(kc) ((kc) >= QK_MOMENTARY && (kc) <= QK_MOMENTARY_MAX)
 #define IS_TO_LAYER(kc) ((kc) >= QK_TO && (kc) <= QK_TO_MAX)
 #define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
 #define IS_LT_LAYER(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
+
 #define IS_TAP_DANCE(kc) ((kc) >= QK_TAP_DANCE && (kc) <= QK_TAP_DANCE_MAX)
-#define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
-#define IS_OSM(kc) ((kc) >= QK_ONE_SHOT_MOD && (kc) <= QK_ONE_SHOT_MOD_MAX)
+
+#define LT_KEYCODE(lt) ((lt)&0xFF)
+#define LT_LAYER(lt) ((lt>>8)&0xF)
 
 #define MT_KEYCODE(mt) ((mt)&0xFF)
 #define MT_MODS(mt) ((((mt)>>8)&0x10) ? (((mt)>>4)&0xF0) : (((mt)>>8)&0x0F)) // get correct (L/R) mod mask 
-#define LT_KEYCODE(lt) ((lt)&0xFF)
-#define LT_LAYER(lt) ((lt>>8)&0xF)
+#define OSM_MODS(osm) ((osm)&0xFF) // OSM uses 8 mod bits instead of 5 like MT
 
 #define IS_VOL_KEY(kc) ( (kc) == KC_MUTE || (kc) == KC_VOLD || (kc) == KC_VOLU)
 #define IS_MED_KEY(kc) ( (kc) == KC_MPRV || (kc) == KC_MNXT || (kc) == KC_MPLY || (kc) == KC_MSTP )

@@ -21,23 +21,6 @@ enum planck_layers {
     _MAX_LAYER_
 };
 
-#ifdef KB_LAYOUT_STANDARD // STANDARD LAYOUT
-#   define STD_LK_LEFT TT(_NUM)
-#   define STD_LK_LOWR KC_LSFT
-#   define STD_LK_RAIS LT(_NAV, KC_SPACE)
-#   define STD_LK_RGHT TT(_EXT)
-
-#   define STD_LK_SPCE LT(_ADJUST, KC_CAPSLOCK)
-
-#else // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#   define SPLT_KL3 
-#   define SPLT_KL2 KC_SPACE
-#   define SPLT_KL1 OSM(KC_LSFT)
-#   define SPLT_KR1 
-#   define SPLT_KR2 
-#   define SPLT_KR3 
-#endif
-
 /*
   === DEFAULT LAYERS ===
 */
