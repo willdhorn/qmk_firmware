@@ -168,6 +168,11 @@ enum custom_keycodes {
     KC_WORKMAN,
     KC_COLEMAK_DH,
     KC_ISRT,
+    // CUSTOM ONE SHOT MODS
+    KC_OSM_CMD,
+    KC_OSM_SFT,
+    KC_OSM_ALT,
+    KC_OSM_CTL,
     // RGB
     KC_LAYERCOLOR,
     KC_LED_INC_BRGT,

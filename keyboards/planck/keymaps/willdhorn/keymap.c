@@ -170,14 +170,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 tap_code16(key);
 
-                if (mod_shift) {
-                    add_mods((mod_state) & MOD_MASK_SHIFT);
-                }
+                // if shift mod present, then at it back, otherwise do nothing
+                add_mods((mod_state) & MOD_MASK_SHIFT);
                 return false;
             }
             break;
             
         // CUSTOM KEYS
+
+        // Custom OSMs
+        case KC_OSM_CMD:
+            break;
+        case KC_OSM_SFT:
+            break;
+        case KC_OSM_ALT:
+            break;
+        case KC_OSM_CTL:
+            break;
 
         // Toggle layer coloring"
         case KC_LAYERCOLOR:

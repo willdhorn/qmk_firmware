@@ -39,7 +39,7 @@ enum planck_layers {
 #define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
 #define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
 
-#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, KC_BSPACE
+#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, TD(TD_BSPACE)
 #define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
 #define COLEMAK_DH_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
@@ -80,7 +80,7 @@ enum planck_layers {
 #define EXT_L2 KC_ESC,  KC_SLSH, KC_MINS, KC_EQUAL, KC_BSLS
 #define EXT_L3 SHORTCUT_ROW
 
-#define EXT_R1 _x_,     KC_AMPR, KC_LCBR, KC_RCBR, KC_BSPACE
+#define EXT_R1 _x_,     KC_AMPR, KC_LCBR, KC_RCBR, TD(TD_BSPACE)
 #define EXT_R2 KC_HASH, KC_COLN, KC_LPRN, KC_RPRN, KC_ENTER
 #define EXT_R3 KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, TO(_NAV)
 
@@ -90,17 +90,17 @@ enum planck_layers {
 #define NUM_L2 KC_PERC, KC_SLSH, KC_MINS, KC_EQUAL, KC_HASH
 #define NUM_L3 TO(0),   KC_LABK, KC_RABK, KC_TILD,  _x_
 
-#define NUM_R1 _x_,       KC_7, KC_8, KC_9, KC_BSPACE
-#define NUM_R2 KC_DOT,    KC_4, KC_5, KC_6, KC_0
-#define NUM_R3 KC_COMMA,  KC_1, KC_2, KC_3, TO(_NAV)
+#define NUM_R1 KC_COMMA, KC_7, KC_8, KC_9, TD(TD_BSPACE)
+#define NUM_R2 KC_0,     KC_4, KC_5, KC_6, KC_ENTER
+#define NUM_R3 KC_DOT,   KC_1, KC_2, KC_3, TO(_NAV)
 
 
 // NAV
-#define NAV_L1 KC_TAB, _x_, TO(_SWITCH), _x_,         _x_
-#define NAV_L2 KC_ESC, _x_, _x_,         TO(_VSCODE), _x_
+#define NAV_L1 KC_TAB, _x_, _x_,         _x_,         _x_
+#define NAV_L2 KC_ESC, _x_, TO(_VSCODE), TO(_SWITCH), _x_
 #define NAV_L3 SHORTCUT_ROW
 
-#define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  KC_BSPACE
+#define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  TD(TD_BSPACE)
 #define NAV_R2 _x_,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
 #define NAV_R3 _x_,     VSC_BACK, _x_,     VSC_FWRD, TO(_EXT)  
 
