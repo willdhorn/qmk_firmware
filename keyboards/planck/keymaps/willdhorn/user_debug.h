@@ -14,8 +14,9 @@
   (byte & 0x08 ? '1' : '0'), \
   (byte & 0x04 ? '1' : '0'), \
   (byte & 0x02 ? '1' : '0'), \
-  (byte & 0x01 ? '1' : '0') 
+  (byte & 0x01 ? '1' : '0')
 #define BOOL_STR(val) ((val) ? "true" : "false")
 
 #define DEBUG_KEYCODE_HEX(kc) dprintf("kc:   0x%04X\n", kc)
-#define DEBUG_KEYCODE_BINARY(kc) dprintf("keycode:\t" BYTE_TO_BINARY_PATTERN " " BYTE_TO_BINARY_PATTERN "\n\n", BYTE_TO_BINARY(kc >> 8), BYTE_TO_BINARY(kc))
+#define DEBUG_KEYCODE_BINARY(kc) dprintf("keycode:\t" BYTE_TO_BINARY_PATTERN " " BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(kc >> 8), BYTE_TO_BINARY(kc))
+#define DEBUG_BYTE_BINARY(label, byte) dprintf(label ":\t" BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(byte))

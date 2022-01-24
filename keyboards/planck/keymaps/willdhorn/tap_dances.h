@@ -46,6 +46,9 @@ void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data);
 // } quad_state_t;
 
 
+/* ONE SHOT MODS */
+
+
 /* APP SWITCH DANCES */
 
 typedef enum ad_mode_t {  // Tap Dance Modes

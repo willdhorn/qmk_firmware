@@ -1,5 +1,7 @@
 #pragma once
 
+#include "tap_dances.h"
+
 /*
  === MOD TAP/HOME MODS ===
 */
@@ -51,13 +53,14 @@
 
 #define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
 
+#define T_BSPACE TD(TD_BSPACE)
 /*
   === MAC SHORTCUTS ===
 */
 // HOME AND END KEYS
 #define OSX_HOME CMD(KC_LEFT)
 #define OSX_END CMD(KC_RIGHT)
-// GENERAL 
+// GENERAL
 #define S_UNDO CMD(KC_Z)
 #define S_CUT CMD(KC_X)
 #define S_COPY CMD(KC_C)
@@ -112,12 +115,23 @@
 #define WM_6_LM WM(KC_C)
 #define WM_6_LR WM(KC_V)
 
+#define WM_9_BL WM(KC_KP_1)
+#define WM_9_BC WM(KC_KP_2)
+#define WM_9_BR WM(KC_KP_3)
+#define WM_9_ML WM(KC_KP_4)
+#define WM_9_MC WM(KC_KP_5)
+#define WM_9_MR WM(KC_KP_6)
+#define WM_9_TL WM(KC_KP_7)
+#define WM_9_TC WM(KC_KP_8)
+#define WM_9_TR WM(KC_KP_9)
+
 // WINDOW LAYERS
 #define WNDW_LAYER_H OSL(_WNDW_HALF)
 #define WNDW_LAYER_Q OSL(_WNDW_QUAD)
 #define WNDW_LAYER_V OSL(_WNDW_VERT)
 #define WNDW_LAYER_3 OSL(_WNDW_THRD)
 #define WNDW_LAYER_6 OSL(_WNDW_SIXT)
+#define WNDW_LAYER_9 OSL(_WNDW_NINT)
 
 /*
   === VISUAL STUDIO CODE ===
@@ -200,11 +214,18 @@ enum custom_keycodes {
 
 /*
   === KEY TEST MACROS ===
-*/ 
+*/
 
 #define IS_LETTER(kc) (KC_A <= (kc) && (kc) <= KC_Z)
 #define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
-#define IS_SYSTEM_KEY(kc) ((kc) == KC_BACKSPACE || (kc) == KC_ENTER || (kc) == KC_TAB || (kc) == KC_ESCAPE || (kc) == KC_SPACE)
+#define IS_SYSTEM_KEY(kc) ( \
+  (kc) == KC_BACKSPACE || \
+  (kc) == T_BSPACE || \
+  (kc) == KC_ENTER || \
+  (kc) == KC_TAB || \
+  (kc) == KC_ESCAPE || \
+  (kc) == KC_SPACE \
+)
 
 // .,;:?!'"
 #define IS_SYM_PUNCTUATION(kc) ( \
@@ -250,7 +271,7 @@ enum custom_keycodes {
   (kc) == KC_GRV )
 
 #define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
- 
+
 #define IS_NAV_SC(kc) ((kc) == S_TABL || \
   (kc) == S_TABR || \
   (kc) == OSX_HOME || \
@@ -281,7 +302,7 @@ enum custom_keycodes {
 #define LT_LAYER(lt) ((lt>>8)&0xF)
 
 #define MT_KEYCODE(mt) ((mt)&0xFF)
-#define MT_MODS(mt) ((((mt)>>8)&0x10) ? (((mt)>>4)&0xF0) : (((mt)>>8)&0x0F)) // get correct (L/R) mod mask 
+#define MT_MODS(mt) ((((mt)>>8)&0x10) ? (((mt)>>4)&0xF0) : (((mt)>>8)&0x0F)) // get correct (L/R) mod mask
 #define OSM_MODS(osm) ((osm)&0xFF) // OSM uses 8 mod bits instead of 5 like MT
 
 #define IS_VOL_KEY(kc) ( (kc) == KC_MUTE || (kc) == KC_VOLD || (kc) == KC_VOLU)
@@ -310,7 +331,7 @@ enum custom_keycodes {
 
 #define SHIFT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_SHIFT, (kc), (ovrrde));
 #define MEH_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_MEH, (kc), (ovrrde));
- 
+
 // Functions for handling vscode short cut sequences
 void two_tap(uint16_t kc1, uint16_t kc2);
 void vscode_chord(uint16_t kc);

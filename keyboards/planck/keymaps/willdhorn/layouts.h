@@ -5,12 +5,12 @@
 
 
 // define home mods arrangement
-#define ML1(kc) kc 
-#define ML2(kc) kc 
-#define ML3(kc) kc // LCTL_T(kc) 
-#define ML4(kc) kc // LALT_T(kc) 
-#define MR4(kc) kc // RALT_T(kc) 
-#define MR3(kc) kc // RCTL_T(kc) 
+#define ML1(kc) kc
+#define ML2(kc) kc
+#define ML3(kc) kc // LCTL_T(kc)
+#define ML4(kc) kc // LALT_T(kc)
+#define MR4(kc) kc // RALT_T(kc)
+#define MR3(kc) kc // RCTL_T(kc)
 #define MR2(kc) kc
 #define MR1(kc) kc
 
@@ -144,7 +144,7 @@
 #define LAYER_NAV PLANCK_LAYOUT(NAV_1, NAV_2, NAV_3, NAV_4)
 
 // VSCODE
- 
+
 #define VSCODE_1 ROW(VSCODE_L1, VSCODE_R1)
 #define VSCODE_2 ROW(VSCODE_L2, VSCODE_R2)
 #define VSCODE_3 ROW(VSCODE_L3, VSCODE_R3)
@@ -186,11 +186,17 @@
 #define WNDW_SIXT_3 ROW(EMPTY_HALF, WNDW_SIXT_R3)
 #define WNDW_SIXT_4 FALLBACK_BASE
 
+#define WNDW_NINT_1 ROW(EMPTY_HALF, WNDW_NINT_R1)
+#define WNDW_NINT_2 ROW(EMPTY_HALF, WNDW_NINT_R2)
+#define WNDW_NINT_3 ROW(EMPTY_HALF, WNDW_NINT_R3)
+#define WNDW_NINT_4 FALLBACK_BASE
+
 #define LAYER_WNDW_HALF PLANCK_LAYOUT(WNDW_HALF_1, WNDW_HALF_2, WNDW_HALF_3, WNDW_HALF_4)
 #define LAYER_WNDW_QUAD PLANCK_LAYOUT(WNDW_QUAD_1, WNDW_QUAD_2, WNDW_QUAD_3, WNDW_QUAD_4)
 #define LAYER_WNDW_VERT PLANCK_LAYOUT(WNDW_VERT_1, WNDW_VERT_2, WNDW_VERT_3, WNDW_VERT_4)
 #define LAYER_WNDW_THRD PLANCK_LAYOUT(WNDW_THRD_1, WNDW_THRD_2, WNDW_THRD_3, WNDW_THRD_4)
 #define LAYER_WNDW_SIXT PLANCK_LAYOUT(WNDW_SIXT_1, WNDW_SIXT_2, WNDW_SIXT_3, WNDW_SIXT_4)
+#define LAYER_WNDW_NINT PLANCK_LAYOUT(WNDW_NINT_1, WNDW_NINT_2, WNDW_NINT_3, WNDW_NINT_4)
 
 // ADJUST
 #define ADJUST_1 ROW(ADJUST_L1, ADJUST_R1)

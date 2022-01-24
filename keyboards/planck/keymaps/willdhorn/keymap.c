@@ -27,6 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = 
                                                               [_WNDW_VERT]    = LAYER_WNDW_VERT,
                                                               [_WNDW_THRD]    = LAYER_WNDW_THRD,
                                                               [_WNDW_SIXT]    = LAYER_WNDW_SIXT,
+                                                              [_WNDW_NINT]    = LAYER_WNDW_NINT,
                                                               [_ADJUST]       = LAYER_ADJUST};
 
 extern bool         g_suspend_state;
@@ -48,29 +49,28 @@ const key_override_t sym_rbrace_ranglebr_override = SHIFT_OVERRIDE(KC_RCBR, KC_R
 
 // const key_override_t sym_plus_carrot_override = SHIFT_OVERRIDE(KC_PLUS, KC_CRRT);
 // const key_override_t sym_astrick_dollar_override = SHIFT_OVERRIDE(KC_ASTR, KC_DLR);
-const key_override_t sym_equal_tilde_override = SHIFT_OVERRIDE(KC_EQL, KC_TILD);
+// const key_override_t sym_equal_tilde_override = SHIFT_OVERRIDE(KC_EQL, KC_TILD);
 // const key_override_t sym_minus_ampersand_override = SHIFT_OVERRIDE(KC_MINS, KC_AMPR);
 const key_override_t sym_slash_bsls_override = SHIFT_OVERRIDE(KC_SLSH, KC_BSLS);
 const key_override_t sym_colon_semicolon_override = SHIFT_OVERRIDE(KC_COLN, KC_SCLN);
-// const key_override_t sym_underscore_grave_override = SHIFT_OVERRIDE(KC_UNDS, KC_GRV);
-
+const key_override_t sym_tilde_grave_override = SHIFT_OVERRIDE(KC_TILD, KC_GRV);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
-    //&delete_key_override,
+    // &delete_key_override,
     &period_question_override,
     &comma_exclamation_override,
     // &sym_lparen_lbracket_override,
     // &sym_rparen_rbracket_override,
-    &sym_lbrace_langlebr_override, 
+    &sym_lbrace_langlebr_override,
     &sym_rbrace_ranglebr_override,
     // &sym_plus_carrot_override,
     // &sym_astrick_dollar_override,
-    &sym_equal_tilde_override,
+    // &sym_equal_tilde_override,
     // &sym_minus_ampersand_override,
-    &sym_slash_bsls_override,
+    // &sym_slash_bsls_override,
     &sym_colon_semicolon_override,
-
+    &sym_tilde_grave_override,
     NULL // Null terminate the array of overrides!
 };
 
@@ -86,19 +86,19 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 //   COMBO_LENGTH
 // };
 // uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
-// 
+//
 // // Email - DHW + J (J is for @)
 // // Clear Line - N+Backspace
 // const uint16_t PROGMEM email_combo[] = {KC_D, KC_H, KC_W, KC_J, COMBO_END};
 // const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_N, COMBO_END};
-// 
-// 
+//
+//
 // combo_t key_combos[] = {
 //   [COMB_EMAIL] = COMBO_ACTION(email_combo),
 //   [COMB_CLR_LINE] = COMBO_ACTION(clear_line_combo),
 // };
 // /* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
-// 
+//
 // void process_combo_event(uint16_t combo_index, bool pressed) {
 //   switch(combo_index) {
 //     case COMB_EMAIL:
@@ -129,7 +129,7 @@ void keyboard_post_init_user(void) {
     set_default_layer_colors(default_layer_state);
 }
 
-void rgb_matrix_indicators_user(void) { 
+void rgb_matrix_indicators_user(void) {
     set_all_layer_colors(layer_state);
     // Set caps lock indicator light
     if (host_keyboard_led_state().caps_lock) {
@@ -157,8 +157,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 bspace_timer = record->event.time;
                 return false;
             } else {
-                bool mod_shift = (mod_state) & MOD_MASK_SHIFT; 
-                bool osm_shift = (osm_mod_state) & MOD_MASK_SHIFT; 
+                bool mod_shift = (mod_state) & MOD_MASK_SHIFT;
+                bool osm_shift = (osm_mod_state) & MOD_MASK_SHIFT;
                 uint16_t key       = (mod_shift | osm_shift) ? KC_DELETE : KC_BACKSPACE;
                 if (timer_elapsed(bspace_timer) > TAPPING_TERM) {
                     // holding key; delete line
@@ -175,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
-            
+
         // CUSTOM KEYS
 
         // Custom OSMs
@@ -218,9 +218,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_ISRT:
             set_single_persistent_default_layer(_ISRT);
             break;
-        
+
         // VSCode keys for chorded shortcuts (cmd-k used as leader)
-        
+
         // Move current editor to left/right group
         case VSC_MV_EDTR_LFT:
             if (pressed) {
@@ -259,8 +259,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (pressed) {
                 vscode_chord(KC_F12);
             }
-           break;  
-        
+           break;
+
         default:
             if (IS_MOD_TAP(keycode)) {
               if (pressed) {
@@ -284,7 +284,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         planck_ez_right_led_level(0);
     }
 
-    
 
 #ifdef DEBUG_KEYCODE_PRINT
     if (pressed) {
@@ -302,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //     return state;
 // }
 
-void vscode_chord(uint16_t kc) { 
+void vscode_chord(uint16_t kc) {
     two_tap(CMD(KC_K), kc);
 }
 
@@ -344,7 +343,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 //         else {
 //           return false;
 //         }
-//         
+//
 //       default:
 //         return false;
 //     }

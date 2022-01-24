@@ -21,6 +21,7 @@ const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
                             [_WNDW_VERT] =    CL_WNDW_VERT,
                             [_WNDW_THRD] =    CL_WNDW_THRD,
                             [_WNDW_SIXT] =    CL_WNDW_SIXT,
+                            [_WNDW_NINT] =    CL_WNDW_NINT,
                             [_ADJUST]  =      CL_ADJUST};
 
 bool layer_stack_color = true;
@@ -71,7 +72,7 @@ void set_default_layer_colors(layer_state_t state) {
 
 void set_all_layer_colors(layer_state_t state) {
     set_g_active_layer(state);
-    top_layer_color = layer_colors[g_active_layer]; 
+    top_layer_color = layer_colors[g_active_layer];
     set_default_layer_colors(default_layer_state);
 
     for ( int8_t layer = _DEFAULT_RANGE_; layer <= g_active_layer + 1; layer++) {
@@ -81,7 +82,7 @@ void set_all_layer_colors(layer_state_t state) {
     }
 }
 
-// Call this function layer by layer from the bottom up 
+// Call this function layer by layer from the bottom up
 void set_layer_color(int layer, HSV color) {
     //bool is_default   = (layer < _DEFAULT_RANGE_);
     //bool is_top_layer = is_default ? g_active_layer == 0 : g_active_layer == layer;
@@ -144,6 +145,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return CL_WNDW_THRD;
         case WNDW_LAYER_6:
             return CL_WNDW_SIXT;
+        case WNDW_LAYER_9:
+            return CL_WNDW_NINT;
         // DEFAULT LAYER
         case KC_QWERTY:
             return CF_PALE(CL_QWERTY);
@@ -157,7 +160,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
 
     if (IS_LETTER(kc)) {
         return CK_LETTERS(layer_color);
-    } 
+    }
     else if (IS_NUMBER(kc)) {
         return CK_NUMBERS;
     } else if (IS_ARROW(kc)) {
@@ -171,11 +174,11 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
         return C_RED;
     }
-    else if (IS_MOD_TAP(kc)) {   
+    else if (IS_MOD_TAP(kc)) {
         if (MT_KEYCODE(kc) == KC_SPACE) {
           return CK_LETTERS(layer_color);
         }
-        
+
         HSV key_color = get_keycode_color(MT_KEYCODE(kc), layer_color);
         if ((~get_mods() & MT_MODS(kc)) == 0) {
             return CF_OPPO(key_color);  // This mod key is currently held down

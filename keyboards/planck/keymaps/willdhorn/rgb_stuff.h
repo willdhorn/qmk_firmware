@@ -34,11 +34,11 @@
 #define C_GREEN     CHSV( H_GREEN, 255, 255 )
 #define C_SEAGREEN  CHSV( H_SEAGREEN, 255, 255 )
 #define C_TURQUOISE CHSV( H_TURQUOISE, 255, 255 )
-#define C_CYAN      CHSV( H_CYAN, 255, 255 ) // 
+#define C_CYAN      CHSV( H_CYAN, 255, 255 ) //
 #define C_BLUE      CHSV( H_BLUE, 255, 255 ) // BLUE
 #define C_INDIGO    CHSV( H_INDIGO, 255, 255 ) // DEEP BLUE
 #define C_VIOLET    CHSV( H_VIOLET, 255, 255 ) // PURPLE
-#define C_PURPLE    CHSV( H_PURPLE, 255, 255 ) // DEEP PURPLE 
+#define C_PURPLE    CHSV( H_PURPLE, 255, 255 ) // DEEP PURPLE
 #define C_MAGENTA   CHSV( H_MAGENTA, 255, 255 )
 #define C_HOTPINK   CHSV( H_HOTPINK, 255, 255 )
 
@@ -70,9 +70,10 @@
 #define CL_WNDW_VERT    C_ORANGE
 #define CL_WNDW_THRD    C_GREEN
 #define CL_WNDW_SIXT    C_YELLOW
+#define CL_WNDW_NINT    C_LIME
 
-/* 
-  === KEY COLORS === 
+/*
+  === KEY COLORS ===
 */
 #define CK_EMPTY CF_PALE(CF_DIM(top_layer_color))
 
@@ -80,16 +81,16 @@
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
 // #define CK_MODIFIERS      CF_PALE(C_RED)
-// 
+//
 // #define CK_SYM_COMMON     C_CYAN
 // #define CK_SYM_BRACKET    C_TURQUOISE
 // #define CK_SYM_PROGRAM    C_INDIGO
 // #define CK_SYM_OTHER      C_SEAGREEN
-// 
+//
 // #define CK_NUMBERS        C_GREEN
-// 
+//
 // #define CK_ARROWS         CL_NAV
-// 
+//
 // #define CK_NAV_SC         C_LIME
 // #define CK_SYS_SC         C_PURPLE
 
@@ -121,9 +122,9 @@
 #define CK_SYM_PUNC     C_TURQUOISE
 #define CK_SYM_PAREN    C_CYAN
 #define CK_SYM_MATH     C_BLUE
-#define CK_neio         C_VIOLET
+#define CK_notused      C_VIOLET
 #define CK_SYS_SC       C_PURPLE
-#define CK_arst         C_MAGENTA
+#define CK_unset        C_MAGENTA
 #define CK_LAYERS       C_HOTPINK
 
 #define F_ADD(num, add) (num>=255-add ? 255 : num+add)

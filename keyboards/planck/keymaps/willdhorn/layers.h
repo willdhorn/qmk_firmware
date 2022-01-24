@@ -17,6 +17,7 @@ enum planck_layers {
     _WNDW_VERT,
     _WNDW_THRD,
     _WNDW_SIXT,
+    _WNDW_NINT,
     _ADJUST,
     _MAX_LAYER_
 };
@@ -39,7 +40,7 @@ enum planck_layers {
 #define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
 #define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
 
-#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, TD(TD_BSPACE)
+#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, T_BSPACE
 #define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
 #define COLEMAK_DH_R3 KC_K, KC_H, KC_COMMA, KC_DOT, KC_QUOTE
 
@@ -71,7 +72,7 @@ enum planck_layers {
 // #define NAV_L1 KC_BSLS, KC_LBRC, KC_RBRC, KC_PIPE, _______
 // #define NAV_L2 KC_SLSH, KC_ASTR, KC_MINS, KC_PLUS, KC_HASH
 // #define NAV_L3 KC_PERC, KC_CRRT, KC_DLR,  KC_AMPR, KC_TILD
-// 
+//
 // #define NAV_R1 KC_AT,   KC_LABK, KC_LCBR, KC_RCBR, KC_RABK
 // #define NAV_R2 KC_GRV,  KC_EQL,  KC_LPRN, KC_RPRN, KC_COLON
 // #define NAV_R3 _______, KC_UNDS, KC_QUES, KC_EXLM, KC_DQUO
@@ -80,7 +81,7 @@ enum planck_layers {
 #define EXT_L2 KC_ESC,  KC_SLSH, KC_MINS, KC_EQUAL, KC_BSLS
 #define EXT_L3 SHORTCUT_ROW
 
-#define EXT_R1 _x_,     KC_AMPR, KC_LCBR, KC_RCBR, TD(TD_BSPACE)
+#define EXT_R1 _x_,     KC_AMPR, KC_LCBR, KC_RCBR, T_BSPACE
 #define EXT_R2 KC_HASH, KC_COLN, KC_LPRN, KC_RPRN, KC_ENTER
 #define EXT_R3 KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, TO(_NAV)
 
@@ -90,7 +91,7 @@ enum planck_layers {
 #define NUM_L2 KC_PERC, KC_SLSH, KC_MINS, KC_EQUAL, KC_HASH
 #define NUM_L3 TO(0),   KC_LABK, KC_RABK, KC_TILD,  _x_
 
-#define NUM_R1 KC_COMMA, KC_7, KC_8, KC_9, TD(TD_BSPACE)
+#define NUM_R1 KC_COMMA, KC_7, KC_8, KC_9, T_BSPACE
 #define NUM_R2 KC_0,     KC_4, KC_5, KC_6, KC_ENTER
 #define NUM_R3 KC_DOT,   KC_1, KC_2, KC_3, TO(_NAV)
 
@@ -100,9 +101,9 @@ enum planck_layers {
 #define NAV_L2 KC_ESC, _x_, TO(_VSCODE), TO(_SWITCH), _x_
 #define NAV_L3 SHORTCUT_ROW
 
-#define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  TD(TD_BSPACE)
+#define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  T_BSPACE
 #define NAV_R2 _x_,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
-#define NAV_R3 _x_,     VSC_BACK, _x_,     VSC_FWRD, TO(_EXT)  
+#define NAV_R3 _x_,     VSC_BACK, _x_,     VSC_FWRD, TO(_EXT)
 
 
 /*
@@ -114,16 +115,16 @@ enum planck_layers {
 #define VSCODE_L3 _x_,          _x_,           _x_,           VSC_RENAME,   _x_
 
 #define VSCODE_R1 _x_,     VSC_FCS_G_PREV,    VSC_TOGL_VRT_HRZ, VSC_FCS_G_NEXT,    _x_
-#define VSCODE_R2 _x_,     VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   _x_ 
+#define VSCODE_R2 _x_,     VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   _x_
 #define VSCODE_R3 _x_,     VSC_MV_EDTR_G_LFT, _x_,              VSC_MV_EDTR_G_RGT, _x_
 
 /*
   === APPS/WINDOW MANAGEMENT ===
 */
 
-#define SWITCH_L1 _x_,     WNDW_LAYER_6, WNDW_LAYER_V, _x_,          _x_
-#define SWITCH_L2 WM_FULL, WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, _x_
-#define SWITCH_L3 _x_,     _x_,          _x_,          _x_,          _x_
+#define SWITCH_L1 WNDW_LAYER_9, WNDW_LAYER_6, WNDW_LAYER_V, _x_,          _x_
+#define SWITCH_L2 WM_FULL,      WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, _x_
+#define SWITCH_L3 _x_,          _x_,          _x_,          _x_,          _x_
 
 #define SWITCH_R1 APPS_DESK_R1
 #define SWITCH_R2 APPS_DESK_R2
@@ -153,6 +154,10 @@ enum planck_layers {
 #define WNDW_SIXT_R1 _x_,     WM_6_UL, WM_6_UM, WM_6_UR,   _x_
 #define WNDW_SIXT_R2 _x_,     _x_,     _x_,     _x_,       _x_
 #define WNDW_SIXT_R3 _x_,     WM_6_LL, WM_6_LM, WM_6_LR,   TO(_NAV)
+// NINTH TILING
+#define WNDW_NINT_R1 _x_,     WM_9_TL, WM_9_TC, WM_9_TR,   _x_
+#define WNDW_NINT_R2 _x_,     WM_9_ML, WM_9_MC, WM_9_MR,   _x_
+#define WNDW_NINT_R3 _x_,     WM_9_BL, WM_9_BC, WM_9_BR,   TO(_NAV)
 
 /*
   === ADJUST ===

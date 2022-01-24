@@ -4,13 +4,14 @@
 #include "tap_dances.h"
 #include "key_defs.h"
 #include "layers.h"
+#include "user_debug.h"
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     // tap: backspace, hold: cmd+backspace
     [TD_BSPACE] = ACTION_TAP_DANCE_FN_ADVANCED(bspace_tap_hold_on_each_tap, bspace_tap_hold_finished, bspace_tap_hold_reset),
 
     // One shot - 1st tap: osm, 2nd tap: del osm, hold: mod, 3tap:lock mod until next tap
-    
+
     // Switch layer
     [TD_APPSW_L] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_left),
     [TD_APPSW_M] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_mid),
@@ -121,11 +122,21 @@ void bspace_tap_hold_on_each_tap(qk_tap_dance_state_t *state, void *user_data) {
       state->finished = true;
       state->timer -= TAPPING_TERM; // subtract since timer is the start time of the action
   }
+#ifdef DEBUG_TAP_DANCE
+    dprintf("TD bspace on_tap\n");
+    DEBUG_KEYCODE_HEX(bspace_tap.key);
+    DEBUG_BYTE_BINARY("mods",(state->weak_mods | state->oneshot_mods));
+#endif
 }
 
 void bspace_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
     bspace_tap.state = TAP_HOLD_STATE(state);
-    
+#ifdef DEBUG_TAP_DANCE
+    dprintf("TD bspace finished\n");
+    DEBUG_KEYCODE_HEX(bspace_tap.key);
+    DEBUG_BYTE_BINARY("mods",(state->weak_mods | state->oneshot_mods));
+#endif
+
     del_mods(MOD_MASK_SHIFT);
     del_weak_mods(MOD_MASK_SHIFT);
     del_oneshot_mods(MOD_MASK_SHIFT);
@@ -137,7 +148,7 @@ void bspace_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
       case TD_TAP: register_code16(bspace_tap.key); break;
       case TD_HOLD:
         switch (bspace_tap.key) {
-          case KC_BACKSPACE:  
+          case KC_BACKSPACE:
             register_code16(CMD(bspace_tap.key));
             break;
           case KC_DELETE:
@@ -148,12 +159,19 @@ void bspace_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {    
+void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
+#ifdef DEBUG_TAP_DANCE
+    dprintf("TD bspace reset\n");
+    DEBUG_KEYCODE_HEX(bspace_tap.key);
+    DEBUG_BYTE_BINARY("mods",(state->weak_mods | state->oneshot_mods));
+    dprintf("tap/hold state: %d, interrupted: %d, pressed: %d\n",TAP_HOLD_STATE(state), state->interrupted, state->pressed);
+#endif
+
     switch (bspace_tap.state) {
         case TD_TAP: unregister_code16(bspace_tap.key); break;
         case TD_HOLD:
           switch (bspace_tap.key) {
-            case KC_BACKSPACE:  
+            case KC_BACKSPACE:
               unregister_code16(CMD(bspace_tap.key));
               break;
             case KC_DELETE:
@@ -164,7 +182,6 @@ void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
           break;
         default: break;
     }
-
     // if shift mod present, then at it back, otherwise do nothing
     add_mods((state->weak_mods) & MOD_MASK_SHIFT);
 }
