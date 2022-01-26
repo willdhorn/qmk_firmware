@@ -54,7 +54,7 @@
 // #   define SPLIT_ROW_DEFAULT(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 #   define SPLIT_ROW(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) l1, l2, l3, l4, l5, KC_EMPTY, KC_EMPTY, r5, r4, r3, r2, r1
 //#   define SPLIT_BASE(l1, l2, l3, l4, l5, space, r5, r4, r3, r2, r1) l1, l2, SPLT_KL1, SPLT_KL2, SPLT_KL3, space, SPLT_KR3, SPLT_KR2, SPLT_KR1, r2, r1
-#    define SPLIT_BASE_5(l1, l2, space, r2, r1) KC_EMPTY, KC_EMPTY, OSM(MOD_LCMD), l1, OSM(MOD_LSFT), space, OSM(MOD_LALT), r1, OSM(MOD_LCTL), KC_EMPTY, KC_EMPTY
+#    define SPLIT_BASE_5(l1, l2, space, r2, r1) KC_EMPTY, KC_EMPTY, OSM(MOD_LALT), l1, OSM(MOD_LCMD), space, OSM(MOD_LSFT), r1, OSM(MOD_LCTL), KC_EMPTY, KC_EMPTY
 #    define SPLIT_BASE_4(l2, l1, r1, r2) SPLIT_BASE_5(l1, l2, LK_SPACE_BAR, r2, r1)
 
 // #   define SPLIT_HOME_MOD_DEFAULT(l1, l2, l3, l4, l5, r5, r4, r3, r2, r1) MOD_LEFT(l1,l2,l3,l4,l5), KC_EMPTY, KC_EMPTY, MOD_RIGHT(r5,r4,r3,r2,r1)
@@ -72,8 +72,8 @@
 
 #endif
 
-#define DEFAULT_BASE BASE_ROW(OSM(MOD_LCMD), TO(_EXT), MT(MOD_LMEH,KC_SPACE), OSM(MOD_LSFT))
-#define FALLBACK_BASE BASE_ROW(OSM(MOD_LCMD), TO(_EXT), TO(0), OSM(MOD_LSFT))
+#define DEFAULT_BASE BASE_ROW(_x_, TO(_EXT), MT(MOD_LMEH,KC_SPACE), _x_)
+#define FALLBACK_BASE BASE_ROW(_x_, TO(_EXT), TO(0), _x_)
 /*
   === BEGIN LAYOUTS  ===
 */
@@ -120,9 +120,19 @@
 #define EXT_1 ROW(EXT_L1, EXT_R1)
 #define EXT_2 ROW(EXT_L2, EXT_R2)
 #define EXT_3 ROW(EXT_L3, EXT_R3)
-#define EXT_4 BASE_ROW(_______, TO(_NUM), TO(0), _______)
+#define EXT_4 FALLBACK_BASE
 
 #define LAYER_EXT PLANCK_LAYOUT(EXT_1, EXT_2, EXT_3, EXT_4)
+
+// SYM
+
+#define SYM_1 ROW(SYM_L1, SYM_R1)
+#define SYM_2 ROW(SYM_L2, SYM_R2)
+#define SYM_3 ROW(SYM_L3, SYM_R3)
+#define SYM_4 FALLBACK_BASE
+
+
+#define LAYER_SYM PLANCK_LAYOUT(SYM_1, SYM_2, SYM_3, SYM_4)
 
 // NUM
 

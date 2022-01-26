@@ -15,20 +15,22 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = LAYER_QWERTY,
                                                               [_COLEMAK_DH]   = LAYER_COLEMAK_DH,
-                                                              [_ISRT]      = LAYER_ISRT,
-                                                              [_WORKMAN]      = LAYER_WORKMAN,
-                                                              [_NAV]      = LAYER_NAV,
+                                                              [_ISRT]         = LAYER_ISRT,
+                                                              // [_WORKMAN]      = LAYER_WORKMAN,
                                                               [_EXT]          = LAYER_EXT,
+                                                              [_NAV]          = LAYER_NAV,
+                                                              [_SYM]          = LAYER_SYM,
                                                               [_NUM]          = LAYER_NUM,
                                                               [_VSCODE]       = LAYER_VSCODE,
-                                                              [_SWITCH]    = LAYER_SWITCH,
+                                                              [_SWITCH]       = LAYER_SWITCH,
                                                               [_WNDW_HALF]    = LAYER_WNDW_HALF,
                                                               [_WNDW_QUAD]    = LAYER_WNDW_QUAD,
-                                                              [_WNDW_VERT]    = LAYER_WNDW_VERT,
+                                                            //   [_WNDW_VERT]    = LAYER_WNDW_VERT,
                                                               [_WNDW_THRD]    = LAYER_WNDW_THRD,
                                                               [_WNDW_SIXT]    = LAYER_WNDW_SIXT,
                                                               [_WNDW_NINT]    = LAYER_WNDW_NINT,
-                                                              [_ADJUST]       = LAYER_ADJUST};
+                                                              [_ADJUST]       = LAYER_ADJUST,
+                                                              };
 
 extern bool         g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
@@ -55,6 +57,8 @@ const key_override_t sym_slash_bsls_override = SHIFT_OVERRIDE(KC_SLSH, KC_BSLS);
 const key_override_t sym_colon_semicolon_override = SHIFT_OVERRIDE(KC_COLN, KC_SCLN);
 const key_override_t sym_tilde_grave_override = SHIFT_OVERRIDE(KC_TILD, KC_GRV);
 
+const key_override_t sym_vscode_selection_override = SHIFT_OVERRIDE(VSC_SEL_EXPND, VSC_SEL_SHRNK);
+
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     // &delete_key_override,
@@ -71,6 +75,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     // &sym_slash_bsls_override,
     &sym_colon_semicolon_override,
     &sym_tilde_grave_override,
+    &sym_vscode_selection_override,
     NULL // Null terminate the array of overrides!
 };
 

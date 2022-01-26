@@ -11,8 +11,9 @@ const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
                             [_COLEMAK_DH] =   CL_COLEMAK_DH,
                             [_ISRT] =      CL_ISRT,
                             [_WORKMAN] =      CL_WORKMAN,
-                            [_NAV] =      CL_NAV,
                             [_EXT]     =      CL_EXT,
+                            [_NAV] =      CL_NAV,
+                            [_SYM] =      CL_SYM,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
                             [_SWITCH] =       CL_SWITCH,
@@ -134,6 +135,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return C_RED;
         case DEBUG:
             return C_GREEN;
+        case S_ALFRED:
+            return C_PURPLE;
         // WINDOW ARRANGEMENT LAYER KEYS
         case WNDW_LAYER_H:
             return CL_WNDW_HALF;

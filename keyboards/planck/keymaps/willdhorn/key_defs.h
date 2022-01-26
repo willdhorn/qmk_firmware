@@ -53,6 +53,15 @@
 
 #define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
 
+#define LK_DEF TO(0)
+#define LK_EXT TO(_EXT)
+#define LK_SYM TO(_SYM)
+#define LK_NUM TO(_NUM)
+#define LK_NAV TO(_NAV)
+#define LK_SWT TO(_SWITCH)
+#define LK_ADJ TO(_ADJUST)
+#define LK_VSC TO(_VSCODE)
+
 #define T_BSPACE TD(TD_BSPACE)
 /*
   === MAC SHORTCUTS ===
@@ -60,6 +69,8 @@
 // HOME AND END KEYS
 #define OSX_HOME CMD(KC_LEFT)
 #define OSX_END CMD(KC_RIGHT)
+// ALFRED
+#define S_ALFRED HYPR(KC_GRV)
 // GENERAL
 #define S_UNDO CMD(KC_Z)
 #define S_CUT CMD(KC_X)
