@@ -70,25 +70,25 @@ enum planck_layers {
 
 #define SHORTCUT_ROW S_UNDO,  S_CUT,   S_COPY,  S_PASTE,  S_CLIPBOARD
 
-#define EXT_L1 KC_TAB, LK_ADJ, _x_, _x_, _x_
-#define EXT_L2 KC_ESC, LK_NUM, LK_VSC, LK_SWT, LK_DEF
+#define EXT_L1 KC_TAB, LK_SWT, _x_,    LK_ADJ,  _x_
+#define EXT_L2 KC_ESC, LK_NUM, LK_VSC, KC_LSFT, LK_DEF
 #define EXT_L3 SHORTCUT_ROW
 
 // #define EXT_R1 _x_, _x_,      _x_,     _x_,      T_BSPACE
 // #define EXT_R2 _x_, ,   ,  S_ALFRED, KC_ENTER
-#define EXT_R1 _x_, OSX_HOME, KC_UP,   OSX_END,  T_BSPACE
-#define EXT_R2 _x_, KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
-#define EXT_R3 _x_, KC_UNDS,  _x_,     S_ALFRED, LK_SYM
+#define EXT_R1 _x_, OSX_HOME, KC_UP,    OSX_END,  T_BSPACE
+#define EXT_R2 _x_, KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_ENTER
+#define EXT_R3 _x_, S_ALFRED, KC_SPACE, KC_DOT,   LK_SYM
 
 
 // SYM
-#define SYM_L1 KC_LABK, KC_PIPE, KC_AMPR, KC_RABK, _x_
-#define SYM_L2 KC_ASTR, KC_SLSH, KC_MINS, KC_PLUS, KC_TILD
-#define SYM_L3 KC_PERC, KC_CRRT, KC_DLR,  KC_BSLS, KC_GRV
+#define SYM_L1 KC_LABK, KC_PIPE, KC_AMPR, KC_RABK, KC_SCLN
+#define SYM_L2 KC_ASTR, KC_SLSH, KC_MINS, KC_PLUS, KC_COLN
+#define SYM_L3 KC_BSLS, KC_CRRT, KC_DLR,  KC_HASH, KC_PERC
 
-#define SYM_R1 _x_, KC_HASH, KC_LCBR, KC_RCBR, KC_BSPACE
-#define SYM_R2 _x_, KC_EQL,  KC_LPRN, KC_RPRN, KC_COLN
-#define SYM_R3 _x_, KC_UNDS, KC_LBRC, KC_RBRC, KC_SCLN
+#define SYM_R1 _x_, KC_GRV,  KC_LCBR, KC_RCBR, KC_BSPACE
+#define SYM_R2 _x_, KC_EQL,  KC_LPRN, KC_RPRN, KC_TILD
+#define SYM_R3 _x_, KC_UNDS, KC_LBRC, KC_RBRC, KC_SPACE
 
 
 // NUM
@@ -98,17 +98,17 @@ enum planck_layers {
 
 #define NUM_R1 KC_COMMA, KC_7, KC_8, KC_9, T_BSPACE
 #define NUM_R2 KC_DOT,   KC_4, KC_5, KC_6, KC_0
-#define NUM_R3 _x_,      KC_1,  KC_2, KC_3, KC_COLN
+#define NUM_R3 _x_,      KC_1, KC_2, KC_3, KC_SPACE
 
 
-// NAV
-#define NAV_L1 KC_TAB, _x_, _x_, _x_, _x_
-#define NAV_L2 KC_ESC, _x_, _x_, _x_, _x_
-#define NAV_L3 SHORTCUT_ROW
-
-#define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  T_BSPACE
-#define NAV_R2 _x_,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
-#define NAV_R3 _x_,     _x_,      _x_,     _x_,      _x_
+// // NAV
+// #define NAV_L1 KC_TAB, _x_, _x_, _x_, _x_
+// #define NAV_L2 KC_ESC, _x_, _x_, _x_, _x_
+// #define NAV_L3 SHORTCUT_ROW
+//
+// #define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  T_BSPACE
+// #define NAV_R2 _x_,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
+// #define NAV_R3 _x_,     _x_,      _x_,     _x_,      _x_
 
 
 /*
@@ -127,9 +127,9 @@ enum planck_layers {
   === APPS/WINDOW MANAGEMENT ===
 */
 
-#define SWITCH_L1 WNDW_LAYER_9, WNDW_LAYER_6, WNDW_LAYER_V, _x_,          _x_
-#define SWITCH_L2 WM_FULL,      WNDW_LAYER_3, WNDW_LAYER_Q, WNDW_LAYER_H, _x_
-#define SWITCH_L3 _x_,          _x_,          _x_,          _x_,          _x_
+#define SWITCH_L1 _x_,     WNDW_LAYER_9, WNDW_LAYER_3, _x_,          _x_
+#define SWITCH_L2 WM_FULL, WNDW_LAYER_6, WNDW_LAYER_Q, WNDW_LAYER_H, _x_
+#define SWITCH_L3 _x_,     _x_,          _x_,          _x_,          _x_
 
 #define SWITCH_R1 APPS_DESK_R1
 #define SWITCH_R2 APPS_DESK_R2
