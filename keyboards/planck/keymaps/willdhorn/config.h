@@ -13,7 +13,7 @@
 
 // Key Behaviour
 #undef TAPPING_TERM
-#define TAPPING_TERM 180
+#define TAPPING_TERM 220
 
 #define TAPPING_TERM_PER_KEY
 #define RETRO_TAPPING_PER_KEY
