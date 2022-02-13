@@ -13,12 +13,20 @@
 #include "rgb_stuff.h"
 #include "user_debug.h"
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[_QWERTY]       = LAYER_QWERTY,
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#ifdef ENABLE_LAYOUT_QWERTY
+                                                              [_QWERTY]       = LAYER_QWERTY,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
                                                               [_COLEMAK_DH]   = LAYER_COLEMAK_DH,
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
                                                               [_ISRT]         = LAYER_ISRT,
-                                                            // [_WORKMAN]      = LAYER_WORKMAN,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+                                                              [_WORKMAN]      = LAYER_WORKMAN,
+#endif
                                                               [_EXT]          = LAYER_EXT,
-                                                            //   [_NAV]          = LAYER_NAV,
                                                               [_SYM]          = LAYER_SYM,
                                                               [_NUM]          = LAYER_NUM,
                                                               [_VSCODE]       = LAYER_VSCODE,
@@ -217,18 +225,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         // DEFAULT LAYER
+#ifdef ENABLE_LAYOUT_QWERTY
         case KC_QWERTY:
             set_single_persistent_default_layer(_QWERTY);
             break;
-        case KC_WORKMAN:
-            set_single_persistent_default_layer(_WORKMAN);
-            break;
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
         case KC_COLEMAK_DH:
             set_single_persistent_default_layer(_COLEMAK_DH);
             break;
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
         case KC_ISRT:
             set_single_persistent_default_layer(_ISRT);
             break;
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+        case KC_WORKMAN:
+            set_single_persistent_default_layer(_WORKMAN);
+            break;
+#endif
 
         // VSCode keys for chorded shortcuts (cmd-k used as leader)
 

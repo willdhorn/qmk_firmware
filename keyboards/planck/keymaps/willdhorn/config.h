@@ -11,6 +11,12 @@
 // Layout switch
 // #define KB_LAYOUT_STANDARD  // otherwise, use split layout
 
+// Default layouts 
+#define ENABLE_LAYOUT_QWERTY
+#define ENABLE_LAYOUT_COLEMAK
+#define ENABLE_LAYOUT_ISRT
+#undef ENABLE_LAYOUT_WORKMAN
+
 // Key Behaviour
 #undef TAPPING_TERM
 #define TAPPING_TERM 220

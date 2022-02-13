@@ -189,10 +189,18 @@
 enum custom_keycodes {
     KC_EMPTY = EZ_SAFE_RANGE,
     // PERSISTANT DEFALT LAYER
+#ifdef ENABLE_LAYOUT_QWERTY
     KC_QWERTY,
-    KC_WORKMAN,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
     KC_COLEMAK_DH,
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
     KC_ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+    KC_WORKMAN,
+#endif
     // CUSTOM ONE SHOT MODS
     KC_OSM_CMD,
     KC_OSM_SFT,
@@ -211,6 +219,19 @@ enum custom_keycodes {
     VSC_MV_EDTR_G_RGT,  // MOVE EDITOR GROUP RIGHT
     VSC_OPN_DEF_SIDE,    // OPEN DEFINITION IN OPPOSITE GROUP
 };
+#ifndef ENABLE_LAYOUT_QWERTY
+    #define KC_QWERTY _x_
+#endif
+#ifndef ENABLE_LAYOUT_COLEMAK
+    #define KC_COLEMAK_DH _x_
+#endif
+#ifndef ENABLE_LAYOUT_ISRT
+    #define KC_ISRT _x_
+#endif
+#ifndef ENABLE_LAYOUT_WORKMAN
+    #define KC_WORKMAN _x_
+#endif
+
 
 
 /*

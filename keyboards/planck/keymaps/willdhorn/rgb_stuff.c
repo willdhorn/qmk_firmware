@@ -7,13 +7,23 @@
 #include "layers.h"
 #include "layouts.h"
 
-const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
+const HSV layer_colors[] = {
+
+#ifdef ENABLE_LAYOUT_QWERTY
+                            [_QWERTY]  =      CL_QWERTY,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
                             [_COLEMAK_DH] =   CL_COLEMAK_DH,
-                            [_ISRT] =      CL_ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
+                            [_ISRT] =         CL_ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
                             [_WORKMAN] =      CL_WORKMAN,
+#endif
                             [_EXT]     =      CL_EXT,
-                            [_NAV] =      CL_NAV,
-                            [_SYM] =      CL_SYM,
+                            [_NAV] =          CL_NAV,
+                            [_SYM] =          CL_SYM,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
                             [_SWITCH] =       CL_SWITCH,
@@ -151,14 +161,22 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         case WNDW_LAYER_9:
             return CL_WNDW_NINT;
         // DEFAULT LAYER
+#ifdef ENABLE_LAYOUT_QWERTY
         case KC_QWERTY:
             return CF_PALE(CL_QWERTY);
-        case KC_WORKMAN:
-            return CF_PALE(CL_WORKMAN);
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
         case KC_COLEMAK_DH:
             return CF_PALE(CL_COLEMAK_DH);
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
         case KC_ISRT:
             return CF_PALE(CL_ISRT);
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+        case KC_WORKMAN:
+            return CF_PALE(CL_WORKMAN);
+#endif
     }
 
     if (IS_LETTER(kc)) {

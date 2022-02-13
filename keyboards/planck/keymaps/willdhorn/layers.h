@@ -2,8 +2,22 @@
 
 #include "config.h"
 
-enum default_layers { _QWERTY, _COLEMAK_DH, _ISRT, _DEFAULT_RANGE_ };
-#define _WORKMAN _MAX_LAYER_ + 1
+
+enum default_layers {
+#ifdef ENABLE_LAYOUT_QWERTY
+    _QWERTY,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
+    _COLEMAK_DH,
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
+    _ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+    _WORKMAN,
+#endif
+    _DEFAULT_RANGE_ };
+//#define _WORKMAN _MAX_LAYER_ + 1
 
 enum planck_layers {
     // EXT contains the edge keys (for split 5x3 layout)
@@ -51,9 +65,9 @@ enum planck_layers {
 #define ISRT_L2 KC_I, KC_S, KC_R, KC_T, KC_G
 #define ISRT_L3 KC_Q, KC_V, KC_W, KC_D, KC_J
 
-#define ISRT_R1 KC_Z, KC_F, KC_U,     KC_COMMA, KC_QUOTE
+#define ISRT_R1 KC_Z, KC_F, KC_U,     KC_QUOTE, T_BSPACE
 #define ISRT_R2 KC_M, KC_N, KC_E,     KC_A,     KC_O
-#define ISRT_R3 KC_B, KC_H, KC_SLASH, KC_DOT,   KC_X
+#define ISRT_R3 KC_B, KC_H, KC_COMMA, KC_DOT,   KC_X
 
 // WORKMAN
 #define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
@@ -86,7 +100,7 @@ enum planck_layers {
 #define SYM_L2 KC_ASTR, KC_SLSH, KC_MINS, KC_PLUS, KC_RABK
 #define SYM_L3 KC_BSLS, KC_CRRT, KC_DLR,  KC_HASH, KC_PERC
 
-#define SYM_R1 KC_GRV,  KC_SCLN, KC_LCBR, KC_RCBR, KC_BSPACE
+#define SYM_R1 KC_GRV,  KC_SCLN, KC_LCBR, KC_RCBR, T_BSPACE
 #define SYM_R2 KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_ENTER
 #define SYM_R3 KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_SPACE
 
@@ -168,7 +182,7 @@ enum planck_layers {
   === ADJUST ===
 */
 
-#define ADJUST_L1 RESET,   DEBUG,     _x_,     _x_,   _x_
+#define ADJUST_L1 RESET,   DEBUG,     _x_,     _x_,   KC_WORKMAN
 #define ADJUST_L2 _x_,     KC_MPRV, KC_MNXT, KC_MPLY, _x_
 #define ADJUST_L3 _x_,     _x_,     _x_,     KC_MSTP, _x_
 
