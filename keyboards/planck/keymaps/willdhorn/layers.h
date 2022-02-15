@@ -52,9 +52,9 @@ enum planck_layers {
 #define QWERTY_R3 KC_N, KC_M, KC_COMMA, KC_DOT, KC_QUOTE
 
 // COLEMAK-DH
-#define COLEMAK_DH_L1 KC_Q,     KC_W,     KC_F, KC_P, KC_B
-#define COLEMAK_DH_L2 KC_A,     KC_R,     KC_S, KC_T, KC_G
-#define COLEMAK_DH_L3 MC(KC_X), MA(KC_V), KC_C, KC_D, KC_Z
+#define COLEMAK_DH_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
+#define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
+#define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
 
 #define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, T_BSPACE
 #define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
