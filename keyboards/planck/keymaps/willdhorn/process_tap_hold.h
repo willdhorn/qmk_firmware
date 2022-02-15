@@ -10,9 +10,13 @@
 #define QK_TAP_HOLD_MAX 0x5FFF
 #define QK_TAP_HOLD (QK_TAP_HOLD_MAX - QK_TAP_HOLD_KEYCODE_ALLOCATION)
 
+#ifndef TAP_HOLD_DELAY
+  #define TAP_HOLD_DELAY 180
+#endif
+
 #define TH(n) (QK_TAP_HOLD + n)
 
-// #define shiftActive() (keyboard_report->mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+#define shiftActive() (mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
 
 #define ACTION_TAP_HOLD_SHIFT(kc_tap, kc_tap_shift, kc_hold, kc_hold_shift) \
   { kc_tap, kc_tap_shift, kc_hold, kc_hold_shift, 0, th_default }
@@ -22,10 +26,6 @@
 
 #define ACTION_TAP_CMD_HOLD(kc_tap) \
   ACTION_TAP_HOLD_SHIFT(kc_tap, LSFT(kc_tap), LCMD(kc_tap), LSFT(LCMD(kc_tap)))
-
-#ifndef TAP_HOLD_DELAY
-  #define TAP_HOLD_DELAY 200
-#endif
 
 typedef enum {
   th_default,

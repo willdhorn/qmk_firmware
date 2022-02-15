@@ -10,16 +10,18 @@ extern tap_hold_action_t tap_hold_actions[];
 extern uint8_t shift_down;
 
 void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
-  if (shift_down) {
+        uint8_t mods = get_mods();
+    if (shiftActive()) {
       // Suppress shift
-      uint8_t mods = get_mods();
       unregister_mods(MOD_MASK_SHIFT);
 
       dprintf("Tap Hold Shifted: %d\n", (is_held ? t->KC_hold_shift : t->KC_tap_shift));
       tap_code16(is_held ? t->KC_hold_shift : t->KC_tap_shift);
 
-      // revert mods
-      set_mods(mods);
+      // add shift back if the key is still being held down
+      if (shift_down) {
+        register_mods(MOD_BIT(KC_LSFT));
+      }
       send_keyboard_report();
   } else {
       dprintf("Tap Hold Normal: %d\n", (is_held ? t->KC_hold : t->KC_tap));
@@ -28,7 +30,7 @@ void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
 }
 
 void matrix_scan_tap_hold(void) {
-  for (uint8_t i = 0; i <= TAP_HOLD_KEY_MAX-1; i++) {
+  for (uint8_t i = 0; i < TAP_HOLD_KEY_MAX; i++) {
     if (tap_hold_actions[i].state == th_first_press && timer_elapsed(tap_hold_actions[i].timer) >= TAP_HOLD_DELAY) {
       tap_hold_actions[i].state = th_default;
       selectAndSendKey(&tap_hold_actions[i], true);
@@ -50,8 +52,8 @@ void process_record_tap_hold(uint16_t keycode, keyrecord_t *record) {
         selectAndSendKey(t, false);
       }
     }
-  } else {
-    for (int i = 0; i < QK_TAP_HOLD_KEYCODE_ALLOCATION; ++i) {
+  } else if (record->event.pressed) {  // only interrupt on keydown
+    for (int i = 0; i < TAP_HOLD_KEY_MAX; ++i) {
       tap_hold_action_t *t = &tap_hold_actions[i];
       if (t->state == th_first_press) {
         t->state = th_default;

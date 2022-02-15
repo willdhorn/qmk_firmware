@@ -244,6 +244,11 @@ enum custom_keycodes {
 #define TH_COMMA TH(THA_COMMA)
 #define TH_DOT TH(THA_DOT)
 #define TH_QUOT TH(THA_QUOT)
+#define TH_LEFT TH(THA_LEFT)
+#define TH_ALT_LFT TH(THA_ALT_LFT)
+#define TH_RIGHT TH(THA_RIGHT)
+#define TH_ALT_RGT TH(THA_ALT_RGT)
+#define TH_ENTER TH(THA_ENTER)
 
 enum tap_hold_action_keys {
 #define TH_ACTION_DEL ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
@@ -254,6 +259,16 @@ enum tap_hold_action_keys {
     THA_DOT,
 #define TH_ACTION_QUOT ACTION_TAP_HOLD(KC_QUOTE, KC_DQUO)
     THA_QUOT,
+#define TH_ACTION_LEFT ACTION_TAP_CMD_HOLD(KC_LEFT)
+    THA_LEFT,
+#define TH_ACTION_RIGHT ACTION_TAP_CMD_HOLD(KC_RIGHT)
+    THA_RIGHT,
+#define TH_ACTION_ALT_LFT ACTION_TAP_CMD_HOLD(LALT(KC_LEFT))
+    THA_ALT_LFT,
+#define TH_ACTION_ALT_RGT ACTION_TAP_CMD_HOLD(LALT(KC_RIGHT))
+    THA_ALT_RGT,
+#define TH_ACTION_ENTER ACTION_TAP_CMD_HOLD(KC_ENTER)
+    THA_ENTER,
     TAP_HOLD_KEY_MAX
 };
 
@@ -277,6 +292,7 @@ enum tap_hold_action_keys {
   (kc) == KC_BACKSPACE || \
   (kc) == TH_BKSP || \
   (kc) == KC_ENTER || \
+  (kc) == TH_ENTER || \
   (kc) == KC_TAB || \
   (kc) == KC_ESCAPE || \
   (kc) == KC_SPACE \
@@ -328,10 +344,12 @@ enum tap_hold_action_keys {
   (kc) == KC_TILD || \
   (kc) == KC_GRV )
 
-#define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
+#define IS_ARROW(kc) ((KC_RIGHT <= (kc) && (kc) <= KC_UP) || (kc) == TH_LEFT || (kc) == TH_RIGHT)
 
 #define IS_NAV_SC(kc) ((kc) == S_TABL || \
   (kc) == S_TABR || \
+  (kc) == TH_ALT_LFT || \
+  (kc) == TH_ALT_RGT || \
   (kc) == OSX_HOME || \
   (kc) == OSX_END)
 #define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || \

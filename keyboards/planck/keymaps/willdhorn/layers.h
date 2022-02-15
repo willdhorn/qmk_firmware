@@ -88,11 +88,12 @@ enum planck_layers {
 #define EXT_L2 KC_ESC, LK_NUM, LK_VSC, KC_LSFT, LK_DEF
 #define EXT_L3 SHORTCUT_ROW
 
-// #define EXT_R1 _x_, _x_,      _x_,     _x_,      TH_BKSP
-// #define EXT_R2 _x_, ,   ,  S_ALFRED, KC_ENTER
-#define EXT_R1 _x_, OSX_HOME, KC_UP,    OSX_END,  TH_BKSP
-#define EXT_R2 _x_, KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_ENTER
-#define EXT_R3 _x_, S_ALFRED, KC_SPACE, TH_DOT,   LK_SYM
+#define EXT_R1 _x_, TH_ALT_LFT, KC_UP,    TH_ALT_RGT,  TH_BKSP
+#define EXT_R2 _x_, TH_LEFT,    KC_DOWN,  TH_RIGHT,    TH_ENTER
+#define EXT_R3 _x_, S_ALFRED,   KC_SPACE, TH_DOT,      LK_SYM
+
+
+
 
 
 // SYM
