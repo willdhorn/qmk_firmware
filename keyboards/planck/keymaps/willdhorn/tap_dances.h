@@ -3,8 +3,8 @@
 #include "quantum.h"
 
 enum { // Tap Dance Key Dances
-    TD_BSPACE = 0,
-    TD_APPSW_L,
+    // TD_BSPACE = 0,
+    TD_APPSW_L=0,
     TD_APPSW_M,
     TD_APPSW_R,
 };

@@ -1,9 +1,11 @@
 # SRC += muse.c
 # Set any rules.mk overrides for your specific keymap here.
 # See rules at https://docs.qmk.fm/#/config_options?id=the-rulesmk-file
+SRC += helper.c
 SRC += tap_dances.c
 SRC += rgb_stuff.c
 SRC += key_overrides.c
+SRC += process_tap_hold.c
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = no
 AUDIO_ENABLE = no

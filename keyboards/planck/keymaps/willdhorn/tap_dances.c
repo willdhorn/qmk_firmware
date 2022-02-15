@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 
+#include "helper.h"
 #include "tap_dances.h"
 #include "key_defs.h"
 #include "layers.h"
@@ -8,7 +9,7 @@
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     // tap: backspace, hold: cmd+backspace
-    [TD_BSPACE] = ACTION_TAP_DANCE_FN_ADVANCED(bspace_tap_hold_on_each_tap, bspace_tap_hold_finished, bspace_tap_hold_reset),
+    // [TD_BSPACE] = ACTION_TAP_DANCE_FN_ADVANCED(bspace_tap_hold_on_each_tap, bspace_tap_hold_finished, bspace_tap_hold_reset),
 
     // One shot - 1st tap: osm, 2nd tap: del osm, hold: mod, 3tap:lock mod until next tap
 
@@ -111,17 +112,21 @@ static tap_hold_tap_t bspace_tap = {
   .key = KC_NO,
 };
 
+extern uint8_t shift_down;
+
 void bspace_tap_hold_on_each_tap(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-      bspace_tap.key = ((state->weak_mods | state->oneshot_mods) & MOD_MASK_SHIFT) ? KC_DELETE : KC_BACKSPACE;
-  } else {
-      // on a double tap we want to tap the key twice
-      tap_code16(bspace_tap.key);
-      tap_code16(bspace_tap.key);
-      // state->interrupted = true;
-      state->finished = true;
-      state->timer -= TAPPING_TERM; // subtract since timer is the start time of the action
-  }
+    del_mods(MOD_MASK_SHIFT);
+    del_oneshot_mods(MOD_MASK_SHIFT);
+    if (state->count == 1) {
+        bspace_tap.key = (shift_down) ? KC_DELETE : KC_BACKSPACE;
+    } else {
+        // on a double tap we want to tap the key twice
+        tap_code16(bspace_tap.key);
+        state->count = 1;
+        // state->timer = timer_read();
+        //   state->finished = true;
+        //   state->timer -= TAPPING_TERM; // subtract since timer is the start time of the action
+    }
 #ifdef DEBUG_TAP_DANCE
     dprintf("TD bspace on_tap\n");
     DEBUG_KEYCODE_HEX(bspace_tap.key);
@@ -137,12 +142,12 @@ void bspace_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
     DEBUG_BYTE_BINARY("mods",(state->weak_mods | state->oneshot_mods));
 #endif
 
-    del_mods(MOD_MASK_SHIFT);
-    del_weak_mods(MOD_MASK_SHIFT);
-    del_oneshot_mods(MOD_MASK_SHIFT);
-    if ((state->weak_mods | state->oneshot_mods) & MOD_MASK_SHIFT) {
-      send_keyboard_report();
-    }
+    // del_mods(MOD_MASK_SHIFT);
+    // del_weak_mods(MOD_MASK_SHIFT);
+    // del_oneshot_mods(MOD_MASK_SHIFT);
+    // if ((state->weak_mods | state->oneshot_mods) & MOD_MASK_SHIFT) {
+    //   send_keyboard_report();
+    // }
 
     switch (bspace_tap.state) {
       case TD_TAP: register_code16(bspace_tap.key); break;
@@ -183,5 +188,8 @@ void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
         default: break;
     }
     // if shift mod present, then at it back, otherwise do nothing
-    add_mods((state->weak_mods) & MOD_MASK_SHIFT);
+    if (shift_down) {
+        add_mods(MOD_MASK_SHIFT);
+    }
+
 }

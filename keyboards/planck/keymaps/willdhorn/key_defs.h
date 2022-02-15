@@ -1,5 +1,6 @@
 #pragma once
 
+#include "process_tap_hold.h"
 #include "tap_dances.h"
 
 /*
@@ -43,12 +44,12 @@
 #    define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #    define STD_LK_RGHT TT(_EXT)
 #else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#    define SPLT_KL3 KC_EMPTY
-#    define SPLT_KL2 TT(_NUM)
-#    define SPLT_KL1 KC_LSFT
-#    define SPLT_KR1 LT(_NAV, KC_SPACE)
-#    define SPLT_KR2 TT(_EXT)
-#    define SPLT_KR3 KC_EMPTY
+// #    define SPLT_KL3 KC_EMPTY
+// #    define SPLT_KL2 TT(_NUM)
+// #    define SPLT_KL1 KC_LSFT
+// #    define SPLT_KR1 LT(_NAV, KC_SPACE)
+// #    define SPLT_KR2 TT(_EXT)
+// #    define SPLT_KR3 KC_EMPTY
 #endif
 
 #define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
@@ -62,13 +63,14 @@
 #define LK_ADJ TO(_ADJUST)
 #define LK_VSC TO(_VSCODE)
 
-#define T_BSPACE TD(TD_BSPACE)
 /*
   === MAC SHORTCUTS ===
 */
 // HOME AND END KEYS
 #define OSX_HOME CMD(KC_LEFT)
 #define OSX_END CMD(KC_RIGHT)
+#define OSX_BKSP_LINE CMD(KC_BACKSPACE)
+#define OSX_DEL_LINE CTL(KC_K)
 // ALFRED
 #define S_ALFRED HYPR(KC_GRV)
 // GENERAL
@@ -233,6 +235,27 @@ enum custom_keycodes {
 #endif
 
 
+/*
+  === Tap Hold ===
+*/
+// #define T_BSPACE TD(TD_BSPACE)
+// #define T_BSPACE KC_BACKSPACE
+#define TH_BKSP TH(THA_DEL)
+#define TH_COMMA TH(THA_COMMA)
+#define TH_DOT TH(THA_DOT)
+#define TH_QUOT TH(THA_QUOT)
+
+enum tap_hold_action_keys {
+#define TH_ACTION_DEL ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
+    THA_DEL = 0,
+#define TH_ACTION_COMMA ACTION_TAP_HOLD_SHIFT(KC_COMMA, KC_EXLM, KC_EXLM, KC_EXLM)
+    THA_COMMA,
+#define TH_ACTION_DOT ACTION_TAP_HOLD_SHIFT(KC_DOT, KC_QUES, KC_QUES, KC_QUES)
+    THA_DOT,
+#define TH_ACTION_QUOT ACTION_TAP_HOLD(KC_QUOTE, KC_DQUO)
+    THA_QUOT,
+    TAP_HOLD_KEY_MAX
+};
 
 /*
   === MISC ===
@@ -252,7 +275,7 @@ enum custom_keycodes {
 #define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
 #define IS_SYSTEM_KEY(kc) ( \
   (kc) == KC_BACKSPACE || \
-  (kc) == T_BSPACE || \
+  (kc) == TH_BKSP || \
   (kc) == KC_ENTER || \
   (kc) == KC_TAB || \
   (kc) == KC_ESCAPE || \
@@ -262,12 +285,15 @@ enum custom_keycodes {
 // .,;:?!'"
 #define IS_SYM_PUNCTUATION(kc) ( \
   (kc) == KC_DOT || \
+  (kc) == THA_DOT || \
   (kc) == KC_COMM || \
+  (kc) == THA_COMMA || \
   (kc) == KC_SCLN || \
   (kc) == KC_COLN || \
   (kc) == KC_QUES || \
   (kc) == KC_EXLM || \
   (kc) == KC_QUOT || \
+  (kc) == THA_QUOT || \
   (kc) == KC_DQUO )
 // (){}[]<>
 #define IS_SYM_PAREN(kc) ( \
@@ -365,9 +391,3 @@ enum custom_keycodes {
 #define ALT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_ALT, (kc), (ovrrde));
 #define MEH_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_MEH, (kc), (ovrrde));
 
-// Functions for handling vscode short cut sequences
-void two_tap(uint16_t kc1, uint16_t kc2);
-void vscode_chord(uint16_t kc);
-
-// Alt-Tab mode handler
-void handle_alt_tab_mode(uint16_t kc);
