@@ -85,7 +85,7 @@ enum planck_layers {
 #define SHORTCUT_ROW S_UNDO,  S_CUT,   S_COPY,  S_PASTE,  S_CLIPBOARD
 
 #define EXT_L1 KC_TAB, LK_SWT, _x_,    LK_ADJ,  _x_
-#define EXT_L2 KC_ESC, LK_NUM, LK_VSC, KC_LSFT, LK_DEF
+#define EXT_L2 TH_ESC, LK_NUM, LK_VSC, KC_LSFT, LK_DEF
 #define EXT_L3 SHORTCUT_ROW
 
 #define EXT_R1 _x_, TH_ALT_LFT, KC_UP,    TH_ALT_RGT,  TH_BKSP

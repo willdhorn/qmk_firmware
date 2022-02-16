@@ -54,6 +54,7 @@ tap_hold_action_t tap_hold_actions[] = {
   [THA_RIGHT] = TH_ACTION_RIGHT,
   [THA_ALT_RGT] = TH_ACTION_ALT_RGT,
   [THA_ENTER] = TH_ACTION_ENTER,
+  [THA_ESC] = TH_ACTION_ESC,
 };
 
 
@@ -88,6 +89,8 @@ void keyboard_post_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    dprintln();
+
     bool pressed = record->event.pressed;
     mod_state = get_mods();
     osm_mod_state = get_oneshot_mods();
@@ -100,23 +103,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_default_layer_keys(keycode, record);
     process_mod_tap_keys(keycode, record);
 
-    switch (keycode) {
-        // Keycodes defined in custom_keycodes
-        case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
-            return false;
-
-        // Custom OSMs
-        case KC_OSM_CMD:
-            break;
-        case KC_OSM_SFT:
-            break;
-        case KC_OSM_ALT:
-            break;
-        case KC_OSM_CTL:
-            break;
-
-        default: break;
-    }
+    // PROCESS CUSTOM KEYCODES
+    bool process_key = process_custom_keys(keycode, record);
 
     // flash the right when caps lock is on light anytime a key is pressed
     if (host_keyboard_led_state().caps_lock && (IS_LETTER(keycode) || IS_MOD_TAP(keycode))) {
@@ -134,10 +122,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (pressed) {
         DEBUG_KEYCODE_HEX(keycode);
         DEBUG_KEYCODE_BINARY(keycode);
-        dprintln();
     }
 #endif
-    return true;
+    return process_key;
 }
 
 void matrix_scan_user(void) {

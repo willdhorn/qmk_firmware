@@ -16,6 +16,51 @@ extern uint8_t mod_tap_active;
 
 uint8_t shift_down = 0;
 
+bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
+    bool pressed = record->event.pressed;
+
+    switch (keycode) {
+            // Keycodes defined in custom_keycodes
+            case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
+            return false;
+        case KC_CLEAR_MODS:
+            if (pressed){
+                // clear_mods();
+                clear_weak_mods();
+                clear_oneshot_mods();
+                clear_keyboard();
+            }
+            return false;
+
+        // Custom OSMs
+        case KC_OSM_CMD:
+            break;
+        case KC_OSM_SFT:
+            break;
+        case KC_OSM_ALT:
+            break;
+        case KC_OSM_CTL:
+            break;
+
+        default: break;
+    }
+
+    return true;
+}
+
+bool process_custom_keypress(uint16_t keycode, bool pressed) {
+    keyrecord_t poser = {
+        {
+            {1,1},
+            pressed,
+            timer_read()
+        },
+        {false, false, false, false, 1}
+    };
+
+    return process_custom_keys(keycode, &poser);
+}
+
 void process_shift_state(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
 

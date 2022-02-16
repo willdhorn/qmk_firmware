@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "process_tap_hold.h"
+#include "helper.h"
 #include "key_defs.h"
 #include "user_debug.h"
 
@@ -10,23 +11,39 @@ extern tap_hold_action_t tap_hold_actions[];
 extern uint8_t shift_down;
 
 void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
-        uint8_t mods = get_mods();
+    uint8_t mods = get_mods();
+    uint16_t keycode;
     if (shiftActive()) {
-      // Suppress shift
-      unregister_mods(MOD_MASK_SHIFT);
+        // Suppress shift
+        unregister_mods(MOD_MASK_SHIFT);
 
-      dprintf("Tap Hold Shifted: %d\n", (is_held ? t->KC_hold_shift : t->KC_tap_shift));
-      tap_code16(is_held ? t->KC_hold_shift : t->KC_tap_shift);
+        keycode = (is_held ? t->KC_hold_shift : t->KC_tap_shift);
 
-      // add shift back if the key is still being held down
-      if (shift_down) {
-        register_mods(MOD_BIT(KC_LSFT));
-      }
-      send_keyboard_report();
-  } else {
-      dprintf("Tap Hold Normal: %d\n", (is_held ? t->KC_hold : t->KC_tap));
-      tap_code16(is_held ? t->KC_hold : t->KC_tap);
-  }
+        dprint("Tap Hold Shifted: \n\t");
+        DEBUG_KEYCODE_HEX(keycode);
+        dprint("\t");
+        DEBUG_KEYCODE_BINARY(keycode);
+    } else {
+        keycode = (is_held ? t->KC_hold : t->KC_tap);
+
+        dprint("Tap Hold Normal: \n\t");
+        DEBUG_KEYCODE_HEX(keycode);
+        dprint("\t");
+        DEBUG_KEYCODE_BINARY(keycode);
+    }
+
+    if (keycode == KC_CAPS_LOCK) {
+        register_code16(keycode);
+        wait_ms(100);
+        unregister_code16(keycode);
+    } else if (process_custom_keypress(keycode,true)) {
+            tap_code16(keycode);
+    }
+    // add shift back if the key is still being held down
+    if (shift_down) {
+        register_mods(MOD_BIT(KC_LSFT)); // I don't use right shift (at the moment at least..)
+    }
+    send_keyboard_report();
 }
 
 void matrix_scan_tap_hold(void) {

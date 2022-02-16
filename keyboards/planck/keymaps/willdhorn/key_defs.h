@@ -189,7 +189,9 @@
 
 // CUSTOM KEYCODES
 enum custom_keycodes {
+    // UTILITY KEYS
     KC_EMPTY = EZ_SAFE_RANGE,
+    KC_CLEAR_MODS,
     // PERSISTANT DEFALT LAYER
 #ifdef ENABLE_LAYOUT_QWERTY
     KC_QWERTY,
@@ -203,6 +205,7 @@ enum custom_keycodes {
 #ifdef ENABLE_LAYOUT_WORKMAN
     KC_WORKMAN,
 #endif
+
     // CUSTOM ONE SHOT MODS
     KC_OSM_CMD,
     KC_OSM_SFT,
@@ -249,6 +252,7 @@ enum custom_keycodes {
 #define TH_RIGHT TH(THA_RIGHT)
 #define TH_ALT_RGT TH(THA_ALT_RGT)
 #define TH_ENTER TH(THA_ENTER)
+#define TH_ESC TH(THA_ESC)
 
 enum tap_hold_action_keys {
 #define TH_ACTION_DEL ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
@@ -269,6 +273,8 @@ enum tap_hold_action_keys {
     THA_ALT_RGT,
 #define TH_ACTION_ENTER ACTION_TAP_CMD_HOLD(KC_ENTER)
     THA_ENTER,
+#define TH_ACTION_ESC ACTION_TAP_HOLD_SHIFT(KC_ESC, LSFT(KC_ESC), KC_CAPSLOCK, KC_CLEAR_MODS)
+    THA_ESC,
     TAP_HOLD_KEY_MAX
 };
 
@@ -295,6 +301,7 @@ enum tap_hold_action_keys {
   (kc) == TH_ENTER || \
   (kc) == KC_TAB || \
   (kc) == KC_ESCAPE || \
+  (kc) == TH_ESC || \
   (kc) == KC_SPACE \
 )
 
