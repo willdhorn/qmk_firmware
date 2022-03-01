@@ -71,14 +71,15 @@
 #define OSX_END CMD(KC_RIGHT)
 #define OSX_BKSP_LINE CMD(KC_BACKSPACE)
 #define OSX_DEL_LINE CTL(KC_K)
-// ALFRED
-#define S_ALFRED HYPR(KC_GRV)
+// ALFRED (and other)
+#define S_ALFRED CMD(KC_SPACE)
+#define S_PALETTE CMD(SFT(KC_P))
 // GENERAL
 #define S_UNDO CMD(KC_Z)
 #define S_CUT CMD(KC_X)
 #define S_COPY CMD(KC_C)
 #define S_PASTE CMD(KC_V)
-#define S_CLIPBOARD MEH(KC_V) // PASTE FROM CLIPBOARD
+#define S_CLIPBOARD CMD(CTL((KC_V))) // PASTE FROM CLIPBOARD
 // TABS
 #define S_TABL SFT(CMD(KC_LBRC))
 #define S_TABR SFT(CMD(KC_RBRC))
@@ -206,6 +207,13 @@ enum custom_keycodes {
     KC_WORKMAN,
 #endif
 
+    // MACRO KEYS
+    MCR_NEQL,
+    MCR_PRNS,
+    MCR_BRCS,
+    MCR_CBRS,
+    MCR_TILD,
+
     // CUSTOM ONE SHOT MODS
     KC_OSM_CMD,
     KC_OSM_SFT,
@@ -241,28 +249,69 @@ enum custom_keycodes {
 /*
   === Tap Hold ===
 */
-// #define T_BSPACE TD(TD_BSPACE)
-// #define T_BSPACE KC_BACKSPACE
-#define TH_BKSP TH(THA_DEL)
+// System
+#define TH_BKSP TH(THA_BKSP)
+#define TH_ENTER TH(THA_ENTER)
+#define TH_ESC TH(THA_ESC)
+// Punctuation and Symbols
 #define TH_COMMA TH(THA_COMMA)
 #define TH_DOT TH(THA_DOT)
 #define TH_QUOT TH(THA_QUOT)
+
+#define TH_MINS TH(THA_MINS)
+#define TH_SLSH TH(THA_SLSH)
+#define TH_EQLS TH(THA_EQLS)
+#define TH_TILD TH(THA_TILD)
+// Brackets
+#define TH_LCBR TH(THA_LCBR)
+#define TH_LPRN TH(THA_LPRN)
+#define TH_LBRC TH(THA_LBRC)
+#define TH_LABK TH(THA_LABK)
+// Arrow keys
 #define TH_LEFT TH(THA_LEFT)
 #define TH_ALT_LFT TH(THA_ALT_LFT)
 #define TH_RIGHT TH(THA_RIGHT)
 #define TH_ALT_RGT TH(THA_ALT_RGT)
-#define TH_ENTER TH(THA_ENTER)
-#define TH_ESC TH(THA_ESC)
+// ZXCV Shortcuts
+#define TH_UNDO_Z TH(THA_UNDO_Z)
+#define TH_CUT_X TH(THA_CUT_X)
+#define TH_COPY_C TH(THA_COPY_C)
+#define TH_PASTE_D TH(THA_PASTE_D)
+#define TH_CLIPBOARD_V TH(THA_CLIPBOARD_V)
 
 enum tap_hold_action_keys {
-#define TH_ACTION_DEL ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
-    THA_DEL = 0,
-#define TH_ACTION_COMMA ACTION_TAP_HOLD_SHIFT(KC_COMMA, KC_EXLM, KC_EXLM, KC_EXLM)
+#define TH_ACTION_ENTER ACTION_TAP_CMD_HOLD(KC_ENTER)
+    THA_ENTER = 0,
+#define TH_ACTION_ESC ACTION_TAP_HOLD_SHIFT(KC_ESC, LSFT(KC_ESC), KC_CAPSLOCK, KC_CLEAR_MODS)
+    THA_ESC,
+#define TH_ACTION_BKSP ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
+    THA_BKSP,
+
+#define TH_ACTION_COMMA ACTION_TAP_HOLD_SHIFT(KC_COMMA, KC_MINS, KC_EXLM, KC_EXLM)
     THA_COMMA,
-#define TH_ACTION_DOT ACTION_TAP_HOLD_SHIFT(KC_DOT, KC_QUES, KC_QUES, KC_QUES)
+#define TH_ACTION_DOT ACTION_TAP_HOLD_SHIFT(KC_DOT, KC_SLSH, KC_QUES, KC_QUES)
     THA_DOT,
-#define TH_ACTION_QUOT ACTION_TAP_HOLD(KC_QUOTE, KC_DQUO)
+#define TH_ACTION_QUOT ACTION_TAP_HOLD_SHIFT(KC_QUOTE, KC_DQUO, KC_BSLS, KC_BSLS)
     THA_QUOT,
+
+#define TH_ACTION_MINS ACTION_TAP_HOLD_SHIFT(KC_MINS, KC_COMMA, KC_EXLM, KC_EXLM)
+    THA_MINS,
+#define TH_ACTION_SLSH ACTION_TAP_HOLD_SHIFT(KC_SLSH, KC_DOT, KC_QUES, KC_QUES)
+    THA_SLSH,
+#define TH_ACTION_EQLS ACTION_TAP_HOLD(KC_EQL, MCR_NEQL)
+    THA_EQLS,
+#define TH_ACTION_TILD ACTION_TAP_HOLD(KC_TILD, MCR_TILD)
+    THA_TILD,
+
+#define TH_ACTION_LPRN ACTION_TAP_HOLD_SHIFT(KC_LPRN, KC_RPRN, MCR_PRNS, MCR_PRNS)
+    THA_LPRN,
+#define TH_ACTION_LCBR ACTION_TAP_HOLD_SHIFT(KC_LCBR, KC_RCBR, MCR_CBRS, MCR_CBRS)
+    THA_LCBR,
+#define TH_ACTION_LBRC ACTION_TAP_HOLD_SHIFT(KC_LBRC, KC_RBRC, MCR_BRCS, MCR_BRCS)
+    THA_LBRC,
+#define TH_ACTION_LABK ACTION_TAP_HOLD(KC_LABK, KC_RABK)
+    THA_LABK,
+
 #define TH_ACTION_LEFT ACTION_TAP_CMD_HOLD(KC_LEFT)
     THA_LEFT,
 #define TH_ACTION_RIGHT ACTION_TAP_CMD_HOLD(KC_RIGHT)
@@ -271,10 +320,18 @@ enum tap_hold_action_keys {
     THA_ALT_LFT,
 #define TH_ACTION_ALT_RGT ACTION_TAP_CMD_HOLD(LALT(KC_RIGHT))
     THA_ALT_RGT,
-#define TH_ACTION_ENTER ACTION_TAP_CMD_HOLD(KC_ENTER)
-    THA_ENTER,
-#define TH_ACTION_ESC ACTION_TAP_HOLD_SHIFT(KC_ESC, LSFT(KC_ESC), KC_CAPSLOCK, KC_CLEAR_MODS)
-    THA_ESC,
+
+#define TH_ACTION_UNDO_Z ACTION_TAP_HOLD(KC_Z, S_UNDO)
+    THA_UNDO_Z,
+#define TH_ACTION_CUT_X ACTION_TAP_HOLD(KC_X, S_CUT)
+    THA_CUT_X,
+#define TH_ACTION_COPY_C ACTION_TAP_HOLD(KC_C, S_COPY)
+    THA_COPY_C,
+#define TH_ACTION_PASTE_D ACTION_TAP_HOLD(KC_D, S_PASTE)
+    THA_PASTE_D,
+#define TH_ACTION_CLIPBOARD_V ACTION_TAP_HOLD(KC_V, S_CLIPBOARD)
+    THA_CLIPBOARD_V,
+
     TAP_HOLD_KEY_MAX
 };
 
@@ -318,15 +375,20 @@ enum tap_hold_action_keys {
   (kc) == KC_QUOT || \
   (kc) == THA_QUOT || \
   (kc) == KC_DQUO )
+
 // (){}[]<>
 #define IS_SYM_PAREN(kc) ( \
   (kc) == KC_LPRN || \
+  (kc) == TH_LPRN || \
   (kc) == KC_RPRN || \
   (kc) == KC_LBRC || \
+  (kc) == TH_LBRC || \
   (kc) == KC_RBRC || \
   (kc) == KC_LCBR || \
+  (kc) == TH_LCBR || \
   (kc) == KC_RCBR || \
   (kc) == KC_LABK || \
+  (kc) == TH_LABK || \
   (kc) == KC_RABK )
 // _\&|%
 #define IS_SYM_PROGRAMMING(kc) ( \
@@ -339,16 +401,20 @@ enum tap_hold_action_keys {
 // =+-*/
 #define IS_SYM_MATH(kc) ( \
   (kc) == KC_EQL || \
+  (kc) == TH_EQLS || \
   (kc) == KC_PLUS || \
   (kc) == KC_MINS || \
+  (kc) == TH_MINS || \
   (kc) == KC_ASTR || \
-  (kc) == KC_SLSH )
+  (kc) == KC_SLSH || \
+  (kc) == TH_SLSH )
 // ^$#~`
 #define IS_SYM_SPECIAL(kc) ( \
   (kc) == KC_CRRT || \
   (kc) == KC_DLR || \
   (kc) == KC_AT || \
   (kc) == KC_TILD || \
+  (kc) == TH_TILD || \
   (kc) == KC_GRV )
 
 #define IS_ARROW(kc) ((KC_RIGHT <= (kc) && (kc) <= KC_UP) || (kc) == TH_LEFT || (kc) == TH_RIGHT)
@@ -359,11 +425,18 @@ enum tap_hold_action_keys {
   (kc) == TH_ALT_RGT || \
   (kc) == OSX_HOME || \
   (kc) == OSX_END)
-#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || \
+
+#define IS_SYSTEM_SC(kc) ( \
+  (kc) == S_UNDO || \
+  (kc) == TH_UNDO_Z || \
   (kc) == S_CUT || \
+  (kc) == TH_CUT_X || \
   (kc) == S_COPY || \
+  (kc) == TH_COPY_C || \
   (kc) == S_PASTE || \
-  (kc) == S_CLIPBOARD)
+  (kc) == TH_PASTE_D || \
+  (kc) == S_CLIPBOARD || \
+  (kc) == TH_CLIPBOARD_V)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
 #define IS_MOD_KEY(kc) ((((kc)>>5) & 0x07) == 0x07)

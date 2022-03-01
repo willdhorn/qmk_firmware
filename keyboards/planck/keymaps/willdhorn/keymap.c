@@ -43,18 +43,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_ADJUST]       = LAYER_ADJUST,
 };
 
-
+// DON'T MAKE THIS CONST
 tap_hold_action_t tap_hold_actions[] = {
-  [THA_DEL] = TH_ACTION_DEL,
+  [THA_BKSP] = TH_ACTION_BKSP,
+  [THA_ENTER] = TH_ACTION_ENTER,
+  [THA_ESC] = TH_ACTION_ESC,
+
   [THA_COMMA] = TH_ACTION_COMMA,
   [THA_DOT] = TH_ACTION_DOT,
   [THA_QUOT] = TH_ACTION_QUOT,
+
+  [THA_MINS] = TH_ACTION_MINS,
+  [THA_SLSH] = TH_ACTION_SLSH,
+  [THA_EQLS] = TH_ACTION_EQLS,
+  [THA_TILD] = TH_ACTION_TILD,
+
+  [THA_LCBR] = TH_ACTION_LCBR,
+  [THA_LPRN] = TH_ACTION_LPRN,
+  [THA_LBRC] = TH_ACTION_LBRC,
+  [THA_LABK] = TH_ACTION_LABK,
+
   [THA_LEFT] = TH_ACTION_LEFT,
   [THA_ALT_LFT] = TH_ACTION_ALT_LFT,
   [THA_RIGHT] = TH_ACTION_RIGHT,
   [THA_ALT_RGT] = TH_ACTION_ALT_RGT,
-  [THA_ENTER] = TH_ACTION_ENTER,
-  [THA_ESC] = TH_ACTION_ESC,
+
+  [THA_UNDO_Z] = TH_ACTION_UNDO_Z,
+  [THA_CUT_X] = TH_ACTION_CUT_X,
+  [THA_COPY_C] = TH_ACTION_COPY_C,
+  [THA_PASTE_D] = TH_ACTION_PASTE_D,
+  [THA_CLIPBOARD_V] = TH_ACTION_CLIPBOARD_V,
+};
+
+const key_override_t sft_ovr_hash_grave = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_GRAVE);
+const key_override_t sft_ovr_vscode_selection = SHIFT_OVERRIDE(VSC_SEL_EXPND, VSC_SEL_SHRNK);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &sft_ovr_hash_grave,
+    &sft_ovr_vscode_selection,
+    NULL // Null terminate the array of overrides!
 };
 
 

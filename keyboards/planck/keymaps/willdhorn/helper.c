@@ -32,15 +32,26 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
-        // Custom OSMs
-        case KC_OSM_CMD:
+        case MCR_NEQL:
+            SEND_STRING("!=");
             break;
-        case KC_OSM_SFT:
+        case MCR_PRNS:
+            SEND_STRING("()");
             break;
-        case KC_OSM_ALT:
+        case MCR_BRCS:
+            SEND_STRING("[]");
             break;
-        case KC_OSM_CTL:
+        case MCR_CBRS:
+            SEND_STRING("{}");
             break;
+        case MCR_TILD:
+            SEND_STRING("~/");
+            break;
+            // Custom OSMs
+        case KC_OSM_CMD : break;
+        case KC_OSM_SFT: break;
+        case KC_OSM_ALT: break;
+        case KC_OSM_CTL: break;
 
         default: break;
     }
