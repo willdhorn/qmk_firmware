@@ -20,8 +20,8 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
 
     switch (keycode) {
-            // Keycodes defined in custom_keycodes
-            case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
+        // Keycodes defined in custom_keycodes
+        case KC_EMPTY:  // used for layer coloring; fundtionally identical to KC_NO
             return false;
         case KC_CLEAR_MODS:
             if (pressed){
@@ -34,19 +34,19 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
 
         case MCR_NEQL:
             SEND_STRING("!=");
-            break;
+            return false;
         case MCR_PRNS:
             SEND_STRING("()");
-            break;
+            return false;
         case MCR_BRCS:
             SEND_STRING("[]");
-            break;
+            return false;
         case MCR_CBRS:
             SEND_STRING("{}");
-            break;
+            return false;
         case MCR_TILD:
             SEND_STRING("~/");
-            break;
+            return false;
             // Custom OSMs
         case KC_OSM_CMD : break;
         case KC_OSM_SFT: break;

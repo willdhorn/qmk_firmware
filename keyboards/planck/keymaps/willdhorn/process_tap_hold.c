@@ -12,10 +12,12 @@ extern uint8_t shift_down;
 
 void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
     uint8_t mods = get_mods();
+    mods |= get_oneshot_mods();
     uint16_t keycode;
-    if (shiftActive()) {
+    if (shiftActive(mods)) {
         // Suppress shift
         unregister_mods(MOD_MASK_SHIFT);
+        clear_oneshot_mods();
 
         keycode = (is_held ? t->KC_hold_shift : t->KC_tap_shift);
 

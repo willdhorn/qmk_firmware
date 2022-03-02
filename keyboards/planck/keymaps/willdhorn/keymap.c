@@ -77,14 +77,22 @@ tap_hold_action_t tap_hold_actions[] = {
 
 const key_override_t sft_ovr_hash_grave = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_GRAVE);
 const key_override_t sft_ovr_vscode_selection = SHIFT_OVERRIDE(VSC_SEL_EXPND, VSC_SEL_SHRNK);
+const key_override_t meh_ovr_default_layer = MEH_OVERRIDE(LK_EXT, LK_DEF);
+
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &sft_ovr_hash_grave,
     &sft_ovr_vscode_selection,
+    &meh_ovr_default_layer,
     NULL // Null terminate the array of overrides!
 };
 
+// Set up combo for using the two primary thumb keys to return to the default layer
+const uint16_t PROGMEM lk_def_combo[] = {LK_EXT, MT(MOD_LMEH,KC_SPACE), COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(lk_def_combo, LK_DEF),
+};
 
 /*
   === START CONFIG ===

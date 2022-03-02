@@ -2,7 +2,6 @@
 
 #include "config.h"
 
-
 enum default_layers {
 #ifdef ENABLE_LAYOUT_QWERTY
     _QWERTY,
@@ -55,6 +54,8 @@ enum planck_layers {
 #define COLEMAK_DH_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
 #define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
 #define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
+// #define COLEMAK_DH_L3 TH_UNDO_Z, TH_CUT_X, TH_COPY_C, TH_PASTE_D, TH_CLIPBOARD_V
+
 
 #define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, TH_BKSP
 #define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
@@ -66,8 +67,8 @@ enum planck_layers {
 #define ISRT_L3 KC_Q, KC_V, KC_W, KC_D, KC_J
 
 #define ISRT_R1 KC_Z, KC_F, KC_U,     TH_QUOT, TH_BKSP
-#define ISRT_R2 KC_M, KC_N, KC_E,     KC_A,     KC_O
-#define ISRT_R3 KC_B, KC_H, TH_COMMA, TH_DOT,   KC_X
+#define ISRT_R2 KC_M, KC_N, KC_E,     KC_A,    KC_O
+#define ISRT_R3 KC_B, KC_H, TH_COMMA, TH_DOT,  KC_X
 
 // WORKMAN
 #define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
@@ -79,51 +80,60 @@ enum planck_layers {
 #define WORKMAN_R3 KC_K, KC_L, TH_COMMA, TH_DOT, TH_QUOT
 
 /*
+  === THUMB KEYS ===
+*/
+
+#ifndef KB_LAYOUT_STANDARD
+#   define DEFAULT_BASE  BASE_ROW(OSM(MOD_LCMD), LK_EXT, OSM(MOD_LSFT), S_ALFRED, MT(MOD_LMEH,KC_SPACE), LK_DEF)
+#    define FALLBACK_BASE BASE_ROW(OSM(MOD_LCMD), LK_EXT, OSM(MOD_LSFT), LK_DEF, MT(MOD_LMEH, KC_SPACE), LK_SYM)
+#endif
+
+/*
   === COMMON LAYERS ===
 */
 
 #define SHORTCUT_ROW S_UNDO,  S_CUT,   S_COPY,  S_PASTE,  S_CLIPBOARD
 
-#define EXT_L1 KC_TAB, LK_SWT, _x_,    LK_ADJ,  _x_
-#define EXT_L2 TH_ESC, LK_NUM, LK_VSC, KC_LSFT, LK_DEF
+#define EXT_L1 KC_TAB, _x_,   _x_, LK_ADJ,   _x_
+#define EXT_L2 TH_ESC, OSM(MOD_LALT), OSM(MOD_LCTL), OSX_APP_NEXT, _x_
 #define EXT_L3 SHORTCUT_ROW
 
-#define EXT_R1 _x_, TH_ALT_LFT, KC_UP,    TH_ALT_RGT,  TH_BKSP
-#define EXT_R2 _x_, TH_LEFT,    KC_DOWN,  TH_RIGHT,    TH_ENTER
-#define EXT_R3 _x_, S_ALFRED,   KC_SPACE, TH_DOT,      LK_SYM
+#define EXT_R1 _x_, LK_VSC,  KC_UP,   KC_TAB,   TH_BKSP
+#define EXT_R2 _x_, TH_LEFT, KC_DOWN, TH_RIGHT, TH_ENTER
+#define EXT_R3 _x_, LK_SWT,  _x_,     TH_DOT,   LK_SYM
 
-
-
+#define EXT_BASE FALLBACK_BASE
 
 
 // SYM
-#define SYM_L1 KC_BSLS, KC_PIPE, KC_AMPR, KC_HASH, KC_LABK
-#define SYM_L2 KC_ASTR, KC_SLSH, KC_MINS, KC_PLUS, KC_RABK
-#define SYM_L3 KC_PERC, KC_CRRT, KC_DLR,  KC_COLN, _x_
+#define SYM_L1 TH_ESC, KC_CRRT, KC_DLR,  KC_AMPR, _x_
+#define SYM_L2 LK_DEF, TH_LCBR, TH_LPRN, TH_LBRC, TH_TILD
+#define SYM_L3 LK_NUM, KC_PERC, KC_PIPE, TH_LABK, _x_
 
-#define SYM_R1 KC_GRV,  KC_SCLN, KC_LCBR, KC_RCBR, TH_BKSP
-#define SYM_R2 KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_ENTER
-#define SYM_R3 KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_SPACE
+#define SYM_R1 _x_,   KC_HASH, KC_ASTR, KC_SCLN, TH_BKSP
+#define SYM_R2 KC_AT, TH_EQLS, KC_PLUS, KC_COLN, KC_ENTER
+#define SYM_R3 _x_,   KC_UNDS, TH_MINS, TH_SLSH, TH_QUOT
 
+#ifndef KB_LAYOUT_STANDARD
+#   define SYM_BASE  BASE_ROW(OSM(MOD_LCMD), LK_EXT, OSM(MOD_LSFT), KC_DOT, MT(MOD_LMEH,KC_SPACE), KC_COMMA)
+#else
+#   define SYM_BASE FALLBACK_BASE
+#endif
 
 // NUM
 #define NUM_L1 SYM_L1
 #define NUM_L2 SYM_L2
 #define NUM_L3 SYM_L3
 
-#define NUM_R1 TH_COMMA, KC_7, KC_8, KC_9, TH_BKSP
-#define NUM_R2 TH_DOT,   KC_4, KC_5, KC_6, KC_0
-#define NUM_R3 _x_,      KC_1, KC_2, KC_3, KC_SPACE
+#define NUM_R1 _x_,     KC_7, KC_8, KC_9, TH_BKSP
+#define NUM_R2 KC_MINS, KC_4, KC_5, KC_6, KC_0
+#define NUM_R3 _x_,     KC_1, KC_2, KC_3, LK_SYM
 
-
-// // NAV
-// #define NAV_L1 KC_TAB, _x_, _x_, _x_, _x_
-// #define NAV_L2 KC_ESC, _x_, _x_, _x_, _x_
-// #define NAV_L3 SHORTCUT_ROW
-//
-// #define NAV_R1 _x_,     OSX_HOME, KC_UP,   OSX_END,  TH_BKSP
-// #define NAV_R2 _x_,     KC_LEFT,  KC_DOWN, KC_RIGHT, KC_ENTER
-// #define NAV_R3 _x_,     _x_,      _x_,     _x_,      _x_
+#ifndef KB_LAYOUT_STANDARD
+#   define NUM_BASE  BASE_ROW(OSM(MOD_LCMD), LK_EXT, OSM(MOD_LSFT), KC_DOT, MT(MOD_LMEH,KC_SPACE), KC_COMMA)
+#else
+#   define NUM_BASE FALLBACK_BASE
+#endif
 
 
 /*
@@ -138,17 +148,21 @@ enum planck_layers {
 #define VSCODE_R2 _x_,     VSC_MV_EDTR_LFT,   VSC_EDTR_SPLT,    VSC_MV_EDTR_RGT,   _x_
 #define VSCODE_R3 _x_,     VSC_MV_EDTR_G_LFT, _x_,              VSC_MV_EDTR_G_RGT, _x_
 
+#define VSCODE_BASE FALLBACK_BASE
+
 /*
   === APPS/WINDOW MANAGEMENT ===
 */
 
-#define SWITCH_L1 _x_,     WNDW_LAYER_9, WNDW_LAYER_3, _x_,          _x_
-#define SWITCH_L2 WM_FULL, WNDW_LAYER_6, WNDW_LAYER_Q, WNDW_LAYER_H, _x_
-#define SWITCH_L3 _x_,     _x_,          _x_,          _x_,          _x_
+#define SWITCH_L1 _x_,     _x_,          WNDW_LAYER_9, _x_,          _x_
+#define SWITCH_L2 LK_DEF,  WNDW_LAYER_6, WNDW_LAYER_3, WNDW_LAYER_H, _x_
+#define SWITCH_L3 _x_,     _x_,          _x_,          WNDW_LAYER_Q, _x_
 
 #define SWITCH_R1 APPS_DESK_R1
 #define SWITCH_R2 APPS_DESK_R2
 #define SWITCH_R3 APPS_DESK_R3
+
+#define SWITCH_BASE FALLBACK_BASE
 
 // APPS/DESKTOPS
 #define APPS_DESK_R1 _x_,     OSX_DESK_PREV, OSX_MC_DESKS, OSX_DESK_RIGHT, _x_
@@ -156,7 +170,7 @@ enum planck_layers {
 #define APPS_DESK_R3 _x_,     _x_,           OSX_MC_APPS,  _x_,            _x_
 // HALF TILING
 #define WNDW_HALF_R1 _x_,     _x_,     WM_H_U, _x_,        _x_
-#define WNDW_HALF_R2 _x_,     WM_H_L,  WM_H_M, WM_H_R,     _x_
+#define WNDW_HALF_R2 _x_,     WM_H_L,  WM_H_M, WM_H_R,     WM_FULL
 #define WNDW_HALF_R3 _x_,     _x_,     WM_H_D, _x_,        _x_
 // QUAD TILING
 #define WNDW_QUAD_R1 _x_,     WM_4Q_UL, _x_,     WM_4Q_UR, _x_
@@ -183,11 +197,12 @@ enum planck_layers {
   === ADJUST ===
 */
 
-#define ADJUST_L1 RESET,   DEBUG,     _x_,     _x_,   KC_WORKMAN
-#define ADJUST_L2 _x_,     KC_MPRV, KC_MNXT, KC_MPLY, _x_
-#define ADJUST_L3 _x_,     _x_,     _x_,     KC_MSTP, _x_
-
+#define ADJUST_L1 RESET,  DEBUG,     _x_,     _x_,   _x_
+#define ADJUST_L2 LK_DEF, KC_MPRV, KC_MNXT, KC_MPLY, _x_
+#define ADJUST_L3 _x_,    _x_,     _x_,     KC_MSTP, _x_
 
 #define ADJUST_R1 KC_QWERTY,     _x_,     _x_,           _x_,     _x_
 #define ADJUST_R2 KC_COLEMAK_DH, KC_MUTE, KC_VOLD,       KC_VOLU, KC_LED_INC_BRGT
-#define ADJUST_R3 KC_ISRT,    RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_LED_DCR_BRGT
+#define ADJUST_R3 KC_ISRT,       RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_LED_DCR_BRGT
+
+#define ADJUST_BASE FALLBACK_BASE

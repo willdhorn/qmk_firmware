@@ -38,18 +38,19 @@
 
 #define _x_ KC_NO
 
+
 #ifdef KB_LAYOUT_STANDARD  // STANDARD LAYOUT
 #    define STD_LK_LEFT TT(_NUM)
 #    define STD_LK_LOWR KC_LSFT
 #    define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #    define STD_LK_RGHT TT(_EXT)
 #else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
-// #    define SPLT_KL3 KC_EMPTY
-// #    define SPLT_KL2 TT(_NUM)
-// #    define SPLT_KL1 KC_LSFT
-// #    define SPLT_KR1 LT(_NAV, KC_SPACE)
-// #    define SPLT_KR2 TT(_EXT)
-// #    define SPLT_KR3 KC_EMPTY
+#    define SPLT_KL3 KC_EMPTY
+#    define SPLT_KL2 LK_EXT
+#    define SPLT_KL1 OSM(MOD_LSFT)
+#    define SPLT_KR1
+#    define SPLT_KR2 MT(MOD_LMEH, KC_SPACE)
+#    define SPLT_KR3 S_ALFRED
 #endif
 
 #define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
@@ -365,15 +366,15 @@ enum tap_hold_action_keys {
 // .,;:?!'"
 #define IS_SYM_PUNCTUATION(kc) ( \
   (kc) == KC_DOT || \
-  (kc) == THA_DOT || \
+  (kc) == TH_DOT || \
   (kc) == KC_COMM || \
-  (kc) == THA_COMMA || \
+  (kc) == TH_COMMA || \
   (kc) == KC_SCLN || \
   (kc) == KC_COLN || \
   (kc) == KC_QUES || \
   (kc) == KC_EXLM || \
   (kc) == KC_QUOT || \
-  (kc) == THA_QUOT || \
+  (kc) == TH_QUOT || \
   (kc) == KC_DQUO )
 
 // (){}[]<>
@@ -426,17 +427,21 @@ enum tap_hold_action_keys {
   (kc) == OSX_HOME || \
   (kc) == OSX_END)
 
+//   (kc) == TH_UNDO_Z ||
+//   (kc) == TH_CUT_X ||
+//   (kc) == TH_COPY_C ||
+//   (kc) == TH_PASTE_D ||
+//   (kc) == TH_CLIPBOARD_V
 #define IS_SYSTEM_SC(kc) ( \
   (kc) == S_UNDO || \
-  (kc) == TH_UNDO_Z || \
   (kc) == S_CUT || \
-  (kc) == TH_CUT_X || \
   (kc) == S_COPY || \
-  (kc) == TH_COPY_C || \
   (kc) == S_PASTE || \
-  (kc) == TH_PASTE_D || \
-  (kc) == S_CLIPBOARD || \
-  (kc) == TH_CLIPBOARD_V)
+  (kc) == S_CLIPBOARD)
+
+#define IS_SWITCH_KEY(kc) ( \
+    (kc) == OSX_APP_NEXT \
+)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
 #define IS_MOD_KEY(kc) ((((kc)>>5) & 0x07) == 0x07)

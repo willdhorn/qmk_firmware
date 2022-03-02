@@ -145,6 +145,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return C_RED;
         case DEBUG:
             return C_GREEN;
+        case S_PALETTE:
         case S_ALFRED:
             return C_PURPLE;
         // WINDOW ARRANGEMENT LAYER KEYS
@@ -191,6 +192,20 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     } else if (IS_SYSTEM_SC(kc)) {
         return CK_SYS_SC;
     }
+
+    /* Symbols */
+    else if (IS_SYM_PUNCTUATION(kc)) {
+        return CK_SYM_PUNC;
+    } else if (IS_SYM_PAREN(kc)) {
+        return CK_SYM_PAREN;
+    } else if (IS_SYM_PROGRAMMING(kc)) {
+        return CK_SYM_PROG;
+    } else if (IS_SYM_MATH(kc)) {
+        return CK_SYM_MATH;
+    } else if (IS_SYM_SPECIAL(kc)) {
+        return CK_SYM_SPEC;
+    }
+
     /* Modifiers */
     else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
         return C_RED;
@@ -233,17 +248,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
         return CK_LAYERS;
     }
-    /* Symbols */
-    else if (IS_SYM_PUNCTUATION(kc)) {
-        return CK_SYM_PUNC;
-    } else if (IS_SYM_PAREN(kc)) {
-        return CK_SYM_PAREN;
-    } else if (IS_SYM_PROGRAMMING(kc)) {
-        return CK_SYM_PROG;
-    } else if (IS_SYM_MATH(kc)) {
-        return CK_SYM_MATH;
-    } else if (IS_SYM_SPECIAL(kc)) {
-        return CK_SYM_SPEC;
+    else if (IS_SWITCH_KEY(kc)) {
+        return CL_SWITCH;
     }
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {
