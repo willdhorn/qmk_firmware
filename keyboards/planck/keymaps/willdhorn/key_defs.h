@@ -38,23 +38,6 @@
 
 #define _x_ KC_NO
 
-
-#ifdef KB_LAYOUT_STANDARD  // STANDARD LAYOUT
-#    define STD_LK_LEFT TT(_NUM)
-#    define STD_LK_LOWR KC_LSFT
-#    define STD_LK_RAIS LT(_NAV, KC_SPACE)
-#    define STD_LK_RGHT TT(_EXT)
-#else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#    define SPLT_KL3 KC_EMPTY
-#    define SPLT_KL2 LK_EXT
-#    define SPLT_KL1 OSM(MOD_LSFT)
-#    define SPLT_KR1
-#    define SPLT_KR2 MT(MOD_LMEH, KC_SPACE)
-#    define SPLT_KR3 S_ALFRED
-#endif
-
-#define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
-
 #define LK_DEF TO(0)
 #define LK_EXT TO(_EXT)
 #define LK_SYM TO(_SYM)
@@ -63,6 +46,22 @@
 #define LK_SWT TO(_SWITCH)
 #define LK_ADJ TO(_ADJUST)
 #define LK_VSC TO(_VSCODE)
+
+#define SPACE_KEY MT(MOD_LMEH, KC_SPACE)
+
+#ifdef KB_LAYOUT_STANDARD  // STANDARD LAYOUT
+#    define STD_LK_LEFT TT(_NUM)
+#    define STD_LK_LOWR KC_LSFT
+#    define STD_LK_RAIS LT(_NAV, KC_SPACE)
+#    define STD_LK_RGHT TT(_EXT)
+#else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
+#    define SPLT_LLFT OSM(MOD_LALT)
+#    define SPLT_LMID LK_EXT
+#    define SPLT_LRGT OSM(MOD_LSFT)
+#    define SPLT_RLFT LK_DEF
+#    define SPLT_RMID SPACE_KEY
+#    define SPLT_RRGT LK_SYM
+#endif
 
 /*
   === MAC SHORTCUTS ===
@@ -81,6 +80,8 @@
 #define S_COPY CMD(KC_C)
 #define S_PASTE CMD(KC_V)
 #define S_CLIPBOARD CMD(CTL((KC_V))) // PASTE FROM CLIPBOARD
+#define S_SNIPPETS CMD(CTL((KC_G))) // ALFRED SNIPPETS
+
 // TABS
 #define S_TABL SFT(CMD(KC_LBRC))
 #define S_TABR SFT(CMD(KC_RBRC))
@@ -232,6 +233,11 @@ enum custom_keycodes {
     VSC_MV_EDTR_G_LFT,  // MOVE EDITOR GROUP LEFT
     VSC_MV_EDTR_G_RGT,  // MOVE EDITOR GROUP RIGHT
     VSC_OPN_DEF_SIDE,    // OPEN DEFINITION IN OPPOSITE GROUP
+    // LAYER SWITCHING
+    LAYER_FN_DEF,
+    LAYER_FN_EXT,
+    LAYER_FN_SYM,
+    LAYER_FN_SYMSWAP,
 };
 #ifndef ENABLE_LAYOUT_QWERTY
     #define KC_QWERTY _x_
@@ -279,6 +285,9 @@ enum custom_keycodes {
 #define TH_COPY_C TH(THA_COPY_C)
 #define TH_PASTE_D TH(THA_PASTE_D)
 #define TH_CLIPBOARD_V TH(THA_CLIPBOARD_V)
+// Layer Switching
+#define TH_LK_DEF TH(THA_LK_DEF)
+#define TH_LK_SYM TH(THA_LK_SYM)
 
 enum tap_hold_action_keys {
 #define TH_ACTION_ENTER ACTION_TAP_CMD_HOLD(KC_ENTER)
@@ -288,16 +297,16 @@ enum tap_hold_action_keys {
 #define TH_ACTION_BKSP ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
     THA_BKSP,
 
-#define TH_ACTION_COMMA ACTION_TAP_HOLD_SHIFT(KC_COMMA, KC_MINS, KC_EXLM, KC_EXLM)
+#define TH_ACTION_COMMA ACTION_TAP_HOLD_SHIFT(KC_COMMA, KC_EXLM, KC_MINS, KC_EXLM)
     THA_COMMA,
-#define TH_ACTION_DOT ACTION_TAP_HOLD_SHIFT(KC_DOT, KC_SLSH, KC_QUES, KC_QUES)
+#define TH_ACTION_DOT ACTION_TAP_HOLD_SHIFT(KC_DOT, KC_QUES, KC_SLSH, KC_QUES)
     THA_DOT,
-#define TH_ACTION_QUOT ACTION_TAP_HOLD_SHIFT(KC_QUOTE, KC_DQUO, KC_BSLS, KC_BSLS)
+#define TH_ACTION_QUOT ACTION_TAP_HOLD_SHIFT(KC_QUOTE, KC_BSLS, KC_DQUO, KC_BSLS)
     THA_QUOT,
 
-#define TH_ACTION_MINS ACTION_TAP_HOLD_SHIFT(KC_MINS, KC_COMMA, KC_EXLM, KC_EXLM)
+#define TH_ACTION_MINS ACTION_TAP_HOLD_SHIFT(KC_MINS, KC_EXLM, KC_COMMA, KC_EXLM)
     THA_MINS,
-#define TH_ACTION_SLSH ACTION_TAP_HOLD_SHIFT(KC_SLSH, KC_DOT, KC_QUES, KC_QUES)
+#define TH_ACTION_SLSH ACTION_TAP_HOLD_SHIFT(KC_SLSH, KC_QUES, KC_DOT, KC_QUES)
     THA_SLSH,
 #define TH_ACTION_EQLS ACTION_TAP_HOLD(KC_EQL, MCR_NEQL)
     THA_EQLS,
@@ -333,6 +342,11 @@ enum tap_hold_action_keys {
 #define TH_ACTION_CLIPBOARD_V ACTION_TAP_HOLD(KC_V, S_CLIPBOARD)
     THA_CLIPBOARD_V,
 
+#define TH_ACTION_LK_DEF ACTION_TAP_HOLD(LAYER_FN_DEF, LAYER_FN_EXT)
+    THA_LK_DEF,
+#define TH_ACTION_LK_SYM ACTION_TAP_HOLD(LAYER_FN_SYMSWAP, LAYER_FN_SYM)
+    THA_LK_SYM,
+
     TAP_HOLD_KEY_MAX
 };
 
@@ -360,7 +374,8 @@ enum tap_hold_action_keys {
   (kc) == KC_TAB || \
   (kc) == KC_ESCAPE || \
   (kc) == TH_ESC || \
-  (kc) == KC_SPACE \
+  (kc) == KC_SPACE || \
+  (kc) == SPACE_KEY \
 )
 
 // .,;:?!'"
@@ -449,13 +464,21 @@ enum tap_hold_action_keys {
 #define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
 #define IS_OSM(kc) ((kc) >= QK_ONE_SHOT_MOD && (kc) <= QK_ONE_SHOT_MOD_MAX)
 
-#define IS_LAYER_KEY(kc) (IS_MO_LAYER(kc) || IS_TO_LAYER(kc) || IS_DF_LAYER(kc) || IS_LT_LAYER(kc) || IS_OSL_LAYER(kc))
+#define IS_LAYER_KEY(kc) (IS_MO_LAYER(kc) || IS_TO_LAYER(kc) || IS_DF_LAYER(kc) || IS_LT_LAYER(kc) || IS_OSL_LAYER(kc) || IS_CUSTOM_LK(kc))
 
 #define IS_MO_LAYER(kc) ((kc) >= QK_MOMENTARY && (kc) <= QK_MOMENTARY_MAX)
 #define IS_TO_LAYER(kc) ((kc) >= QK_TO && (kc) <= QK_TO_MAX)
 #define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
 #define IS_LT_LAYER(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
+#define IS_CUSTOM_LK(kc) ( \
+    (kc) == LAYER_FN_DEF || \
+    (kc) == LAYER_FN_EXT || \
+    (kc) == LAYER_FN_SYM || \
+    (kc) == LAYER_FN_SYMSWAP || \
+    (kc) == TH_LK_SYM || \
+    (kc) == TH_LK_DEF \
+)
 
 #define IS_TAP_DANCE(kc) ((kc) >= QK_TAP_DANCE && (kc) <= QK_TAP_DANCE_MAX)
 
@@ -494,3 +517,6 @@ enum tap_hold_action_keys {
 #define ALT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_ALT, (kc), (ovrrde));
 #define MEH_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_MEH, (kc), (ovrrde));
 
+
+// Need to refactor before removing
+#define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)

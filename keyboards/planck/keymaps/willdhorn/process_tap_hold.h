@@ -16,7 +16,7 @@
 
 #define TH(n) (QK_TAP_HOLD + n)
 
-#define shiftActive(mods) (mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
+#define shiftActive(mods) (mods & MOD_MASK_SHIFT)
 
 #define ACTION_TAP_HOLD_SHIFT(kc_tap, kc_tap_shift, kc_hold, kc_hold_shift) \
   { kc_tap, kc_tap_shift, kc_hold, kc_hold_shift, 0, th_default }
@@ -26,10 +26,7 @@
 
 #define ACTION_TAP_CMD_HOLD(kc_tap) \
   ACTION_TAP_HOLD_SHIFT(kc_tap, LSFT(kc_tap), LCMD(kc_tap), LSFT(LCMD(kc_tap)))
-
-
-
-
+  
 typedef enum {
   th_default,
   th_first_press

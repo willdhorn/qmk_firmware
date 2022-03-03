@@ -6,9 +6,8 @@
 #include "user_debug.h"
 
 
-extern tap_hold_action_t tap_hold_actions[];
-
 extern uint8_t shift_down;
+extern tap_hold_action_t tap_hold_actions[];
 
 void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
     uint8_t mods = get_mods();
@@ -17,7 +16,7 @@ void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
     if (shiftActive(mods)) {
         // Suppress shift
         unregister_mods(MOD_MASK_SHIFT);
-        clear_oneshot_mods();
+        del_oneshot_mods(MOD_MASK_SHIFT);
 
         keycode = (is_held ? t->KC_hold_shift : t->KC_tap_shift);
 

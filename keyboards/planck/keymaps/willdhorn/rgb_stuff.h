@@ -57,8 +57,7 @@
 #define CL_ISRT             CHSV(170, 255, 240) // Purple
 
 // Additional Layers
-#define CL_EXT          C_RED
-#define CL_NAV          C_YELLOW
+#define CL_EXT          C_YELLOW
 #define CL_SYM          C_BLUE
 #define CL_NUM          C_GREEN
 #define CL_VSCODE       C_PURPLE
@@ -110,8 +109,10 @@
 #define CK_ADJ_MED        C_BLORNG
 #define CK_ADJ_RGB        C_HOTPINK
 
+#define CK_MODS         C_WHITE
+
 // THE 16 COLORS ASSIGNED TO DIFFERNT CATEGORIES OF KEYS
-#define CK_MODS         C_RED
+#define CK_SYSTEM       C_RED
 #define CK_OSM          C_BLORNG
 #define CK_NAV          C_YELLOW
 #define CK_OSM_ON       C_YELLOW

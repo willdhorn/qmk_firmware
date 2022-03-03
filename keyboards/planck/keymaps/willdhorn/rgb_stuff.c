@@ -22,7 +22,6 @@ const HSV layer_colors[] = {
                             [_WORKMAN] =      CL_WORKMAN,
 #endif
                             [_EXT]     =      CL_EXT,
-                            [_NAV] =          CL_NAV,
                             [_SYM] =          CL_SYM,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
@@ -145,6 +144,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return C_RED;
         case DEBUG:
             return C_GREEN;
+        case S_SNIPPETS:
         case S_PALETTE:
         case S_ALFRED:
             return C_PURPLE;
@@ -207,12 +207,13 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     }
 
     /* Modifiers */
-    else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
-        return C_RED;
-    }
-    else if (IS_MOD_TAP(kc)) {
+    else if (IS_SYSTEM_KEY(kc)) {
+        return CK_SYSTEM;
+    } else if (IS_MOD_KEY(kc)) {
+        return CK_MODS;
+    } else if (IS_MOD_TAP(kc)) {
         if (MT_KEYCODE(kc) == KC_SPACE) {
-          return CK_LETTERS(layer_color);
+          return CK_SYSTEM;
         }
 
         HSV key_color = get_keycode_color(MT_KEYCODE(kc), layer_color);
@@ -234,8 +235,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         else {
             return CK_MOD_TAP(key_color);  // no mods are active
         }
-    }
-    else if (IS_OSM(kc)) {
+    } else if (IS_OSM(kc)) {
         uint8_t mods = OSM_MODS(kc);
         if (get_oneshot_mods() & mods) {
             return CK_OSM_ON;
@@ -244,11 +244,9 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         } else {
             return CK_MODS;
         }
-    }
-    else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
+    } else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
         return CK_LAYERS;
-    }
-    else if (IS_SWITCH_KEY(kc)) {
+    } else if (IS_SWITCH_KEY(kc)) {
         return CL_SWITCH;
     }
     /* ADJUSTMENTS */

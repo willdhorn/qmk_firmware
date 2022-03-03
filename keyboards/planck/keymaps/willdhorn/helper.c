@@ -32,23 +32,63 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        // Custom Macro keys for Tap-Hold
         case MCR_NEQL:
-            SEND_STRING("!=");
+            if (pressed){
+                SEND_STRING("!=");
+            }
             return false;
         case MCR_PRNS:
-            SEND_STRING("()");
+            if (pressed){
+                SEND_STRING("()");
+            }
             return false;
         case MCR_BRCS:
-            SEND_STRING("[]");
+            if (pressed){
+                SEND_STRING("[]");
+            }
             return false;
         case MCR_CBRS:
-            SEND_STRING("{}");
+            if (pressed){
+                SEND_STRING("{}");
+            }
             return false;
         case MCR_TILD:
-            SEND_STRING("~/");
+            if (pressed){
+                SEND_STRING("~/");
+            }
             return false;
-            // Custom OSMs
-        case KC_OSM_CMD : break;
+
+        // Custom Layer Macro keys for Tap-Hold
+        case LAYER_FN_DEF:
+            if (pressed){
+                layer_clear();
+            }
+            return false;
+        case LAYER_FN_EXT:
+            if (pressed){
+                layer_move(_EXT);
+            }
+            return false;
+        case LAYER_FN_SYM:
+            if (pressed){
+                layer_move(_SYM);
+            }
+            return false;
+        case LAYER_FN_SYMSWAP:
+            if (pressed){
+                if (IS_LAYER_ON(_NUM)) {
+                    layer_move(_SYM);
+                } else if (IS_LAYER_ON(_SYM)) {
+                    layer_move(_NUM);
+                } else {
+                    layer_move(_SYM);
+                }
+            }
+            return false;
+
+        // Custom OSMs
+        case KC_OSM_CMD: break;
         case KC_OSM_SFT: break;
         case KC_OSM_ALT: break;
         case KC_OSM_CTL: break;
