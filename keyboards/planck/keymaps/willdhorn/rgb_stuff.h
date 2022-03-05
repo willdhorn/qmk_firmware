@@ -52,16 +52,16 @@
 
 // Default Layers
 #define CL_QWERTY           CHSV(12, 200, 170) // Dull pink/beige
-#define CL_COLEMAK_DH       CHSV(85, 255, 240) // Green
+#define CL_COLEMAK_DH       CHSV(87, 250, 240) // Green
 #define CL_WORKMAN          CHSV(45, 255, 240) // Yellow
 #define CL_ISRT             CHSV(170, 255, 240) // Purple
 
 // Additional Layers
-#define CL_EXT          C_BLUE
-#define CL_NAV          C_YELLOW
+#define CL_EXT          C_YELLOW
+#define CL_SYM          C_BLUE
 #define CL_NUM          C_GREEN
 #define CL_VSCODE       C_PURPLE
-#define CL_ADJUST       C_BLORNG
+#define CL_ADJUST       C_ORANGE
 
 // Apps/Window Layersr
 #define CL_SWITCH       C_MAGENTA
@@ -69,15 +69,15 @@
 #define CL_WNDW_QUAD    C_RED
 #define CL_WNDW_VERT    C_ORANGE
 #define CL_WNDW_THRD    C_GREEN
-#define CL_WNDW_SIXT    C_YELLOW
-#define CL_WNDW_NINT    C_LIME
+#define CL_WNDW_SIXT    C_LIME
+#define CL_WNDW_NINT    C_YELLOW
 
 /*
   === KEY COLORS ===
 */
 #define CK_EMPTY CF_PALE(CF_DIM(top_layer_color))
 
-#define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_SHFT(color)) : (color))
+#define CK_LETTERS(color) ((host_keyboard_led_state().caps_lock) ? (CF_PALE(color)) : (color))
 #define CK_MOD_TAP(color) CHSV(color.h, F_SUB(color.s, 50), F_ADD(color.v,100))
 
 // #define CK_MODIFIERS      CF_PALE(C_RED)
@@ -109,8 +109,10 @@
 #define CK_ADJ_MED        C_BLORNG
 #define CK_ADJ_RGB        C_HOTPINK
 
+#define CK_MODS         C_WHITE
+
 // THE 16 COLORS ASSIGNED TO DIFFERNT CATEGORIES OF KEYS
-#define CK_MODS         C_RED
+#define CK_SYSTEM       C_RED
 #define CK_OSM          C_BLORNG
 #define CK_NAV          C_YELLOW
 #define CK_OSM_ON       C_YELLOW

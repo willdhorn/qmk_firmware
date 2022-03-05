@@ -11,19 +11,27 @@
 // Layout switch
 // #define KB_LAYOUT_STANDARD  // otherwise, use split layout
 
+// Default layouts
+#define ENABLE_LAYOUT_QWERTY
+#define ENABLE_LAYOUT_COLEMAK
+#define ENABLE_LAYOUT_ISRT
+#undef ENABLE_LAYOUT_WORKMAN
+
 // Key Behaviour
 #undef TAPPING_TERM
-#define TAPPING_TERM 180
+#define TAPPING_TERM 220
 
 #define TAPPING_TERM_PER_KEY
 #define RETRO_TAPPING_PER_KEY
 #define SPACE_RETRO_TAP_TERM 250
 
+#define COMBO_COUNT 1
+
 // !! ABSOLUTELY NEEDED FOR HOME ROW MODS !!
-#define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRPT
 // #define TAPPING_FORCE_HOLD
 // This should make accidental mod triggers less likely
-#define BILATERAL_COMBINATIONS 400
+// '#define BILATERAL_COMBINATIONS 400
 
 // #define TAPPING_TOGGLE 1
 

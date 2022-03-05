@@ -7,12 +7,22 @@
 #include "layers.h"
 #include "layouts.h"
 
-const HSV layer_colors[] = {[_QWERTY]  =      CL_QWERTY,
+const HSV layer_colors[] = {
+
+#ifdef ENABLE_LAYOUT_QWERTY
+                            [_QWERTY]  =      CL_QWERTY,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
                             [_COLEMAK_DH] =   CL_COLEMAK_DH,
-                            [_ISRT] =      CL_ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
+                            [_ISRT] =         CL_ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
                             [_WORKMAN] =      CL_WORKMAN,
-                            [_NAV] =      CL_NAV,
+#endif
                             [_EXT]     =      CL_EXT,
+                            [_SYM] =          CL_SYM,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
                             [_SWITCH] =       CL_SWITCH,
@@ -134,6 +144,10 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
             return C_RED;
         case DEBUG:
             return C_GREEN;
+        case S_SNIPPETS:
+        case S_PALETTE:
+        case S_ALFRED:
+            return C_PURPLE;
         // WINDOW ARRANGEMENT LAYER KEYS
         case WNDW_LAYER_H:
             return CL_WNDW_HALF;
@@ -148,14 +162,22 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         case WNDW_LAYER_9:
             return CL_WNDW_NINT;
         // DEFAULT LAYER
+#ifdef ENABLE_LAYOUT_QWERTY
         case KC_QWERTY:
             return CF_PALE(CL_QWERTY);
-        case KC_WORKMAN:
-            return CF_PALE(CL_WORKMAN);
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
         case KC_COLEMAK_DH:
             return CF_PALE(CL_COLEMAK_DH);
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
         case KC_ISRT:
             return CF_PALE(CL_ISRT);
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+        case KC_WORKMAN:
+            return CF_PALE(CL_WORKMAN);
+#endif
     }
 
     if (IS_LETTER(kc)) {
@@ -170,13 +192,28 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     } else if (IS_SYSTEM_SC(kc)) {
         return CK_SYS_SC;
     }
-    /* Modifiers */
-    else if (IS_MOD_KEY(kc) || IS_SYSTEM_KEY(kc)) {
-        return C_RED;
+
+    /* Symbols */
+    else if (IS_SYM_PUNCTUATION(kc)) {
+        return CK_SYM_PUNC;
+    } else if (IS_SYM_PAREN(kc)) {
+        return CK_SYM_PAREN;
+    } else if (IS_SYM_PROGRAMMING(kc)) {
+        return CK_SYM_PROG;
+    } else if (IS_SYM_MATH(kc)) {
+        return CK_SYM_MATH;
+    } else if (IS_SYM_SPECIAL(kc)) {
+        return CK_SYM_SPEC;
     }
-    else if (IS_MOD_TAP(kc)) {
+
+    /* Modifiers */
+    else if (IS_SYSTEM_KEY(kc)) {
+        return CK_SYSTEM;
+    } else if (IS_MOD_KEY(kc)) {
+        return CK_MODS;
+    } else if (IS_MOD_TAP(kc)) {
         if (MT_KEYCODE(kc) == KC_SPACE) {
-          return CK_LETTERS(layer_color);
+          return CK_SYSTEM;
         }
 
         HSV key_color = get_keycode_color(MT_KEYCODE(kc), layer_color);
@@ -198,8 +235,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         else {
             return CK_MOD_TAP(key_color);  // no mods are active
         }
-    }
-    else if (IS_OSM(kc)) {
+    } else if (IS_OSM(kc)) {
         uint8_t mods = OSM_MODS(kc);
         if (get_oneshot_mods() & mods) {
             return CK_OSM_ON;
@@ -208,21 +244,10 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         } else {
             return CK_MODS;
         }
-    }
-    else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
+    } else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
         return CK_LAYERS;
-    }
-    /* Symbols */
-    else if (IS_SYM_PUNCTUATION(kc)) {
-        return CK_SYM_PUNC;
-    } else if (IS_SYM_PAREN(kc)) {
-        return CK_SYM_PAREN;
-    } else if (IS_SYM_PROGRAMMING(kc)) {
-        return CK_SYM_PROG;
-    } else if (IS_SYM_MATH(kc)) {
-        return CK_SYM_MATH;
-    } else if (IS_SYM_SPECIAL(kc)) {
-        return CK_SYM_SPEC;
+    } else if (IS_SWITCH_KEY(kc)) {
+        return CL_SWITCH;
     }
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {

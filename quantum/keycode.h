@@ -176,7 +176,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_RGUI KC_RIGHT_GUI
 #define KC_RCMD KC_RIGHT_GUI
 #define KC_RWIN KC_RIGHT_GUI
-
+ 
 /* Generic Desktop Page (0x01) */
 #define KC_PWR  KC_SYSTEM_POWER
 #define KC_SLEP KC_SYSTEM_SLEEP

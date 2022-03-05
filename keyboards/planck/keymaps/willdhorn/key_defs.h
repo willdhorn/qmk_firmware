@@ -1,5 +1,6 @@
 #pragma once
 
+#include "process_tap_hold.h"
 #include "tap_dances.h"
 
 /*
@@ -37,35 +38,50 @@
 
 #define _x_ KC_NO
 
+#define LK_DEF TO(0)
+#define LK_EXT TO(_EXT)
+#define LK_SYM TO(_SYM)
+#define LK_NUM TO(_NUM)
+#define LK_NAV TO(_NAV)
+#define LK_SWT TO(_SWITCH)
+#define LK_ADJ TO(_ADJUST)
+#define LK_VSC TO(_VSCODE)
+
+#define SPACE_KEY MT(MOD_LMEH, KC_SPACE)
+
 #ifdef KB_LAYOUT_STANDARD  // STANDARD LAYOUT
 #    define STD_LK_LEFT TT(_NUM)
 #    define STD_LK_LOWR KC_LSFT
 #    define STD_LK_RAIS LT(_NAV, KC_SPACE)
 #    define STD_LK_RGHT TT(_EXT)
 #else  // SPLIT LAYOUT - WITH 3 LAYERKEYS
-#    define SPLT_KL3 KC_EMPTY
-#    define SPLT_KL2 TT(_NUM)
-#    define SPLT_KL1 KC_LSFT
-#    define SPLT_KR1 LT(_NAV, KC_SPACE)
-#    define SPLT_KR2 TT(_EXT)
-#    define SPLT_KR3 KC_EMPTY
+#    define SPLT_LLFT OSM(MOD_LALT)
+#    define SPLT_LMID LK_EXT
+#    define SPLT_LRGT OSM(MOD_LSFT)
+#    define SPLT_RLFT LK_DEF
+#    define SPLT_RMID SPACE_KEY
+#    define SPLT_RRGT LK_SYM
 #endif
 
-#define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
-
-#define T_BSPACE TD(TD_BSPACE)
 /*
   === MAC SHORTCUTS ===
 */
 // HOME AND END KEYS
 #define OSX_HOME CMD(KC_LEFT)
 #define OSX_END CMD(KC_RIGHT)
+#define OSX_BKSP_LINE CMD(KC_BACKSPACE)
+#define OSX_DEL_LINE CTL(KC_K)
+// ALFRED (and other)
+#define S_ALFRED CMD(KC_SPACE)
+#define S_PALETTE CMD(SFT(KC_P))
 // GENERAL
 #define S_UNDO CMD(KC_Z)
 #define S_CUT CMD(KC_X)
 #define S_COPY CMD(KC_C)
 #define S_PASTE CMD(KC_V)
-#define S_CLIPBOARD MEH(KC_V) // PASTE FROM CLIPBOARD
+#define S_CLIPBOARD CMD(CTL((KC_V))) // PASTE FROM CLIPBOARD
+#define S_SNIPPETS CMD(CTL((KC_G))) // ALFRED SNIPPETS
+
 // TABS
 #define S_TABL SFT(CMD(KC_LBRC))
 #define S_TABR SFT(CMD(KC_RBRC))
@@ -176,12 +192,30 @@
 
 // CUSTOM KEYCODES
 enum custom_keycodes {
+    // UTILITY KEYS
     KC_EMPTY = EZ_SAFE_RANGE,
+    KC_CLEAR_MODS,
     // PERSISTANT DEFALT LAYER
+#ifdef ENABLE_LAYOUT_QWERTY
     KC_QWERTY,
-    KC_WORKMAN,
+#endif
+#ifdef ENABLE_LAYOUT_COLEMAK
     KC_COLEMAK_DH,
+#endif
+#ifdef ENABLE_LAYOUT_ISRT
     KC_ISRT,
+#endif
+#ifdef ENABLE_LAYOUT_WORKMAN
+    KC_WORKMAN,
+#endif
+
+    // MACRO KEYS
+    MCR_NEQL,
+    MCR_PRNS,
+    MCR_BRCS,
+    MCR_CBRS,
+    MCR_TILD,
+
     // CUSTOM ONE SHOT MODS
     KC_OSM_CMD,
     KC_OSM_SFT,
@@ -199,8 +233,122 @@ enum custom_keycodes {
     VSC_MV_EDTR_G_LFT,  // MOVE EDITOR GROUP LEFT
     VSC_MV_EDTR_G_RGT,  // MOVE EDITOR GROUP RIGHT
     VSC_OPN_DEF_SIDE,    // OPEN DEFINITION IN OPPOSITE GROUP
+    // LAYER SWITCHING
+    LAYER_FN_DEF,
+    LAYER_FN_EXT,
+    LAYER_FN_SYM,
+    LAYER_FN_SYMSWAP,
 };
+#ifndef ENABLE_LAYOUT_QWERTY
+    #define KC_QWERTY _x_
+#endif
+#ifndef ENABLE_LAYOUT_COLEMAK
+    #define KC_COLEMAK_DH _x_
+#endif
+#ifndef ENABLE_LAYOUT_ISRT
+    #define KC_ISRT _x_
+#endif
+#ifndef ENABLE_LAYOUT_WORKMAN
+    #define KC_WORKMAN _x_
+#endif
 
+
+/*
+  === Tap Hold ===
+*/
+// System
+#define TH_BKSP TH(THA_BKSP)
+#define TH_ENTER TH(THA_ENTER)
+#define TH_ESC TH(THA_ESC)
+// Punctuation and Symbols
+#define TH_COMMA TH(THA_COMMA)
+#define TH_DOT TH(THA_DOT)
+#define TH_QUOT TH(THA_QUOT)
+
+#define TH_MINS TH(THA_MINS)
+#define TH_SLSH TH(THA_SLSH)
+#define TH_EQLS TH(THA_EQLS)
+#define TH_TILD TH(THA_TILD)
+// Brackets
+#define TH_LCBR TH(THA_LCBR)
+#define TH_LPRN TH(THA_LPRN)
+#define TH_LBRC TH(THA_LBRC)
+#define TH_LABK TH(THA_LABK)
+// Arrow keys
+#define TH_LEFT TH(THA_LEFT)
+#define TH_ALT_LFT TH(THA_ALT_LFT)
+#define TH_RIGHT TH(THA_RIGHT)
+#define TH_ALT_RGT TH(THA_ALT_RGT)
+// ZXCV Shortcuts
+#define TH_UNDO_Z TH(THA_UNDO_Z)
+#define TH_CUT_X TH(THA_CUT_X)
+#define TH_COPY_C TH(THA_COPY_C)
+#define TH_PASTE_D TH(THA_PASTE_D)
+#define TH_CLIPBOARD_V TH(THA_CLIPBOARD_V)
+// Layer Switching
+#define TH_LK_DEF TH(THA_LK_DEF)
+#define TH_LK_SYM TH(THA_LK_SYM)
+
+enum tap_hold_action_keys {
+#define TH_ACTION_ENTER ACTION_TAP_CMD_HOLD(KC_ENTER)
+    THA_ENTER = 0,
+#define TH_ACTION_ESC ACTION_TAP_HOLD_SHIFT(KC_ESC, LSFT(KC_ESC), KC_CAPSLOCK, KC_CLEAR_MODS)
+    THA_ESC,
+#define TH_ACTION_BKSP ACTION_TAP_HOLD_SHIFT(KC_BACKSPACE, KC_DELETE, OSX_BKSP_LINE, OSX_DEL_LINE)
+    THA_BKSP,
+
+#define TH_ACTION_COMMA ACTION_TAP_HOLD_SHIFT(KC_COMMA, KC_EXLM, KC_MINS, KC_EXLM)
+    THA_COMMA,
+#define TH_ACTION_DOT ACTION_TAP_HOLD_SHIFT(KC_DOT, KC_QUES, KC_SLSH, KC_QUES)
+    THA_DOT,
+#define TH_ACTION_QUOT ACTION_TAP_HOLD_SHIFT(KC_QUOTE, KC_BSLS, KC_DQUO, KC_BSLS)
+    THA_QUOT,
+
+#define TH_ACTION_MINS ACTION_TAP_HOLD_SHIFT(KC_MINS, KC_EXLM, KC_COMMA, KC_EXLM)
+    THA_MINS,
+#define TH_ACTION_SLSH ACTION_TAP_HOLD_SHIFT(KC_SLSH, KC_QUES, KC_DOT, KC_QUES)
+    THA_SLSH,
+#define TH_ACTION_EQLS ACTION_TAP_HOLD(KC_EQL, MCR_NEQL)
+    THA_EQLS,
+#define TH_ACTION_TILD ACTION_TAP_HOLD(KC_TILD, MCR_TILD)
+    THA_TILD,
+
+#define TH_ACTION_LPRN ACTION_TAP_HOLD_SHIFT(KC_LPRN, KC_RPRN, MCR_PRNS, MCR_PRNS)
+    THA_LPRN,
+#define TH_ACTION_LCBR ACTION_TAP_HOLD_SHIFT(KC_LCBR, KC_RCBR, MCR_CBRS, MCR_CBRS)
+    THA_LCBR,
+#define TH_ACTION_LBRC ACTION_TAP_HOLD_SHIFT(KC_LBRC, KC_RBRC, MCR_BRCS, MCR_BRCS)
+    THA_LBRC,
+#define TH_ACTION_LABK ACTION_TAP_HOLD(KC_LABK, KC_RABK)
+    THA_LABK,
+
+#define TH_ACTION_LEFT ACTION_TAP_CMD_HOLD(KC_LEFT)
+    THA_LEFT,
+#define TH_ACTION_RIGHT ACTION_TAP_CMD_HOLD(KC_RIGHT)
+    THA_RIGHT,
+#define TH_ACTION_ALT_LFT ACTION_TAP_CMD_HOLD(LALT(KC_LEFT))
+    THA_ALT_LFT,
+#define TH_ACTION_ALT_RGT ACTION_TAP_CMD_HOLD(LALT(KC_RIGHT))
+    THA_ALT_RGT,
+
+#define TH_ACTION_UNDO_Z ACTION_TAP_HOLD(KC_Z, S_UNDO)
+    THA_UNDO_Z,
+#define TH_ACTION_CUT_X ACTION_TAP_HOLD(KC_X, S_CUT)
+    THA_CUT_X,
+#define TH_ACTION_COPY_C ACTION_TAP_HOLD(KC_C, S_COPY)
+    THA_COPY_C,
+#define TH_ACTION_PASTE_D ACTION_TAP_HOLD(KC_D, S_PASTE)
+    THA_PASTE_D,
+#define TH_ACTION_CLIPBOARD_V ACTION_TAP_HOLD(KC_V, S_CLIPBOARD)
+    THA_CLIPBOARD_V,
+
+#define TH_ACTION_LK_DEF ACTION_TAP_HOLD(LAYER_FN_DEF, LAYER_FN_EXT)
+    THA_LK_DEF,
+#define TH_ACTION_LK_SYM ACTION_TAP_HOLD(LAYER_FN_SYMSWAP, LAYER_FN_SYM)
+    THA_LK_SYM,
+
+    TAP_HOLD_KEY_MAX
+};
 
 /*
   === MISC ===
@@ -220,32 +368,43 @@ enum custom_keycodes {
 #define IS_NUMBER(kc) (KC_1 <= (kc) && (kc) <= KC_0) // ignores num pad keys
 #define IS_SYSTEM_KEY(kc) ( \
   (kc) == KC_BACKSPACE || \
-  (kc) == T_BSPACE || \
+  (kc) == TH_BKSP || \
   (kc) == KC_ENTER || \
+  (kc) == TH_ENTER || \
   (kc) == KC_TAB || \
   (kc) == KC_ESCAPE || \
-  (kc) == KC_SPACE \
+  (kc) == TH_ESC || \
+  (kc) == KC_SPACE || \
+  (kc) == SPACE_KEY \
 )
 
 // .,;:?!'"
 #define IS_SYM_PUNCTUATION(kc) ( \
   (kc) == KC_DOT || \
+  (kc) == TH_DOT || \
   (kc) == KC_COMM || \
+  (kc) == TH_COMMA || \
   (kc) == KC_SCLN || \
   (kc) == KC_COLN || \
   (kc) == KC_QUES || \
   (kc) == KC_EXLM || \
   (kc) == KC_QUOT || \
+  (kc) == TH_QUOT || \
   (kc) == KC_DQUO )
+
 // (){}[]<>
 #define IS_SYM_PAREN(kc) ( \
   (kc) == KC_LPRN || \
+  (kc) == TH_LPRN || \
   (kc) == KC_RPRN || \
   (kc) == KC_LBRC || \
+  (kc) == TH_LBRC || \
   (kc) == KC_RBRC || \
   (kc) == KC_LCBR || \
+  (kc) == TH_LCBR || \
   (kc) == KC_RCBR || \
   (kc) == KC_LABK || \
+  (kc) == TH_LABK || \
   (kc) == KC_RABK )
 // _\&|%
 #define IS_SYM_PROGRAMMING(kc) ( \
@@ -258,29 +417,46 @@ enum custom_keycodes {
 // =+-*/
 #define IS_SYM_MATH(kc) ( \
   (kc) == KC_EQL || \
+  (kc) == TH_EQLS || \
   (kc) == KC_PLUS || \
   (kc) == KC_MINS || \
+  (kc) == TH_MINS || \
   (kc) == KC_ASTR || \
-  (kc) == KC_SLSH )
+  (kc) == KC_SLSH || \
+  (kc) == TH_SLSH )
 // ^$#~`
 #define IS_SYM_SPECIAL(kc) ( \
   (kc) == KC_CRRT || \
   (kc) == KC_DLR || \
   (kc) == KC_AT || \
   (kc) == KC_TILD || \
+  (kc) == TH_TILD || \
   (kc) == KC_GRV )
 
-#define IS_ARROW(kc) (KC_RIGHT <= (kc) && (kc) <= KC_UP)
+#define IS_ARROW(kc) ((KC_RIGHT <= (kc) && (kc) <= KC_UP) || (kc) == TH_LEFT || (kc) == TH_RIGHT)
 
 #define IS_NAV_SC(kc) ((kc) == S_TABL || \
   (kc) == S_TABR || \
+  (kc) == TH_ALT_LFT || \
+  (kc) == TH_ALT_RGT || \
   (kc) == OSX_HOME || \
   (kc) == OSX_END)
-#define IS_SYSTEM_SC(kc) ((kc) == S_UNDO || \
+
+//   (kc) == TH_UNDO_Z ||
+//   (kc) == TH_CUT_X ||
+//   (kc) == TH_COPY_C ||
+//   (kc) == TH_PASTE_D ||
+//   (kc) == TH_CLIPBOARD_V
+#define IS_SYSTEM_SC(kc) ( \
+  (kc) == S_UNDO || \
   (kc) == S_CUT || \
   (kc) == S_COPY || \
   (kc) == S_PASTE || \
   (kc) == S_CLIPBOARD)
+
+#define IS_SWITCH_KEY(kc) ( \
+    (kc) == OSX_APP_NEXT \
+)
 
 // Mods set top 3 bits (6,7,8) to indicate mod and bits 1 and 2 are used for mod encoding (non one-hot)
 #define IS_MOD_KEY(kc) ((((kc)>>5) & 0x07) == 0x07)
@@ -288,13 +464,21 @@ enum custom_keycodes {
 #define IS_MOD_TAP(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
 #define IS_OSM(kc) ((kc) >= QK_ONE_SHOT_MOD && (kc) <= QK_ONE_SHOT_MOD_MAX)
 
-#define IS_LAYER_KEY(kc) (IS_MO_LAYER(kc) || IS_TO_LAYER(kc) || IS_DF_LAYER(kc) || IS_LT_LAYER(kc) || IS_OSL_LAYER(kc))
+#define IS_LAYER_KEY(kc) (IS_MO_LAYER(kc) || IS_TO_LAYER(kc) || IS_DF_LAYER(kc) || IS_LT_LAYER(kc) || IS_OSL_LAYER(kc) || IS_CUSTOM_LK(kc))
 
 #define IS_MO_LAYER(kc) ((kc) >= QK_MOMENTARY && (kc) <= QK_MOMENTARY_MAX)
 #define IS_TO_LAYER(kc) ((kc) >= QK_TO && (kc) <= QK_TO_MAX)
 #define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
 #define IS_LT_LAYER(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
+#define IS_CUSTOM_LK(kc) ( \
+    (kc) == LAYER_FN_DEF || \
+    (kc) == LAYER_FN_EXT || \
+    (kc) == LAYER_FN_SYM || \
+    (kc) == LAYER_FN_SYMSWAP || \
+    (kc) == TH_LK_SYM || \
+    (kc) == TH_LK_DEF \
+)
 
 #define IS_TAP_DANCE(kc) ((kc) >= QK_TAP_DANCE && (kc) <= QK_TAP_DANCE_MAX)
 
@@ -330,11 +514,9 @@ enum custom_keycodes {
 */
 
 #define SHIFT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_SHIFT, (kc), (ovrrde));
+#define ALT_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_ALT, (kc), (ovrrde));
 #define MEH_OVERRIDE(kc, ovrrde) ko_make_basic(MOD_MASK_MEH, (kc), (ovrrde));
 
-// Functions for handling vscode short cut sequences
-void two_tap(uint16_t kc1, uint16_t kc2);
-void vscode_chord(uint16_t kc);
 
-// Alt-Tab mode handler
-void handle_alt_tab_mode(uint16_t kc);
+// Need to refactor before removing
+#define LK_SPACE_BAR LT(_ADJUST, KC_CAPSLOCK)
