@@ -1,14 +1,7 @@
 #include QMK_KEYBOARD_H
 #include <stdint.h>
 
-#include "config.h"
 #include "helper.h"
-#include "key_defs.h"
-#include "layers.h"
-#include "layouts.h"
-#include "rgb_stuff.h"
-#include "tap_dances.h"
-#include "user_debug.h"
 
 // Flags for mod tap lighting effects
 extern uint16_t mod_tap_timer;

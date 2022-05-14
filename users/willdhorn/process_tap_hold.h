@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include "quantum.h"
 
 
 // In quantum_keycodes.h 0x5C00 - 0x5FFF are reserved for dedicated quantum keys

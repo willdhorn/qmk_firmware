@@ -1,11 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 
-#include "helper.h"
 #include "tap_dances.h"
-#include "key_defs.h"
-#include "layers.h"
-#include "user_debug.h"
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     // One shot - 1st tap: osm, 2nd tap: del osm, hold: mod, 3tap:lock mod until next tap

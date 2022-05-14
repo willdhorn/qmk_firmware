@@ -1,10 +1,10 @@
 #include QMK_KEYBOARD_H
 
 #include "process_tap_hold.h"
-#include "helper.h"
-#include "key_defs.h"
-#include "user_debug.h"
 
+// I really want to remove this, but it has to stay until
+// the processing of custom keycodes can be refactored.
+#include "helper.h"
 
 extern tap_hold_action_t tap_hold_actions[];
 

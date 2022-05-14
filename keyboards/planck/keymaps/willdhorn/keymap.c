@@ -6,15 +6,7 @@
 #include "eeprom.h"
 #include "print.h"
 
-#include "process_tap_hold.h"
-
-#include "helper.h"
-#include "key_defs.h"
-#include "layers.h"
-#include "layouts.h"
-#include "rgb_stuff.h"
-#include "tap_dances.h"
-#include "user_debug.h"
+#include "willdhorn.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENABLE_LAYOUT_QWERTY

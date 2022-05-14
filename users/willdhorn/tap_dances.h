@@ -1,6 +1,8 @@
 #pragma once
 
 #include "quantum.h"
+#include "key_defs.h"
+
 
 enum { // Tap Dance Key Dances
     // TD_BSPACE = 0,

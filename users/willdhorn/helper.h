@@ -1,7 +1,13 @@
 #pragma once
 
 #include <stdint.h>
-#include "quantum.h"
+
+#include "config.h"
+#include "layers.h"
+#include "layouts.h"
+#include "rgb_stuff.h"
+#include "tap_dances.h"
+#include "user_debug.h"
 
 bool process_custom_keys(uint16_t keycode, keyrecord_t *record);
 bool process_custom_keypress(uint16_t keycode, bool pressed);
