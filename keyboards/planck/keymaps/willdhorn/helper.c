@@ -14,8 +14,6 @@
 extern uint16_t mod_tap_timer;
 extern uint8_t mod_tap_active;
 
-uint8_t shift_down = 0;
-
 bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
 
@@ -75,17 +73,6 @@ bool process_custom_keys(uint16_t keycode, keyrecord_t *record) {
                 layer_move(_SYM);
             }
             return false;
-        case LAYER_FN_SYMSWAP:
-            if (pressed){
-                if (IS_LAYER_ON(_NUM)) {
-                    layer_move(_SYM);
-                } else if (IS_LAYER_ON(_SYM)) {
-                    layer_move(_NUM);
-                } else {
-                    layer_move(_SYM);
-                }
-            }
-            return false;
 
         // Custom OSMs
         case KC_OSM_CMD: break;
@@ -110,19 +97,6 @@ bool process_custom_keypress(uint16_t keycode, bool pressed) {
     };
 
     return process_custom_keys(keycode, &poser);
-}
-
-void process_shift_state(uint16_t keycode, keyrecord_t *record) {
-    bool pressed = record->event.pressed;
-
-    if (keycode ==  OSM(MOD_LSFT)|| keycode == KC_LSFT) {
-        if (pressed) {
-            shift_down += 1;
-        } else {
-            shift_down -= (shift_down > 0) ? 1 : 0;
-        }
-    }
-    dprintf("Shift state: %d\n", shift_down);
 }
 
 void process_mod_tap_keys(uint16_t keycode, keyrecord_t *record) {

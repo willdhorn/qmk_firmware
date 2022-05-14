@@ -6,8 +6,9 @@
 #include "user_debug.h"
 
 
-extern uint8_t shift_down;
 extern tap_hold_action_t tap_hold_actions[];
+
+uint8_t shift_down;
 
 void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
     uint8_t mods = get_mods();
@@ -19,18 +20,8 @@ void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
         del_oneshot_mods(MOD_MASK_SHIFT);
 
         keycode = (is_held ? t->KC_hold_shift : t->KC_tap_shift);
-
-        dprint("Tap Hold Shifted: \n\t");
-        DEBUG_KEYCODE_HEX(keycode);
-        dprint("\t");
-        DEBUG_KEYCODE_BINARY(keycode);
     } else {
         keycode = (is_held ? t->KC_hold : t->KC_tap);
-
-        dprint("Tap Hold Normal: \n\t");
-        DEBUG_KEYCODE_HEX(keycode);
-        dprint("\t");
-        DEBUG_KEYCODE_BINARY(keycode);
     }
 
     if (keycode == KC_CAPS_LOCK) {
@@ -40,7 +31,6 @@ void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
     } else if (process_custom_keypress(keycode,true)) {
             tap_code16(keycode);
     }
-    // add shift back if the key is still being held down
     if (shift_down) {
         register_mods(MOD_BIT(KC_LSFT)); // I don't use right shift (at the moment at least..)
     }
@@ -57,6 +47,8 @@ void matrix_scan_tap_hold(void) {
 }
 
 void process_record_tap_hold(uint16_t keycode, keyrecord_t *record) {
+  process_shift_state(keycode, record);
+
   // if (QK_TAP_HOLD <= keycode && keycode <= QK_TAP_HOLD+QK_TAP_HOLD_SIZE-1) {
   if (QK_TAP_HOLD <= keycode && keycode <= QK_TAP_HOLD_MAX) {
     uint16_t idx = keycode - QK_TAP_HOLD;
@@ -79,4 +71,18 @@ void process_record_tap_hold(uint16_t keycode, keyrecord_t *record) {
       }
     }
   }
+}
+
+// Shift state processing needed to keep track of whether the key is being held down
+// in order to (un)register the proper shift state after some tap-holds.
+void process_shift_state(uint16_t keycode, keyrecord_t *record) {
+    bool pressed = record->event.pressed;
+
+    if (keycode == OSM(MOD_LSFT) || keycode == KC_LSFT) {
+        if (pressed) {
+            shift_down += 1;
+        } else {
+            shift_down -= (shift_down > 0) ? 1 : 0;
+        }
+    }
 }

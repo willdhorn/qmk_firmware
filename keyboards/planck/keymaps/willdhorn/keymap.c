@@ -82,7 +82,7 @@ const key_override_t sft_ovr_hash_grave = ko_make_basic(MOD_MASK_SHIFT, KC_HASH,
 const key_override_t sft_ovr_vscode_selection = SHIFT_OVERRIDE(VSC_SEL_EXPND, VSC_SEL_SHRNK);
 const key_override_t meh_ovr_default_layer = MEH_OVERRIDE(LK_EXT, LK_DEF);
 const key_override_t alt_ovr_left_hand_th_ext_layer = ALT_OVERRIDE(TH_LK_SYM, LK_EXT);
-const key_override_t alt_ovr_left_hand_ext_layer = ALT_OVERRIDE(LK_SYM, LK_EXT);    
+const key_override_t alt_ovr_left_hand_ext_layer = ALT_OVERRIDE(LK_SYM, LK_EXT);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -94,15 +94,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     NULL // Null terminate the array of overrides!
 };
 
-// Set up combo for using the two primary thumb keys to return to the default layer
-const uint16_t PROGMEM lk_def_combo[] = {SPLT_LMID, SPLT_RMID, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(lk_def_combo, LK_DEF),
-};
-
 /*
   === START CONFIG ===
 */
+
 // Keyboard wake state
 extern bool         g_suspend_state;
 // Lighting configs for keyboard (mostly hardware stuff)
@@ -113,8 +108,6 @@ extern led_config_t g_led_config;
 extern uint16_t mod_tap_timer;
 extern uint8_t mod_tap_active;
 
-// Flag to track the physical state of shift keys (as int to handle multiple shift keys)
-extern uint8_t shift_down;
 // Mod states as of last key record
 static uint8_t mod_state;
 static uint8_t osm_mod_state;
@@ -136,8 +129,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
     mod_state = get_mods();
     osm_mod_state = get_oneshot_mods();
-
-    process_shift_state(keycode, record);
 
     process_record_tap_hold(keycode, record);
     process_vscode_keys(keycode, record);

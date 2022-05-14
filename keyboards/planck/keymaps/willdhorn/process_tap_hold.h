@@ -26,7 +26,7 @@
 
 #define ACTION_TAP_CMD_HOLD(kc_tap) \
   ACTION_TAP_HOLD_SHIFT(kc_tap, LSFT(kc_tap), LCMD(kc_tap), LSFT(LCMD(kc_tap)))
-  
+
 typedef enum {
   th_default,
   th_first_press
@@ -43,3 +43,4 @@ typedef struct {
 
 void process_record_tap_hold(uint16_t keycode, keyrecord_t *record);
 void matrix_scan_tap_hold(void);
+void process_shift_state(uint16_t keycode, keyrecord_t *record);

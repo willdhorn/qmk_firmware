@@ -5,7 +5,6 @@
 
 bool process_custom_keys(uint16_t keycode, keyrecord_t *record);
 bool process_custom_keypress(uint16_t keycode, bool pressed);
-void process_shift_state(uint16_t keycode, keyrecord_t *record);
 void process_mod_tap_keys(uint16_t keycode, keyrecord_t *record);
 void process_default_layer_keys(uint16_t keycode, keyrecord_t *record);
 void process_led_keys(uint16_t keycode, keyrecord_t *record);
