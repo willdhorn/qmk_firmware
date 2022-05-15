@@ -1,7 +1,6 @@
 #pragma once
 
-#include "process_tap_hold.h"
-#include "tap_dances.h"
+#include "willdhorn.h"
 
 /*
  === MOD TAP/HOME MODS ===

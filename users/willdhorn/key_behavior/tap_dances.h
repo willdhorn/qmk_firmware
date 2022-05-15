@@ -1,7 +1,6 @@
 #pragma once
 
-#include "quantum.h"
-#include "key_defs.h"
+#include "willdhorn.h"
 
 
 enum { // Tap Dance Key Dances

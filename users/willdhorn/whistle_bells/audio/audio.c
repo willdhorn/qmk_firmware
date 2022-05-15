@@ -1,5 +1,6 @@
 // Need to add header to make this functional
 // #include QMK_KEYBOARD_H
+// #include "muse.h"
 
 // Audio and Music
 

@@ -4,12 +4,16 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  // Default Layers
   [_QWERTY]     = LAYER_QWERTY,
   [_COLEMAK_DH] = LAYER_COLEMAK_DH,
   [_ISRT]       = LAYER_ISRT,
+  // Standard Layers
   [_EXT]        = LAYER_EXT,
   [_SYM]        = LAYER_SYM,
   [_NUM]        = LAYER_NUM,
+  [_ADJUST]     = LAYER_ADJUST,
+  // Additional Layers
   [_VSCODE]     = LAYER_VSCODE,
   [_DESKTOP]    = LAYER_DESKTOP,
   [_WNDW_HALF]  = LAYER_WNDW_HALF,
@@ -17,7 +21,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_WNDW_THRD]  = LAYER_WNDW_THRD,
   [_WNDW_SIXT]  = LAYER_WNDW_SIXT,
   [_WNDW_NINT]  = LAYER_WNDW_NINT,
-  [_ADJUST]     = LAYER_ADJUST,
 };
 
 // DON'T MAKE THIS CONST
@@ -56,10 +59,6 @@ tap_hold_action_t tap_hold_actions[] = {
 };
 // clang-format on
 
-// Mod states as of last key record
-static uint8_t mod_state;
-static uint8_t osm_mod_state;
-
 void matrix_scan_user(void) {
   matrix_scan_tap_hold();
 #ifdef AUDIO_ENABLE
@@ -72,32 +71,35 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  bool pressed = record->event.pressed;
+
   dprintln();
-
-  bool pressed  = record->event.pressed;
-  mod_state     = get_mods();
-  osm_mod_state = get_oneshot_mods();
-
-  if (!process_record_keymap(keycode, record)) {
-    return false;
-  }
-
-  // PROCESS CUSTOM KEYCODES
-  bool process_key = process_custom_keys(keycode, record);
-
 #ifdef DEBUG_KEYCODE_PRINT
   if (pressed) {
     DEBUG_KEYCODE_HEX(keycode);
     DEBUG_KEYCODE_BINARY(keycode);
   }
 #endif
-  return process_key;
+
+  process_record_tap_hold(keycode, record);
+  process_vscode_keys(keycode, record);
+  process_led_keys(keycode, record);
+  process_default_layer_keys(keycode, record);
+  process_mod_tap_keys(keycode, record);
+
+  // Execute keymap specific handling first
+  if (!process_record_keymap(keycode, record)) {
+    return false;
+  }
+
+  // Process custom keycodes
+  return process_keycode_user(keycode, record);
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifndef BILATERAL_COMBINATIONS
   if (IS_MOD_TAP(keycode)) {
-    return 350;
+    return 300;
   }
 #endif
   switch (keycode) {

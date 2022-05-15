@@ -4,7 +4,7 @@
 
 // I really want to remove this, but it has to stay until
 // the processing of custom keycodes can be refactored.
-#include "helper.h"
+#include "willdhorn.h"
 
 extern tap_hold_action_t tap_hold_actions[];
 
@@ -24,13 +24,14 @@ void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
         keycode = (is_held ? t->KC_hold : t->KC_tap);
     }
 
-    if (keycode == KC_CAPS_LOCK) {
+    if (keycode == KC_CAPS_LOCK) { // Extra delay needed with Caps Lock for MacOS
         register_code16(keycode);
         wait_ms(100);
         unregister_code16(keycode);
-    } else if (process_custom_keypress(keycode,true)) {
+    } else if (process_keycode_user(keycode,KEYRECORD_PRESS(true))) {
             tap_code16(keycode);
     }
+
     if (shift_down) {
         register_mods(MOD_BIT(KC_LSFT)); // I don't use right shift (at the moment at least..)
     }

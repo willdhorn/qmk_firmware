@@ -3,12 +3,25 @@
 
 #include "quantum.h"
 
-#include "process_tap_hold.h"
+#include "quantum/process_tap_hold.h"
 
-#include "helper.h"
-#include "key_defs.h"
-#include "layers.h"
-#include "layouts.h"
-#include "rgb_stuff.h"
-#include "tap_dances.h"
-#include "user_debug.h"
+#include "key_config/keycodes.h"
+#include "key_config/layers.h"
+#include "key_config/layouts.h"
+
+#include "key_behavior/process_record.h"
+#include "key_behavior/tap_dances.h"
+
+#include "whistle_bells/rgb/rgb_stuff.h"
+
+
+// #include "print.h"
+
+// Debugging macros
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte) (byte & 0x80 ? '1' : '0'), (byte & 0x40 ? '1' : '0'), (byte & 0x20 ? '1' : '0'), (byte & 0x10 ? '1' : '0'), (byte & 0x08 ? '1' : '0'), (byte & 0x04 ? '1' : '0'), (byte & 0x02 ? '1' : '0'), (byte & 0x01 ? '1' : '0')
+#define BOOL_STR(val) ((val) ? "true" : "false")
+
+#define DEBUG_KEYCODE_HEX(kc) dprintf("kc:   0x%04X\n", kc)
+#define DEBUG_KEYCODE_BINARY(kc) dprintf("keycode:\t" BYTE_TO_BINARY_PATTERN " " BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(kc >> 8), BYTE_TO_BINARY(kc))
+#define DEBUG_BYTE_BINARY(label, byte) dprintf(label ":\t" BYTE_TO_BINARY_PATTERN "\n", BYTE_TO_BINARY(byte))

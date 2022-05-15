@@ -1,8 +1,8 @@
 #pragma once
 
-#include "config.h"
-#include "key_defs.h"
+#include "willdhorn.h"
 
+// clang-format off
 enum default_layers {
     _QWERTY,
     _COLEMAK_DH,
@@ -25,6 +25,7 @@ enum user_layers {
     _WNDW_VERT,
     _MAX_LAYER_
 };
+// clang-format on
 
 /*
   === DEFAULT LAYERS ===
@@ -71,7 +72,7 @@ enum user_layers {
 #endif
 
 /*
-  === COMMON LAYERS ===
+  === STANDARD LAYERS ===
 */
 
 #define EXT_L1 KC_TAB, OSM(MOD_LCTL), _x_,           _x_,           _x_
@@ -108,6 +109,19 @@ enum user_layers {
 
 #define NUM_BASE SYMBOL_BASE
 
+/*
+  === ADJUST ===
+*/
+
+#define ADJUST_L1 RESET, DEBUG, _x_, _x_, _x_
+#define ADJUST_L2 LK_DEF, KC_MPRV, KC_MNXT, KC_MPLY, _x_
+#define ADJUST_L3 _x_, _x_, _x_, KC_MSTP, _x_
+
+#define ADJUST_R1 KC_QWERTY, _x_, _x_, _x_, _x_
+#define ADJUST_R2 KC_COLEMAK_DH, KC_MUTE, KC_VOLD, KC_VOLU, KC_LED_INC_BRGT
+#define ADJUST_R3 KC_ISRT, RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_LED_DCR_BRGT
+
+#define ADJUST_BASE FALLBACK_BASE
 
 /*
   === COMMANDS ===
@@ -165,17 +179,3 @@ enum user_layers {
 #define WNDW_NINT_R1 _x_,     WM_9_TL, WM_9_TC, WM_9_TR,   _x_
 #define WNDW_NINT_R2 _x_,     WM_9_ML, WM_9_MC, WM_9_MR,   _x_
 #define WNDW_NINT_R3 _x_,     WM_9_BL, WM_9_BC, WM_9_BR,   _x_
-
-/*
-  === ADJUST ===
-*/
-
-#define ADJUST_L1 RESET,  DEBUG,     _x_,     _x_,   _x_
-#define ADJUST_L2 LK_DEF, KC_MPRV, KC_MNXT, KC_MPLY, _x_
-#define ADJUST_L3 _x_,    _x_,     _x_,     KC_MSTP, _x_
-
-#define ADJUST_R1 KC_QWERTY,     _x_,     _x_,           _x_,     _x_
-#define ADJUST_R2 KC_COLEMAK_DH, KC_MUTE, KC_VOLD,       KC_VOLU, KC_LED_INC_BRGT
-#define ADJUST_R3 KC_ISRT,       RGB_TOG, KC_LAYERCOLOR, RGB_MOD, KC_LED_DCR_BRGT
-
-#define ADJUST_BASE FALLBACK_BASE

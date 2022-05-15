@@ -1,10 +1,4 @@
 #include QMK_KEYBOARD_H
-#ifdef AUDIO_ENABLE
-#  include "muse.h"
-#endif
-#include <stdint.h>
-#include "eeprom.h"
-#include "print.h"
 
 #include "willdhorn.h"
 
