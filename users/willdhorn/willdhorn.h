@@ -5,12 +5,18 @@
 
 #include "quantum/process_tap_hold.h"
 
-#include "key_config/keycodes.h"
-#include "key_config/layers.h"
-#include "key_config/layouts.h"
-
 #include "key_behavior/process_record.h"
 #include "key_behavior/tap_dances.h"
+
+#include "key_config/layers.h"
+#include "key_config/layouts.h"
+#include "key_config/key_tests.h"
+#include "key_config/key_override.h"
+
+#include "key_config/keycodes/custom.h"
+#include "key_config/keycodes/key_defines.h"
+#include "key_config/keycodes/mods.h"
+#include "key_config/keycodes/tap_hold.h"
 
 #include "whistle_bells/rgb/rgb_stuff.h"
 

@@ -220,7 +220,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     } else {
       return CK_MODS;
     }
-  } else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
+  } else if (IS_LAYER_KEY(kc)) {
     return CK_LAYERS;
   } else if (IS_DESKTOP_KEY(kc)) {
     return CL_DESKTOP;
