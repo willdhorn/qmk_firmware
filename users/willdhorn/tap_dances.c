@@ -11,15 +11,15 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_APPSW_M] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_mid),
     [TD_APPSW_R] = ACTION_TAP_DANCE_FN(handle_app_switch_mode_right)};
 
-/* APP SWITCH DANCES */
+/* APP DESKTOP DANCES */
 
 bool app_switch_mode = false;
 
 void handle_app_switch_mode_left(qk_tap_dance_state_t *state, void *user_data) {
 #ifdef DEBUG_TAP_DANCE
-    dprintf("Tap Dance Left - count:%d, mode:%d", state->count, APP_SWITCH_MODE(state));
+    dprintf("Tap Dance Left - count:%d, mode:%d", state->count, APP_DESKTOP_MODE(state));
 #endif
-    switch (APP_SWITCH_MODE(state)) {
+    switch (APP_DESKTOP_MODE(state)) {
         case ATTD_SINGLE_TAP_OFF:
             tap_code16(CMD(SFT(KC_TAB)));
             break;
@@ -40,9 +40,9 @@ void handle_app_switch_mode_left(qk_tap_dance_state_t *state, void *user_data) {
 
 void handle_app_switch_mode_mid(qk_tap_dance_state_t *state, void *user_data) {
 #ifdef DEBUG_TAP_DANCE
-    dprintf("Tap Dance Mid - count:%d, mode:%d", state->count, APP_SWITCH_MODE(state));
+    dprintf("Tap Dance Mid - count:%d, mode:%d", state->count, APP_DESKTOP_MODE(state));
 #endif
-    switch (APP_SWITCH_MODE(state)) {
+    switch (APP_DESKTOP_MODE(state)) {
         case ATTD_SINGLE_TAP_OFF:
             tap_code16(CMD(KC_GRAVE));
             break;
@@ -63,9 +63,9 @@ void handle_app_switch_mode_mid(qk_tap_dance_state_t *state, void *user_data) {
 
 void handle_app_switch_mode_right(qk_tap_dance_state_t *state, void *user_data) {
 #ifdef DEBUG_TAP_DANCE
-    dprintf("Tap Dance Right - count:%d, mode:%d", state->count, APP_SWITCH_MODE(state));
+    dprintf("Tap Dance Right - count:%d, mode:%d", state->count, APP_DESKTOP_MODE(state));
 #endif
-    switch (APP_SWITCH_MODE(state)) {
+    switch (APP_DESKTOP_MODE(state)) {
         case ATTD_SINGLE_TAP_OFF:
             tap_code16(CMD(KC_TAB));
             break;

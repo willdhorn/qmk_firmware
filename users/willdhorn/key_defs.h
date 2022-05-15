@@ -43,7 +43,7 @@
 #define LK_SYM TO(_SYM)
 #define LK_NUM TO(_NUM)
 #define LK_NAV TO(_NAV)
-#define LK_SWT TO(_SWITCH)
+#define LK_SWT TO(_DESKTOP)
 #define LK_ADJ TO(_ADJUST)
 #define LK_VSC TO(_VSCODE)
 
@@ -233,7 +233,7 @@ enum custom_keycodes {
     VSC_MV_EDTR_G_LFT,  // MOVE EDITOR GROUP LEFT
     VSC_MV_EDTR_G_RGT,  // MOVE EDITOR GROUP RIGHT
     VSC_OPN_DEF_SIDE,    // OPEN DEFINITION IN OPPOSITE GROUP
-    // LAYER SWITCHING
+    // LAYER DESKTOPING
     LAYER_FN_DEF,
     LAYER_FN_EXT,
     LAYER_FN_SYM,
@@ -454,7 +454,7 @@ enum tap_hold_action_keys {
   (kc) == S_PASTE || \
   (kc) == S_CLIPBOARD)
 
-#define IS_SWITCH_KEY(kc) ( \
+#define IS_DESKTOP_KEY(kc) ( \
     (kc) == OSX_APP_NEXT \
 )
 

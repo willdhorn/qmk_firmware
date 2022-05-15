@@ -51,7 +51,7 @@ void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data);
 /* ONE SHOT MODS */
 
 
-/* APP SWITCH DANCES */
+/* APP DESKTOP DANCES */
 
 typedef enum ad_mode_t {  // Tap Dance Modes
     ATTD_SINGLE_TAP_OFF = 1,
@@ -67,7 +67,7 @@ void handle_app_switch_mode_left(qk_tap_dance_state_t *state, void *user_data);
 void handle_app_switch_mode_mid(qk_tap_dance_state_t *state, void *user_data);
 void handle_app_switch_mode_right(qk_tap_dance_state_t *state, void *user_data);
 
-#define APP_SWITCH_MODE(state) ( \
+#define APP_DESKTOP_MODE(state) ( \
   (state->count == 1) ? \
     (app_switch_mode ? ATTD_SINGLE_TAP_ON : ATTD_SINGLE_TAP_OFF) : \
     (app_switch_mode ? ATTD_DOUBLE_TAP_ON : ATTD_DOUBLE_TAP_OFF) \

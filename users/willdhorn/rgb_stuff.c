@@ -25,7 +25,7 @@ const HSV layer_colors[] = {
                             [_SYM] =          CL_SYM,
                             [_NUM]     =      CL_NUM,
                             [_VSCODE]  =      CL_VSCODE,
-                            [_SWITCH] =       CL_SWITCH,
+                            [_DESKTOP] =       CL_DESKTOP,
                             [_WNDW_HALF] =    CL_WNDW_HALF,
                             [_WNDW_QUAD] =    CL_WNDW_QUAD,
                             [_WNDW_VERT] =    CL_WNDW_VERT,
@@ -246,8 +246,8 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
         }
     } else if (IS_LAYER_KEY(kc) && kc != LK_SPACE_BAR) {
         return CK_LAYERS;
-    } else if (IS_SWITCH_KEY(kc)) {
-        return CL_SWITCH;
+    } else if (IS_DESKTOP_KEY(kc)) {
+        return CL_DESKTOP;
     }
     /* ADJUSTMENTS */
     else if (IS_VOL_KEY(kc)) {

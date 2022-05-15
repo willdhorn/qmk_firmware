@@ -4,28 +4,17 @@
 #include "key_defs.h"
 
 enum default_layers {
-#ifdef ENABLE_LAYOUT_QWERTY
     _QWERTY,
-#endif
-#ifdef ENABLE_LAYOUT_COLEMAK
     _COLEMAK_DH,
-#endif
-#ifdef ENABLE_LAYOUT_ISRT
     _ISRT,
-#endif
-#ifdef ENABLE_LAYOUT_WORKMAN
-    _WORKMAN,
-#endif
     _DEFAULT_RANGE_ };
-//#define _WORKMAN _MAX_LAYER_ + 1
 
-enum planck_layers {
-    // EXT contains the edge keys (for split 5x3 layout)
+enum user_layers {
     _EXT = _DEFAULT_RANGE_,
     _SYM,
     _NUM,
     _ADJUST,
-    _SWITCH,
+    _DESKTOP,
     _VSCODE,
     _WNDW_HALF,
     _WNDW_THRD,
@@ -69,15 +58,6 @@ enum planck_layers {
 #define ISRT_R1 KC_Z, KC_F, KC_U,     TH_QUOT, TH_BKSP
 #define ISRT_R2 KC_M, KC_N, KC_E,     KC_A,    KC_O
 #define ISRT_R3 KC_B, KC_H, TH_COMMA, TH_DOT,  KC_X
-
-// WORKMAN
-#define WORKMAN_L1 KC_Q, KC_D, KC_R, KC_W, KC_B
-#define WORKMAN_L2 KC_A, KC_S, KC_H, KC_T, KC_G
-#define WORKMAN_L3 KC_Z, KC_X, KC_M, KC_C, KC_V
-
-#define WORKMAN_R1 KC_J, KC_F, KC_U, KC_P, KC_SCLN
-#define WORKMAN_R2 KC_Y, KC_N, KC_E, KC_I, KC_O
-#define WORKMAN_R3 KC_K, KC_L, TH_COMMA, TH_DOT, TH_QUOT
 
 /*
   === THUMB KEYS ===
@@ -147,15 +127,15 @@ enum planck_layers {
   === APPS/WINDOW MANAGEMENT ===
 */
 
-#define SWITCH_L1 _x_,  _x_,          WNDW_LAYER_9, _x_,          _x_
-#define SWITCH_L2 _x_,  WNDW_LAYER_6, WNDW_LAYER_3, WNDW_LAYER_H, _x_
-#define SWITCH_L3 _x_,  _x_,          _x_,          WNDW_LAYER_Q, _x_
+#define DESKTOP_L1 _x_,  _x_,          WNDW_LAYER_9, _x_,          _x_
+#define DESKTOP_L2 _x_,  WNDW_LAYER_6, WNDW_LAYER_3, WNDW_LAYER_H, _x_
+#define DESKTOP_L3 _x_,  _x_,          _x_,          WNDW_LAYER_Q, _x_
 
-#define SWITCH_R1 APPS_DESK_R1
-#define SWITCH_R2 APPS_DESK_R2
-#define SWITCH_R3 APPS_DESK_R3
+#define DESKTOP_R1 APPS_DESK_R1
+#define DESKTOP_R2 APPS_DESK_R2
+#define DESKTOP_R3 APPS_DESK_R3
 
-#define SWITCH_BASE FALLBACK_BASE
+#define DESKTOP_BASE FALLBACK_BASE
 
 // APPS/DESKTOPS
 #define APPS_DESK_R1 _x_,     OSX_DESK_PREV, OSX_MC_DESKS, OSX_DESK_RIGHT, _x_
