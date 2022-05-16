@@ -1,10 +1,9 @@
 #include QMK_KEYBOARD_H
-#include <stdint.h>
 
 #include "process_record.h"
 
 // Flags for mod tap lighting effects
-uint16_t mod_tap_timer = 0;
+uint16_t mod_tap_timer  = 0;
 uint8_t  mod_tap_active = 0;
 
 __attribute__((weak)) bool process_keycode_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -152,6 +151,7 @@ void process_led_keys(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 }
+
 // VSCode keys for chorded shortcuts (cmd-k used as leader)
 void process_vscode_keys(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;

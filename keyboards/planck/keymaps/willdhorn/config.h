@@ -8,6 +8,8 @@
   https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
 
+#define RGB_ENABLE
+
 // Layout switch
 // #define KB_LAYOUT_STANDARD  // otherwise, use split layout
 

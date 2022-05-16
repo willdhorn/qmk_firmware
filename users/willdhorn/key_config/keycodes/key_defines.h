@@ -22,12 +22,12 @@
 
 #define SPACE_KEY MT(MOD_LMEH, KC_SPACE)
 
-#define SPLT_LLFT OSM(MOD_LALT)
-#define SPLT_LMID LK_EXT
-#define SPLT_LRGT OSM(MOD_LSFT)
-#define SPLT_RLFT LK_DEF
-#define SPLT_RMID SPACE_KEY
-#define SPLT_RRGT LK_SYM
+#define LTHMB_L OSM(MOD_LALT)
+#define LTHMB_M LK_EXT
+#define LTHMB_R OSM(MOD_LSFT)
+#define RTHMB_L LK_DEF
+#define RTHMB_M SPACE_KEY
+#define RTHMB_R LK_SYM
 
 /*
   === MAC SHORTCUTS ===

@@ -4,50 +4,10 @@
 
 
 enum { // Tap Dance Key Dances
-    // TD_BSPACE = 0,
-    TD_APPSW_L=0,
+    TD_APPSW_L = 0,
     TD_APPSW_M,
     TD_APPSW_R,
 };
-
-
-/* TAP-HOLD DANCES */
-
-typedef enum {
-    TD_NONE,
-    TD_TAP,
-    TD_HOLD,
-} tap_hold_state_t;
-
-typedef struct {
-    tap_hold_state_t state;
-    uint16_t         key;
-} tap_hold_tap_t;
-
-#define TAP_HOLD_STATE(qk_state) ((qk_state->interrupted || !qk_state->pressed) ? TD_TAP : TD_HOLD)
-
-void bspace_tap_hold_on_each_tap(qk_tap_dance_state_t *state, void *user_data);
-void bspace_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data);
-void bspace_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data);
-
-
-/* QUAD(+) DANCES */
-
-// see https://docs.qmk.fm/#/feature_tap_dance?id=example-4
-// typedef enum {
-//     TD_NONE,
-//     TD_UNKNOWN,
-//     TD_SINGLE_TAP,
-//     TD_SINGLE_HOLD,
-//     TD_DOUBLE_TAP,
-//     TD_DOUBLE_HOLD,
-//     TD_DOUBLE_SINGLE_TAP,  // Send two single taps
-//     // TD_TRIPLE_TAP,
-//     // TD_TRIPLE_HOLD
-// } quad_state_t;
-
-
-/* ONE SHOT MODS */
 
 
 /* APP DESKTOP DANCES */

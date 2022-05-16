@@ -38,15 +38,6 @@ void selectAndSendKey(tap_hold_action_t *t, bool is_held) {
     send_keyboard_report();
 }
 
-void matrix_scan_tap_hold(void) {
-  for (uint8_t i = 0; i < TAP_HOLD_KEY_MAX; i++) {
-    if (tap_hold_actions[i].state == th_first_press && timer_elapsed(tap_hold_actions[i].timer) >= TAP_HOLD_DELAY) {
-      tap_hold_actions[i].state = th_default;
-      selectAndSendKey(&tap_hold_actions[i], true);
-    }
-  }
-}
-
 void process_record_tap_hold(uint16_t keycode, keyrecord_t *record) {
   process_shift_state(keycode, record);
 
@@ -55,21 +46,33 @@ void process_record_tap_hold(uint16_t keycode, keyrecord_t *record) {
     uint16_t idx = keycode - QK_TAP_HOLD;
     tap_hold_action_t *t = &tap_hold_actions[idx];
     if (record->event.pressed) {
+      // On key press, start timer and do nothing
       t->timer = timer_read();
       t->state = th_first_press;
     } else {
       if (t->state == th_first_press) {
+        // If key is released before timer expires, reset state and send tap key
         t->state = th_default;
         selectAndSendKey(t, false);
       }
     }
-  } else if (record->event.pressed) {  // only interrupt on keydown
+  } else if (record->event.pressed) {
+    // If another key is pressed, current interupt tap-hold
     for (int i = 0; i < TAP_HOLD_KEY_MAX; ++i) {
       tap_hold_action_t *t = &tap_hold_actions[i];
       if (t->state == th_first_press) {
         t->state = th_default;
         selectAndSendKey(t, false);
       }
+    }
+  }
+}
+
+void matrix_scan_tap_hold(void) {
+  for (uint8_t i = 0; i < TAP_HOLD_KEY_MAX; i++) {
+    if (tap_hold_actions[i].state == th_first_press && timer_elapsed(tap_hold_actions[i].timer) >= TAP_HOLD_DELAY) {
+      tap_hold_actions[i].state = th_default;
+      selectAndSendKey(&tap_hold_actions[i], true);
     }
   }
 }
