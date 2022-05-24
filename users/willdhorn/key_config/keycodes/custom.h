@@ -13,23 +13,22 @@ enum custom_keycodes {
 
   // MACRO KEYS
   MCR_NEQL,
-  MCR_PRNS,
-  MCR_BRCS,
-  MCR_CBRS,
+  MCR_SLUP,
   MCR_TILD,
 
-  // CUSTOM ONE SHOT MODS (not implemented)
-  KC_OSM_CMD,
-  KC_OSM_SFT,
-  KC_OSM_ALT,
-  KC_OSM_CTL,
-  // RGB
+  // // CALLUM MODS
+  // OS_SHFT,
+  // OS_CTRL,
+  // OS_ALT,
+  // OS_CMD,
+
+// RGB
 #ifdef RGB_ENABLE
   KC_LAYERCOLOR,
   KC_LED_INC_BRGT,
   KC_LED_DCR_BRGT,
 #endif
-// VSCODE
+  // VSCODE
   VSC_MV_EDTR_LFT,   // MOVE EDITOR TO LEFT GROUP
   VSC_MV_EDTR_RGT,   // MOVE EDITOR TO RIGHT GROUP
   VSC_FCS_G_PREV,    // FOCUS ON PREVIOUS GROUP
@@ -39,6 +38,12 @@ enum custom_keycodes {
   VSC_OPN_DEF_SIDE,  // OPEN DEFINITION IN OPPOSITE GROUP
   // Custom Layer Macro keys for Tap-Hold
   LAYER_FN_DEF,
-  LAYER_FN_EXT,
+  LAYER_FN_NAV,
   LAYER_FN_SYM,
 };
+
+// Custom Mod-Taps
+#define MTX(n) LT(0, n)
+// #define mtCmd_Comma MTX(1)
+// #define mtAlt_Period MTX(2)
+// #define mtCtl_Quote MTX(3)

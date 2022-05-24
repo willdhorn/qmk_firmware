@@ -3,7 +3,7 @@
 #include "willdhorn.h"
 
 #define TH_ENUM(name, key, ...) name,
-#define TH_ACTION(name, key, ...)[name] = ACTION_TAP_HOLD_FULL(key, __VA_ARGS__),
+#define TH_ACTION(name, key, ...) [name] = ACTION_TAP_HOLD_FULL(key, __VA_ARGS__),
 
 #define TAP_HOLD_ALL(name, key, sft, hold, sft_hold) TH_DEF(name, key, sft, hold, sft_hold)
 #define TAP_HOLD(name, key, hold) TH_DEF(name, key, LSFT(key), hold, LSFT(hold))

@@ -10,15 +10,10 @@
 
 #define RGB_ENABLE
 
-// Layout switch
-// #define KB_LAYOUT_STANDARD  // otherwise, use split layout
-
 // Default layouts
 #define ENABLE_LAYOUT_QWERTY
 #define ENABLE_LAYOUT_COLEMAK
 #define ENABLE_LAYOUT_ISRT
-
-#undef ENABLE_LAYOUT_WORKMAN
 
 
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50

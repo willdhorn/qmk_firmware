@@ -9,18 +9,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK_DH] = LAYER_COLEMAK_DH,
   [_ISRT]       = LAYER_ISRT,
   // Standard Layers
-  [_EXT]        = LAYER_EXT,
   [_SYM]        = LAYER_SYM,
   [_NUM]        = LAYER_NUM,
-  [_ADJUST]     = LAYER_ADJUST,
+  [_NAV]        = LAYER_NAV,
+  // [_CONFIG]     = LAYER_CONFIG,
   // Additional Layers
-  [_VSCODE]     = LAYER_VSCODE,
-  [_DESKTOP]    = LAYER_DESKTOP,
-  [_WNDW_HALF]  = LAYER_WNDW_HALF,
-  [_WNDW_QUAD]  = LAYER_WNDW_QUAD,
-  [_WNDW_THRD]  = LAYER_WNDW_THRD,
-  [_WNDW_SIXT]  = LAYER_WNDW_SIXT,
-  [_WNDW_NINT]  = LAYER_WNDW_NINT,
+  // [_VSCODE]     = LAYER_VSCODE,
+  // [_DESKTOP]    = LAYER_DESKTOP,
+  // [_WNDW_HALF]  = LAYER_WNDW_HALF,
+  // [_WNDW_QUAD]  = LAYER_WNDW_QUAD,
+  // [_WNDW_THRD]  = LAYER_WNDW_THRD,
+  // [_WNDW_SIXT]  = LAYER_WNDW_SIXT,
+  // [_WNDW_NINT]  = LAYER_WNDW_NINT,
 };
 
 // clang-format on
@@ -48,10 +48,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
   process_record_tap_hold(keycode, record);
-  process_vscode_keys(keycode, record);
+  //process_vscode_keys(keycode, record);
   process_led_keys(keycode, record);
   process_default_layer_keys(keycode, record);
-  process_mod_tap_keys(keycode, record);
+  // process_mod_tap_keys(keycode, record);
 
   // Execute keymap specific handling first
   if (!process_record_keymap(keycode, record)) {

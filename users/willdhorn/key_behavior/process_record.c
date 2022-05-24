@@ -2,6 +2,12 @@
 
 #include "process_record.h"
 
+// Callum Mods trackers
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state  = os_up_unqueued;
+oneshot_state os_cmd_state  = os_up_unqueued;
+
 // Flags for mod tap lighting effects
 uint16_t mod_tap_timer  = 0;
 uint8_t  mod_tap_active = 0;
@@ -36,19 +42,9 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("!=");
       }
       return false;
-    case MCR_PRNS:
+    case MCR_SLUP:
       if (pressed) {
-        SEND_STRING("()");
-      }
-      return false;
-    case MCR_BRCS:
-      if (pressed) {
-        SEND_STRING("[]");
-      }
-      return false;
-    case MCR_CBRS:
-      if (pressed) {
-        SEND_STRING("{}");
+        SEND_STRING("../");
       }
       return false;
     case MCR_TILD:
@@ -63,9 +59,9 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
         layer_clear();
       }
       return false;
-    case LAYER_FN_EXT:
+    case LAYER_FN_NAV:
       if (pressed) {
-        layer_move(_EXT);
+        layer_move(_NAV);
       }
       return false;
     case LAYER_FN_SYM:
@@ -73,16 +69,6 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
         layer_move(_SYM);
       }
       return false;
-
-    // Custom OSMs
-    case KC_OSM_CMD:
-      break;
-    case KC_OSM_SFT:
-      break;
-    case KC_OSM_ALT:
-      break;
-    case KC_OSM_CTL:
-      break;
 
     default:
       break;
@@ -94,6 +80,7 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
 void process_mod_tap_keys(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;
 
+#ifdef RGB_ENABLE
   if (IS_MOD_TAP(keycode)) {
     if (pressed) {
       mod_tap_timer = record->event.time;
@@ -102,7 +89,44 @@ void process_mod_tap_keys(uint16_t keycode, keyrecord_t *record) {
       mod_tap_active -= 1;
     }
   }
+#endif
 }
+
+
+// void process_callum_mods(...,...) {
+//   update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
+//   update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
+//   update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
+//   update_oneshot(&os_cmd_state, KC_LCMD, OS_CMD, keycode, record);
+// }
+//
+// bool is_oneshot_cancel_key(uint16_t keycode) {
+//   switch (keycode) {
+//     case LKM_EXT:
+//     case KC_CLEAR_MODS:
+//       return true;
+//     default:
+//       return false;
+//   }
+// }
+//
+// bool is_oneshot_ignored_key(uint16_t keycode) {
+//   switch (keycode) {
+//     case LKT_SYM:
+//     case LKM_EXT:
+//     case LKT_NAV:
+//     case LKT_DEF:
+//     case LKT_ADJ:
+//     case LKT_SWT:
+//     case OS_SHFT:
+//     case OS_CTRL:
+//     case OS_ALT:
+//     case OS_CMD:
+//       return true;
+//     default:
+//       return false;
+//   }
+// }
 
 void process_default_layer_keys(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -126,6 +150,7 @@ void process_default_layer_keys(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+#ifdef RGB_ENABLE
 void process_led_keys(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;
 
@@ -151,6 +176,7 @@ void process_led_keys(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 }
+#endif
 
 // VSCode keys for chorded shortcuts (cmd-k used as leader)
 void process_vscode_keys(uint16_t keycode, keyrecord_t *record) {

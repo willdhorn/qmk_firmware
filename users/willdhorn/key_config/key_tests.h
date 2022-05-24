@@ -14,7 +14,7 @@
   (kc) == KC_TAB || \
   (kc) == KC_ESCAPE || \
   (kc) == KC_SPACE || \
-  (kc) == SPACE_KEY \
+  (kc) == kSpace \
 )
 
 // .,;:?!'"
@@ -95,7 +95,7 @@
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_CUSTOM_LK(kc) ( \
     (kc) == LAYER_FN_DEF || \
-    (kc) == LAYER_FN_EXT || \
+    (kc) == LAYER_FN_NAV || \
     (kc) == LAYER_FN_SYM \
 )
 

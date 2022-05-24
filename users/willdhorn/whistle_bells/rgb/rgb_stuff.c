@@ -15,11 +15,10 @@ const HSV layer_colors[] = {
   [_DESKTOP]     =  CL_DESKTOP,
   [_WNDW_HALF]   =  CL_WNDW_HALF,
   [_WNDW_QUAD]   =  CL_WNDW_QUAD,
-  [_WNDW_VERT]   =  CL_WNDW_VERT,
   [_WNDW_THRD]   =  CL_WNDW_THRD,
   [_WNDW_SIXT]   =  CL_WNDW_SIXT,
   [_WNDW_NINT]   =  CL_WNDW_NINT,
-  [_ADJUST]      =  CL_ADJUST
+  [_CONFIG]      =  CL_CONFIG
 };
 // clang-format on
 
@@ -28,9 +27,9 @@ bool layer_stack_color = true;
 uint8_t print_lock = 0;
 #endif
 
-uint8_t  g_active_layer   = 0;
-uint8_t  brightness_level = 255;
-HSV      top_layer_color;
+uint8_t         g_active_layer   = 0;
+uint8_t         brightness_level = 255;
+HSV             top_layer_color;
 extern uint16_t mod_tap_timer;
 extern uint8_t  mod_tap_active;
 
@@ -141,8 +140,6 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
       return CL_WNDW_HALF;
     case WNDW_LAYER_Q:
       return CL_WNDW_QUAD;
-    case WNDW_LAYER_V:
-      return CL_WNDW_VERT;
     case WNDW_LAYER_3:
       return CL_WNDW_THRD;
     case WNDW_LAYER_6:
@@ -225,7 +222,7 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
   } else if (IS_DESKTOP_KEY(kc)) {
     return CL_DESKTOP;
   }
-  /* ADJUSTMENTS */
+  /* CONFIGMENTS */
   else if (IS_VOL_KEY(kc)) {
     return CK_ADJ_VOL;
   } else if (IS_MED_KEY(kc)) {

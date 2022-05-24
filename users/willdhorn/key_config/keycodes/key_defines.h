@@ -2,32 +2,42 @@
 
 #include "willdhorn.h"
 
-// Misc
+/*
+  === Default Keys ===
+  I may change how these keys work, and I want changes to be reflected in every layer/keymap
+*/
+#define kSpace MT(MOD_LSFT, KC_SPACE)
+#define kBackspace TH(thBackspace)
+#define kEnter TH(thEnter)
+// #define kEscape TH(thEscape)
+#define kTab KC_TAB
+
+#define kComma RCMD_T(KC_COMMA)
+#define kPeriod RALT_T(KC_DOT)
+#define kQuote RCTL_T(KC_QUOTE)
+
+#define kLeft TH(thLeft)
+#define kRight TH(thRight)
+#define kAltLeft TH(thAltLeft)
+#define kAltRight TH(thAltRight)
+
+// Layers
+#define lk_Default TO(0)
+#define lk_Symbol TO(_SYM)
+#define lk_Num TO(_NUM)
+#define lk_Nav TH(thNav)
+#define lk_Ext TO(_EXT)
+#define lk_Desktop TO(_DESKTOP)
+#define lk_Config TO(_CONFIG)
+// #define LKT_VSC TO(_VSCODE)
+
+/*
+  === General ===
+*/
 #define _x_ KC_NO
+#define ___ KC_TRNS
 #define KC_DASH ALT(KC_MINUS) // Em-dash
 #define KC_CRRT KC_CIRC
-
-#define KC_HOME CMD(KC_LEFT)
-#define KC_END CMD(KC_RIGT)
-#define KC_EMOJI LCTL(LCMD(KC_SPACE))
-
-#define LK_DEF TO(0)
-#define LK_EXT TO(_EXT)
-#define LK_SYM TO(_SYM)
-#define LK_NUM TO(_NUM)
-#define LK_NAV TO(_NAV)
-#define LK_SWT TO(_DESKTOP)
-#define LK_ADJ TO(_ADJUST)
-#define LK_VSC TO(_VSCODE)
-
-#define SPACE_KEY MT(MOD_LMEH, KC_SPACE)
-
-#define LTHMB_L OSM(MOD_LALT)
-#define LTHMB_M LK_EXT
-#define LTHMB_R OSM(MOD_LSFT)
-#define RTHMB_L LK_DEF
-#define RTHMB_M SPACE_KEY
-#define RTHMB_R LK_SYM
 
 /*
   === MAC SHORTCUTS ===
@@ -47,6 +57,7 @@
 #define S_ALFRED CMD(KC_SPACE)
 #define S_SNIPPETS CMD(CTL((KC_G))) // ALFRED SNIPPETS
 #define S_PALETTE CMD(SFT(KC_P))
+#define KC_EMOJI LCTL(LCMD(KC_SPACE))
 // TABS
 #define S_TABL SFT(CMD(KC_LBRC))
 #define S_TABR SFT(CMD(KC_RBRC))
