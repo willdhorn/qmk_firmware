@@ -6,6 +6,7 @@
   === LAYOUT ===
 */
 
+#undef LAYOUT
 #define LAYOUT(...) LAYOUT_split_3x6_3(__VA_ARGS__)
 
 #define EMPTY_ROW _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -24,14 +25,6 @@
   === BEGIN LAYOUTS  ===
 */
 
-//  QWERTY
-#define QWERTY_1 ROW(QWERTY_L1, QWERTY_R1)
-#define QWERTY_2 ROW(QWERTY_L2, QWERTY_R2)
-#define QWERTY_3 ROW(QWERTY_L3, QWERTY_R3)
-#define QWERTY_4 DEFAULT_THUMB
-
-#define LAYER_QWERTY LAYOUT(QWERTY_1, QWERTY_2, QWERTY_3, QWERTY_4)
-
 //  COLEMAK DH
 #define COLEMAK_DH_1 ROW(COLEMAK_DH_L1, COLEMAK_DH_R1)
 #define COLEMAK_DH_2 ROW(COLEMAK_DH_L2, COLEMAK_DH_R2)
@@ -40,21 +33,33 @@
 
 #define LAYER_COLEMAK_DH LAYOUT(COLEMAK_DH_1, COLEMAK_DH_2, COLEMAK_DH_3, COLEMAK_DH_4)
 
+#ifdef USE_LAYOUT_QWERTY
+//  QWERTY
+#  define QWERTY_1 ROW(QWERTY_L1, QWERTY_R1)
+#  define QWERTY_2 ROW(QWERTY_L2, QWERTY_R2)
+#  define QWERTY_3 ROW(QWERTY_L3, QWERTY_R3)
+#  define QWERTY_4 DEFAULT_THUMB
+
+#  define LAYER_QWERTY LAYOUT(QWERTY_1, QWERTY_2, QWERTY_3, QWERTY_4)
+#endif
+
+#ifdef USE_LAYOUT_QWERTY
 //  ISRT
-#define ISRT_1 ROW(ISRT_L1, ISRT_R1)
-#define ISRT_2 ROW(ISRT_L2, ISRT_R2)
-#define ISRT_3 ROW(ISRT_L3, ISRT_R3)
-#define ISRT_4 DEFAULT_THUMB
+#  define ISRT_1 ROW(ISRT_L1, ISRT_R1)
+#  define ISRT_2 ROW(ISRT_L2, ISRT_R2)
+#  define ISRT_3 ROW(ISRT_L3, ISRT_R3)
+#  define ISRT_4 DEFAULT_THUMB
 
-#define LAYER_ISRT LAYOUT(ISRT_1, ISRT_2, ISRT_3, ISRT_4)
+#  define LAYER_ISRT LAYOUT(ISRT_1, ISRT_2, ISRT_3, ISRT_4)
+#endif
 
-// NAV
-#define NAV_1 ROW(NAV_L1, NAV_R1)
-#define NAV_2 ROW(NAV_L2, NAV_R2)
-#define NAV_3 ROW(NAV_L3, NAV_R3)
-#define NAV_4 NAV_THUMB
+// EXT
+#define EXT_1 ROW(EXT_L1, EXT_R1)
+#define EXT_2 ROW(EXT_L2, EXT_R2)
+#define EXT_3 ROW(EXT_L3, EXT_R3)
+#define EXT_4 EXT_THUMB
 
-#define LAYER_NAV LAYOUT(NAV_1, NAV_2, NAV_3, NAV_4)
+#define LAYER_EXT LAYOUT(EXT_1, EXT_2, EXT_3, EXT_4)
 
 // SYM
 #define SYM_1 ROW(SYM_L1, SYM_R1)

@@ -2,16 +2,6 @@
 
 #include "process_record.h"
 
-// Callum Mods trackers
-oneshot_state os_shft_state = os_up_unqueued;
-oneshot_state os_ctrl_state = os_up_unqueued;
-oneshot_state os_alt_state  = os_up_unqueued;
-oneshot_state os_cmd_state  = os_up_unqueued;
-
-// Flags for mod tap lighting effects
-uint16_t mod_tap_timer  = 0;
-uint8_t  mod_tap_active = 0;
-
 __attribute__((weak)) bool process_keycode_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
@@ -59,9 +49,9 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
         layer_clear();
       }
       return false;
-    case LAYER_FN_NAV:
+    case LAYER_FN_EXT:
       if (pressed) {
-        layer_move(_NAV);
+        layer_move(_EXT);
       }
       return false;
     case LAYER_FN_SYM:
@@ -77,70 +67,19 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void process_mod_tap_keys(uint16_t keycode, keyrecord_t *record) {
-  bool pressed = record->event.pressed;
-
-#ifdef RGB_ENABLE
-  if (IS_MOD_TAP(keycode)) {
-    if (pressed) {
-      mod_tap_timer = record->event.time;
-      mod_tap_active += 1;
-    } else {
-      mod_tap_active -= 1;
-    }
-  }
-#endif
-}
-
-
-// void process_callum_mods(...,...) {
-//   update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
-//   update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
-//   update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
-//   update_oneshot(&os_cmd_state, KC_LCMD, OS_CMD, keycode, record);
-// }
-//
-// bool is_oneshot_cancel_key(uint16_t keycode) {
-//   switch (keycode) {
-//     case LKM_EXT:
-//     case KC_CLEAR_MODS:
-//       return true;
-//     default:
-//       return false;
-//   }
-// }
-//
-// bool is_oneshot_ignored_key(uint16_t keycode) {
-//   switch (keycode) {
-//     case LKT_SYM:
-//     case LKM_EXT:
-//     case LKT_NAV:
-//     case LKT_DEF:
-//     case LKT_ADJ:
-//     case LKT_SWT:
-//     case OS_SHFT:
-//     case OS_CTRL:
-//     case OS_ALT:
-//     case OS_CMD:
-//       return true;
-//     default:
-//       return false;
-//   }
-// }
-
 void process_default_layer_keys(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-#ifdef ENABLE_LAYOUT_QWERTY
+#ifdef USE_LAYOUT_QWERTY
     case KC_QWERTY:
       set_single_persistent_default_layer(_QWERTY);
       break;
 #endif
-#ifdef ENABLE_LAYOUT_COLEMAK
+#ifdef USE_LAYOUT_COLEMAK
     case KC_COLEMAK_DH:
       set_single_persistent_default_layer(_COLEMAK_DH);
       break;
 #endif
-#ifdef ENABLE_LAYOUT_ISRT
+#ifdef USE_LAYOUT_ISRT
     case KC_ISRT:
       set_single_persistent_default_layer(_ISRT);
       break;
@@ -150,9 +89,64 @@ void process_default_layer_keys(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+#ifdef CALLUM_MODS_ENABLE
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state  = os_up_unqueued;
+oneshot_state os_cmd_state  = os_up_unqueued;
+
+void process_callum_mods(..., ...) {
+  update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
+  update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
+  update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
+  update_oneshot(&os_cmd_state, KC_LCMD, OS_CMD, keycode, record);
+}
+
+bool is_oneshot_cancel_key(uint16_t keycode) {
+  switch (keycode) {
+    case LKM_EXT:
+    case KC_CLEAR_MODS:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool is_oneshot_ignored_key(uint16_t keycode) {
+  switch (keycode) {
+    case LKT_SYM:
+    case LKM_EXT:
+    case LKT_NAV:
+    case LKT_DEF:
+    case LKT_ADJ:
+    case LKT_SWT:
+    case OS_SHFT:
+    case OS_CTRL:
+    case OS_ALT:
+    case OS_CMD:
+      return true;
+    default:
+      return false;
+  }
+}
+#endif
+
 #ifdef RGB_ENABLE
+// Flags for mod tap lighting effects
+uint16_t mod_tap_timer  = 0;
+uint8_t  mod_tap_active = 0;
+
 void process_led_keys(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;
+
+  if (IS_MOD_TAP(keycode)) {
+    if (record->event.pressed) {
+      mod_tap_timer = record->event.time;
+      mod_tap_active += 1;
+    } else {
+      mod_tap_active -= 1;
+    }
+  }
 
   // Toggle layer coloring"
   switch (keycode) {

@@ -6,15 +6,18 @@
   === Default Keys ===
   I may change how these keys work, and I want changes to be reflected in every layer/keymap
 */
-#define kSpace MT(MOD_LSFT, KC_SPACE)
+#define kSpace KC_SPACE
 #define kBackspace TH(thBackspace)
 #define kEnter TH(thEnter)
-// #define kEscape TH(thEscape)
+#define kEscape TH(thEscape)
 #define kTab KC_TAB
 
-#define kComma RCMD_T(KC_COMMA)
-#define kPeriod RALT_T(KC_DOT)
-#define kQuote RCTL_T(KC_QUOTE)
+// Mods
+#define km_Shift OSM(MOD_LSFT)
+
+#define kComma KC_COMMA
+#define kPeriod KC_DOT
+#define kQuote KC_QUOTE
 
 #define kLeft TH(thLeft)
 #define kRight TH(thRight)
@@ -23,12 +26,11 @@
 
 // Layers
 #define lk_Default TO(0)
+#define lk_Ext TH(thExtDefault)
 #define lk_Symbol TO(_SYM)
-#define lk_Num TO(_NUM)
-#define lk_Nav TH(thNav)
-#define lk_Ext TO(_EXT)
-#define lk_Desktop TO(_DESKTOP)
+#define lk_Num TG(_NUM)
 #define lk_Config TO(_CONFIG)
+#define lk_Desktop TO(_DESKTOP)
 // #define LKT_VSC TO(_VSCODE)
 
 /*
@@ -67,10 +69,11 @@
 #define OSX_MC_DESKS CTL(KC_UP)
 #define OSX_MC_APPS CTL(KC_DOWN)
 // TAP DANCE
-#define OSX_APP_PREV TD(TD_APPSW_L)
-#define OSX_APP_WNDW TD(TD_APPSW_M)
-#define OSX_APP_NEXT TD(TD_APPSW_R)
-
+#ifdef TAP_DANCE_ENABLE
+#  define OSX_APP_PREV TD(TD_APPSW_L)
+#  define OSX_APP_WNDW TD(TD_APPSW_M)
+#  define OSX_APP_NEXT TD(TD_APPSW_R)
+#endif
 /*
   === WINDOW ARRANGEMENT ===
 */

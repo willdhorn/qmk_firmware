@@ -11,10 +11,9 @@
 #define RGB_ENABLE
 
 // Default layouts
-#define ENABLE_LAYOUT_QWERTY
-#define ENABLE_LAYOUT_COLEMAK
-#define ENABLE_LAYOUT_ISRT
-
+#define USE_LAYOUT_QWERTY
+#define USE_LAYOUT_COLEMAK
+#define USE_LAYOUT_ISRT
 
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 
@@ -31,9 +30,8 @@
 // #define PLANCK_EZ_LED_ADJUST 7
 #define PLANCK_EZ_USER_LEDS
 
-
 // Audio
 #ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(PLANCK_SOUND)
-#    define MIDI_BASIC
+#  define STARTUP_SONG SONG(PLANCK_SOUND)
+#  define MIDI_BASIC
 #endif

@@ -7,7 +7,9 @@
 #include "quantum/callum_mods.h"
 
 #include "key_behavior/process_record.h"
-#include "key_behavior/tap_dances.h"
+#ifdef TAP_DANCE_ENABLE
+#  include "key_behavior/tap_dances.h"
+#endif
 
 #include "key_config/layers.h"
 #include "key_config/layout.h"
@@ -19,8 +21,9 @@
 #include "key_config/keycodes/key_defines.h"
 #include "key_config/keycodes/mods.h"
 
-#include "whistle_bells/rgb/rgb_stuff.h"
-
+#ifdef RGB_ENABLE
+#  include "whistle_bells/rgb/rgb_stuff.h"
+#endif
 // #include "print.h"
 
 // Debugging macros

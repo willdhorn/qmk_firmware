@@ -5,13 +5,17 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Default Layers
-  [_QWERTY]     = LAYER_QWERTY,
   [_COLEMAK_DH] = LAYER_COLEMAK_DH,
+#ifdef USE_LAYOUT_QWERTY
+  [_QWERTY]     = LAYER_QWERTY,
+#endif
+#ifdef USE_LAYOUT_ISRT
   [_ISRT]       = LAYER_ISRT,
+#endif
   // Standard Layers
+  [_EXT]        = LAYER_EXT,
   [_SYM]        = LAYER_SYM,
   [_NUM]        = LAYER_NUM,
-  [_NAV]        = LAYER_NAV,
   // [_CONFIG]     = LAYER_CONFIG,
   // Additional Layers
   // [_VSCODE]     = LAYER_VSCODE,
@@ -37,21 +41,21 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool pressed = record->event.pressed;
-
   dprintln();
 #ifdef DEBUG_KEYCODE_PRINT
-  if (pressed) {
+  if (record->event.pressed) {
     DEBUG_KEYCODE_HEX(keycode);
     DEBUG_KEYCODE_BINARY(keycode);
   }
 #endif
 
   process_record_tap_hold(keycode, record);
-  //process_vscode_keys(keycode, record);
-  process_led_keys(keycode, record);
+  // process_vscode_keys(keycode, record);
   process_default_layer_keys(keycode, record);
-  // process_mod_tap_keys(keycode, record);
+
+#ifdef RGB_ENABLE
+  process_led_keys(keycode, record);
+#endif
 
   // Execute keymap specific handling first
   if (!process_record_keymap(keycode, record)) {
@@ -68,6 +72,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return 300;
   }
 #endif
+#ifdef TAP_DANCE_ENABLE
   switch (keycode) {
     case OSX_APP_PREV:
     case OSX_APP_WNDW:
@@ -76,8 +81,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     default:
       return TAPPING_TERM;
   }
+#endif
+  return TAPPING_TERM;
 }
 
+#ifdef RGB_ENABLE
 __attribute__((weak)) void rgb_matrix_indicators_keymap(void) {
   return;
 }
@@ -86,3 +94,50 @@ void rgb_matrix_indicators_user(void) {
   set_all_layer_colors(layer_state);
   rgb_matrix_indicators_keymap();
 }
+#endif
+
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  if (is_keyboard_master()) {
+    return OLED_ROTATION_270;
+  }
+  return rotation;
+}
+
+bool oled_task_user(void) {
+  // Host Keyboard Layer Status
+  oled_write_P(PSTR("Layer\n"), false);
+
+  switch (get_highest_layer(layer_state)) {
+    case _COLEMAK_DH:
+#ifdef USE_LAYOUT_QWERTY
+    case _QWERTY:
+#endif
+#ifdef USE_LAYOUT_ISRT
+    case _ISRT:
+#endif
+      oled_write_P(PSTR("\n\n\n\n DEF \n"), true);
+      break;
+    case _EXT:
+      oled_write_P(PSTR("\n\n\n EXT \n\n"), false);
+      break;
+    case _SYM:
+      oled_write_P(PSTR("\n\n SYM \n\n\n"), false);
+      break;
+    case _NUM:
+      oled_write_P(PSTR("\n NUM \n\n\n\n"), false);
+      break;
+    default:
+      // Or use the write_ln shortcut over adding '\n' to the end of your string
+      oled_write_ln_P(PSTR("\n? ? ? \n? ? ? \n"), false);
+  }
+
+  // Host Keyboard LED Status
+  // led_t led_state = host_keyboard_led_state();
+  // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+  // oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+  // oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+  return false;
+}
+#endif

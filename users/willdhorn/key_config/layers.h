@@ -4,53 +4,63 @@
 
 // clang-format off
 enum default_layers {
-    _QWERTY,
     _COLEMAK_DH,
+#ifdef USE_LAYOUT_QWERTY
+    _QWERTY,
+#endif
+#ifdef USE_LAYOUT_ISRT
     _ISRT,
+#endif
     _DEFAULT_RANGE_ };
+//quick fix for not having to add this flag everywhere
+#ifndef USE_LAYOUT_QWERTY
+  #define _QWERTY  0
+#endif
+#ifndef USE_LAYOUT_ISRT
+  #define _ISRT 0
+#endif
 
 enum user_layers {
     _EXT = _DEFAULT_RANGE_,
     _SYM,
     _NUM,
-    _NAV,
     _CONFIG,
     _VSCODE,
     _DESKTOP,
+  // TODO: Replace these layers with leader sequences to save bytes
     _WNDW_HALF,
     _WNDW_THRD,
     _WNDW_QUAD,
     _WNDW_SIXT,
     _WNDW_NINT,
-    // _WNDW_VERT,
     _MAX_LAYER_
 };
 
 // THUMB KEYS
-#define LTHMB_L lk_Nav
-#define LTHMB_M kSpace
-#define LTHMB_R lk_Symbol
-#define RTHMB_L lk_Default
+#define LTHMB_L lk_Symbol
+#define LTHMB_M lk_Ext
+#define LTHMB_R km_Shift
+#define RTHMB_L kBackspace
 #define RTHMB_M kSpace
-#define RTHMB_R kBackspace
+#define RTHMB_R lk_Default
 
 #define DEFAULT_THUMB  THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, RTHMB_M, RTHMB_R)
-#define SYMBOL_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, KC_UNDS, RTHMB_R)
-#define NUMBER_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, TH(thNum_Dot), RTHMB_R)
+#define SYMBOL_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, RTHMB_M, RTHMB_R)
+#define NUMBER_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, TH(thNum_Dot), RTHMB_L, RTHMB_M, RTHMB_R)
 
 /*
   === STANDARD LAYERS ===
 */
 
-#define NAV_L1 ___,    kAltLeft, KC_UP,   kAltRight,   ___
-#define NAV_L2 kTab,   kLeft,    KC_DOWN, kRight,      ___
-#define NAV_L3 S_UNDO, S_CUT,    S_COPY,  TH(thPaste), ___
+#define EXT_L1 kTab,    ___,      ___,     ___,         ___
+#define EXT_L2 kEscape, ___,      ___,     ___,         ___
+#define EXT_L3 S_UNDO,  S_CUT,    S_COPY,  TH(thPaste), ___
 
-#define NAV_R1 ___, ___, ___, ___, ___
-#define NAV_R2 ___, ___, ___, ___, kEnter
-#define NAV_R3 ___, ___, ___, ___, ___
+#define EXT_R1 ___, kAltLeft, KC_UP,   kAltRight, SFT(kTab)
+#define EXT_R2 ___, kLeft,    KC_DOWN, kRight,    kEnter
+#define EXT_R3 ___, ___, ___, ___, ___
 
-#define NAV_THUMB DEFAULT_THUMB
+#define EXT_THUMB DEFAULT_THUMB
 
 // SYM
 #define SYM_L1 KC_AT,  KC_TILD, KC_ASTR, ___,     ___
@@ -146,6 +156,15 @@ enum user_layers {
   === DEFAULT LAYERS ===
 */
 
+// COLEMAK-DH
+#define COLEMAK_DH_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
+#define COLEMAK_DH_L2 LCTL_T(KC_A), LALT_T(KC_R), LCMD_T(KC_S), KC_T, KC_G
+#define COLEMAK_DH_L3 KC_Z, KC_X, KC_C, KC_D, KC_V
+
+#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, KC_COLN
+#define COLEMAK_DH_R2 KC_M, KC_N, RCMD_T(KC_E), RALT_T(KC_I), RCTL_T(KC_O)
+#define COLEMAK_DH_R3 KC_K, KC_H, kComma, kPeriod, kQuote
+
 // QWERTY
 #define QWERTY_L1 KC_Q, KC_W, KC_E, KC_R, KC_T
 #define QWERTY_L2 KC_A, KC_S, KC_D, KC_F, KC_G
@@ -155,14 +174,6 @@ enum user_layers {
 #define QWERTY_R2 KC_H, KC_J, KC_K, KC_L, KC_COLN
 #define QWERTY_R3 KC_N, KC_M, kComma, kPeriod, kQuote
 
-// COLEMAK-DH
-#define COLEMAK_DH_L1 KC_Q, KC_W, KC_F, KC_P, KC_B
-#define COLEMAK_DH_L2 KC_A, KC_R, KC_S, KC_T, KC_G
-#define COLEMAK_DH_L3 LCTL_T(KC_Z), LALT_T(KC_X), LCMD_T(KC_C), KC_D, KC_V
-
-#define COLEMAK_DH_R1 KC_J, KC_L, KC_U, KC_Y, KC_COLN
-#define COLEMAK_DH_R2 KC_M, KC_N, KC_E, KC_I, KC_O
-#define COLEMAK_DH_R3 KC_K, KC_H, kComma, kPeriod, kQuote
 
 // ISRT
 #define ISRT_L1 KC_Y, KC_C, KC_L, KC_M, KC_K

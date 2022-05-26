@@ -1,6 +1,7 @@
-KO_SFT(kosft_CommaQuestion, KC_COMMA, KC_QUES)
-KO_SFT(kosft_PeriodExclam, KC_DOT, KC_EXLM)
+KO_SFT(kosft_CommaQuestion, kComma, KC_QUES)
+KO_SFT(kosft_PeriodExclam, kPeriod, KC_EXLM)
 KO_SFT(kosft_ColonSemicolon, KC_COLN, KC_SCLN)
+KO_SFT(kosft_SpaceUnderscore, KC_SPACE, KC_UNDS)
 
 KO_SFT(kosft_EqualMacro_NotEqual, KC_EQL, MCR_NEQL)
 KO_SFT(kosft_LParenBrace, KC_LPRN, KC_LCBR)

@@ -68,11 +68,11 @@
     { L00, L01, L02, L03, L04, KC_EMPTY },     \
     { L10, L11, L12, L13, L14, KC_EMPTY },     \
     { L20, L21, L22, L23, L24, KC_EMPTY },     \
-    { KC_EMPTY, KC_EMPTY, L30, L31, L32, KC_EMPTY }, \
+    { KC_EMPTY, KC_EMPTY, L30, KC_EMPTY, KC_EMPTY, KC_NO }, \
     { KC_EMPTY, R00, R01, R02, R03, R04 },     \
     { KC_EMPTY, R10, R11, R12, R13, R14 },     \
     { KC_EMPTY, R20, R21, R22, R23, R24 },     \
-    { KC_EMPTY, R30, R31, R32, KC_EMPTY, KC_EMPTY }  \
+    { R30, R31, R32, KC_EMPTY, KC_EMPTY, KC_EMPTY }  \
   }
 
 // Reduce down to 3x5 (this is better than losing thumb keys due to 2u on mit layout)
@@ -81,17 +81,12 @@
   l1x, L10, L11, L12, L13, L14,           R10, R11, R12, R13, R14, r1x, \
   l2x, L20, L21, L22, L23, L24,           R20, R21, R22, R23, R24, r2x, \
                  L30, L31, L32, R30, R31, R32 \
-  ) \
-  { \
-    { L00, L01, L02, L03, L04, KC_EMPTY },     \
-    { L10, L11, L12, L13, L14, KC_EMPTY },     \
-    { L20, L21, L22, L23, L24, KC_EMPTY },     \
-    { KC_EMPTY, KC_EMPTY, L30, L31, L32, KC_EMPTY }, \
-    { KC_EMPTY, R00, R01, R02, R03, R04 },     \
-    { KC_EMPTY, R10, R11, R12, R13, R14 },     \
-    { KC_EMPTY, R20, R21, R22, R23, R24 },     \
-    { KC_EMPTY, R30, R31, R32, KC_EMPTY, KC_EMPTY }  \
-  }
+  ) LAYOUT_split_3x5_3( \
+  L00, L01, L02, L03, L04,           R00, R01, R02, R03, R04, \
+  L10, L11, L12, L13, L14,           R10, R11, R12, R13, R14, \
+  L20, L21, L22, L23, L24,           R20, R21, R22, R23, R24, \
+                 L30, L31, L32, R30, R31, R32 \
+  )
 // clang-forman on
 #define LAYOUT_planck_mit LAYOUT_planck_1x2uC
 #define LAYOUT_planck_grid LAYOUT_ortho_4x12

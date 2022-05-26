@@ -4,7 +4,7 @@
 
 enum custom_keycodes {
   // UTILITY KEYS
-  KC_EMPTY = EZ_SAFE_RANGE,
+  KC_EMPTY = SAFE_RANGE,
   KC_CLEAR_MODS,
   // PERSISTANT DEFALT LAYER
   KC_QWERTY,
@@ -17,10 +17,12 @@ enum custom_keycodes {
   MCR_TILD,
 
   // // CALLUM MODS
-  // OS_SHFT,
-  // OS_CTRL,
-  // OS_ALT,
-  // OS_CMD,
+#ifdef CALLUM_MODS_ENABLE
+  OS_SHFT,
+  OS_CTRL,
+  OS_ALT,
+  OS_CMD,
+#endif
 
 // RGB
 #ifdef RGB_ENABLE
@@ -38,7 +40,7 @@ enum custom_keycodes {
   VSC_OPN_DEF_SIDE,  // OPEN DEFINITION IN OPPOSITE GROUP
   // Custom Layer Macro keys for Tap-Hold
   LAYER_FN_DEF,
-  LAYER_FN_NAV,
+  LAYER_FN_EXT,
   LAYER_FN_SYM,
 };
 
