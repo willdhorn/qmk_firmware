@@ -15,3 +15,9 @@ TAP_HOLD_CMD(thLeft, KC_LEFT)
 TAP_HOLD_CMD(thRight, KC_RGHT)
 TAP_HOLD_CMD(thAltLeft, ALT(KC_LEFT))
 TAP_HOLD_CMD(thAltRight, ALT(KC_RGHT))
+
+// TH_SFT_OVR(name, key, sft)
+TH_SFT_OVR(thkoEqual, KC_EQL, MCR_NEQL)
+TH_SFT_OVR(thkoTilde, KC_TILDE, MCR_TILD)
+TH_SFT_OVR(thkoSlash, KC_SLSH, MCR_SLUP)
+

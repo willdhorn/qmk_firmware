@@ -3,26 +3,29 @@
 
 #include "quantum.h"
 
-#include "quantum/process_tap_hold.h"
-#include "quantum/callum_mods.h"
+#include "multikey/process_tap_hold.h"
+#include "multikey/tap_hold.h"
 
-#include "key_behavior/process_record.h"
-#ifdef TAP_DANCE_ENABLE
-#  include "key_behavior/tap_dances.h"
+#include "base/process_record.h"
+#include "base/layers.h"
+#include "base/layout.h"
+#include "base/keycodes/custom.h"
+#include "base/keycodes/key_defines.h"
+#include "base/keycodes/mods.h"
+#include "base/keycodes/key_tests.h"
+
+//#include "callum_mods/callum_mods.h"
+
+#ifdef KEY_OVERRIDE_ENABLE
+#  include "key_override/key_override.h"
 #endif
 
-#include "key_config/layers.h"
-#include "key_config/layout.h"
-#include "key_config/key_override.h"
-#include "key_config/tap_hold.h"
-#include "key_config/key_tests.h"
-
-#include "key_config/keycodes/custom.h"
-#include "key_config/keycodes/key_defines.h"
-#include "key_config/keycodes/mods.h"
+#ifdef TAP_DANCE_ENABLE
+#  include "tap_dance/tap_dances.h"
+#endif
 
 #ifdef RGB_ENABLE
-#  include "whistle_bells/rgb/rgb_stuff.h"
+#  include "rgb/rgb_stuff.h"
 #endif
 // #include "print.h"
 

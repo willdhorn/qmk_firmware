@@ -95,7 +95,7 @@
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
 #define IS_CUSTOM_LK(kc) ( \
     (kc) == LAYER_FN_DEF || \
-    (kc) == LAYER_FN_NAV || \
+    (kc) == LAYER_FN_EXT || \
     (kc) == LAYER_FN_SYM \
 )
 
@@ -123,7 +123,7 @@
 
 #define IS_VOL_KEY(kc) ((kc) == KC_MUTE || (kc) == KC_VOLD || (kc) == KC_VOLU)
 #define IS_MED_KEY(kc) ((kc) == KC_MPRV || (kc) == KC_MNXT || (kc) == KC_MPLY || (kc) == KC_MSTP)
-#define IS_RGB_KEY(kc) (((kc) >= RGB_TOG && (kc) <= RGB_MODE_RGBTEST) || (kc) == RGB_MODE_TWINKLE || (kc) == TOGGLE_LAYER_COLOR || (kc) == KC_LAYERCOLOR || (kc) == KC_LED_INC_BRGT || (kc) == KC_LED_DCR_BRGT)
+#define IS_RGB_KEY(kc) (false) //(((kc) >= RGB_TOG && (kc) <= RGB_MODE_RGBTEST) || (kc) == RGB_MODE_TWINKLE || (kc) == TOGGLE_LAYER_COLOR || (kc) == KC_LAYERCOLOR || (kc) == KC_LED_INC_BRGT || (kc) == KC_LED_DCR_BRGT)
 
 /* === VSCODE === */
 #define IS_VSC_KEY(kc) (IS_VSC_CURSOR(kc) || IS_VSC_SELECT(kc) || IS_VSC_SIDEBAR(kc) || IS_VSC_PROBLEM(kc) || IS_VSC_FNDSRCH(kc) || IS_VSC_GOTO(kc) || IS_VSC_DEBUG(kc) || IS_VSC_REFNCE(kc) || IS_VSC_REFAC(kc) || IS_VSC_EDTFCS(kc) || IS_VSC_EDTSPLT(kc))

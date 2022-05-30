@@ -1,8 +1,7 @@
 #pragma once
 
-#include <stdint.h>
-
-#include "quantum.h"
+#include "willdhorn.h"
+#include "color.h"
 
 // 16 COLORS THAT ARE VISUALLY DISTINCT
 #define H_RED 0

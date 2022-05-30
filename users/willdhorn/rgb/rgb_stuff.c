@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 
-#include "willdhorn.h"
+#include "rgb_stuff.h"
 
 // clang-format off
 const HSV layer_colors[] = {

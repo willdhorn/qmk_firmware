@@ -63,12 +63,12 @@ enum user_layers {
 #define EXT_THUMB DEFAULT_THUMB
 
 // SYM
-#define SYM_L1 KC_AT,  KC_TILD, KC_ASTR, ___,     ___
-#define SYM_L2 lk_Num, KC_SLSH, KC_MINS, KC_PLUS, ___
+#define SYM_L1 KC_AT,  TH(thkoTilde), KC_ASTR, ___,     ___
+#define SYM_L2 lk_Num, TH(thkoSlash), KC_MINS, KC_PLUS, ___
 #define SYM_L3 ___,    KC_PIPE, KC_AMPR, KC_UNDS, ___
 
 #define SYM_R1 ___, KC_HASH, KC_LBRC, KC_RBRC, ___
-#define SYM_R2 ___, KC_EQL,  KC_LPRN, KC_RPRN, kEnter
+#define SYM_R2 ___, TH(thkoEqual),  KC_LPRN, KC_RPRN, kEnter
 #define SYM_R3 ___, KC_BSLS, ___, ___, ___
 
 #define SYM_THUMB SYMBOL_THUMB
