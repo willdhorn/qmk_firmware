@@ -19,6 +19,5 @@
 #define TH_DEF TH_ENUM
 enum tap_hold_action_keys {
   #include "tap_hold.def"
-  TAP_HOLD_KEY_MAX
 };
 

@@ -3,8 +3,10 @@
 
 #include "quantum.h"
 
-#include "multikey/process_tap_hold.h"
-#include "multikey/tap_hold.h"
+#ifdef MULTIKEY_ENABLE
+#  include "multikey/process_tap_hold.h"
+#  include "multikey/tap_hold.h"
+#endif
 
 #include "base/process_record.h"
 #include "base/layers.h"

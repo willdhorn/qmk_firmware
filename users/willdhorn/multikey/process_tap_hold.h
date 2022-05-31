@@ -6,12 +6,12 @@
 // and custom keys, with the highest quantum keys maxing out somewhere in the mid 0x5Dxx range.
 // By setting QK_TAP_HOLD_MAX to the upper end of this range, it creates as much room
 // as possible for the user to define the custom keys as they want without risking a collision
-#define QK_TAP_HOLD_KEYCODE_ALLOCATION 31 // 32(inclusive) is often used as the size for fixed key ranges
+#define QK_TAP_HOLD_KEYCODE_ALLOCATION 32 // 32 is often used as the size for fixed key ranges
 #define QK_TAP_HOLD_MAX 0x5FFF
-#define QK_TAP_HOLD (QK_TAP_HOLD_MAX - QK_TAP_HOLD_KEYCODE_ALLOCATION)
+#define QK_TAP_HOLD (QK_TAP_HOLD_MAX - QK_TAP_HOLD_KEYCODE_ALLOCATION + 1) // Add 1 to include 0x5FFF
 
 #ifndef TAP_HOLD_DELAY
-#  define TAP_HOLD_DELAY 180
+#  define TAP_HOLD_DELAY TAPPING_TERM
 #endif
 
 #define TH(n) (QK_TAP_HOLD + n)
@@ -30,7 +30,10 @@
 //clang-format on
 typedef enum {
   th_default,
-  th_first_press
+  th_tapped,
+  th_shift_tapped,
+  th_held,
+  th_shift_held,
 } tap_hold_state;
 
 typedef struct {

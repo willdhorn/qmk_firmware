@@ -27,10 +27,8 @@ extern keymap_config_t keymap_config;
 
 static uint8_t real_mods = 0;
 static uint8_t weak_mods = 0;
-#ifdef KEY_OVERRIDE_ENABLE
 static uint8_t weak_override_mods = 0;
 static uint8_t suppressed_mods    = 0;
-#endif
 
 // TODO: pointer variable is not needed
 // report_keyboard_t keyboard_report = {};
@@ -355,7 +353,6 @@ void clear_weak_mods(void) {
     weak_mods = 0;
 }
 
-#ifdef KEY_OVERRIDE_ENABLE
 /** \brief set weak mods used by key overrides. DO not call this manually
  */
 void set_weak_override_mods(uint8_t mods) {
@@ -377,7 +374,6 @@ void set_suppressed_override_mods(uint8_t mods) {
 void clear_suppressed_override_mods(void) {
     suppressed_mods = 0;
 }
-#endif
 
 #ifndef NO_ACTION_ONESHOT
 /** \brief get oneshot mods

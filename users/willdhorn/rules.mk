@@ -2,8 +2,11 @@ SRC += willdhorn.c
 
 SRC += $(USER_PATH)/base/process_record.c
 
-SRC += $(USER_PATH)/multikey/tap_hold.c
-SRC += $(USER_PATH)/multikey/process_tap_hold.c
+MULTIKEY_ENABLE ?= yes
+ifeq ($(strip $(MULTIKEY_ENABLE)), yes)
+	SRC += $(USER_PATH)/multikey/tap_hold.c
+	SRC += $(USER_PATH)/multikey/process_tap_hold.c
+endif
 
 ifeq ($(strip $(KEY_OVERRIDE_ENABLE)), yes)
 	SRC += $(USER_PATH)/key_override/key_override.c
