@@ -12,9 +12,6 @@
 #define kEscape TH(thEscape)
 #define kTab KC_TAB
 
-// Mods
-#define km_Shift OSM(MOD_LSFT)
-
 #define kComma KC_COMMA
 #define kPeriod KC_DOT
 #define kQuote KC_QUOTE
@@ -23,15 +20,6 @@
 #define kRight TH(thRight)
 #define kAltLeft TH(thAltLeft)
 #define kAltRight TH(thAltRight)
-
-// Layers
-#define lk_Default TO(0)
-#define lk_Ext TH(thExtDefault)
-#define lk_Symbol TO(_SYM)
-#define lk_Num TG(_NUM)
-#define lk_Config TO(_CONFIG)
-#define lk_Desktop TO(_DESKTOP)
-// #define LKT_VSC TO(_VSCODE)
 
 /*
   === General ===

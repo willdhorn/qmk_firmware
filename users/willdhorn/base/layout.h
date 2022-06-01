@@ -13,12 +13,12 @@
 #define EMPTY_HALF _______, _______, _______, _______, _______, _______
 
 #define ROW_WRAPPER(l0, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, r0) l0, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, r0
-#define THUMB_KEYS_WRAPPER(l1, l2, l3, r3, r2, r1) l1, l2, l3, r3, r2, r1
+#define THUMB_KEYS_WRAPPER(lNear, lCenter, lFar, rFar, rCenter, rNear) lNear, lCenter, lFar, rFar, rCenter, rNear
 
 #define L5(l1, l2, l3, l4, l5) KC_EMPTY, l1, l2, l3, l4, l5
 #define R5(r5, r4, r3, r2, r1) r5, r4, r3, r2, r1, KC_EMPTY
 
-#define ROW(...) ROW_WRAPPER(_______, __VA_ARGS__, _______)
+#define ROW(...) ROW_WRAPPER(__VA_ARGS__)
 #define THUMB_KEYS(...) THUMB_KEYS_WRAPPER(__VA_ARGS__)
 
 /*
@@ -43,7 +43,7 @@
 #  define LAYER_QWERTY LAYOUT(QWERTY_1, QWERTY_2, QWERTY_3, QWERTY_4)
 #endif
 
-#ifdef USE_LAYOUT_QWERTY
+#ifdef USE_LAYOUT_ISRT
 //  ISRT
 #  define ISRT_1 ROW(ISRT_L1, ISRT_R1)
 #  define ISRT_2 ROW(ISRT_L2, ISRT_R2)
