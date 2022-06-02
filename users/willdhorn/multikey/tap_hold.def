@@ -1,10 +1,9 @@
 // === TAP_HOLD(name, key, hold) ===
-TAP_HOLD(thNum_Dot, KC_DOT, KC_COMMA)
+// TAP_HOLD(thNum_Dot, KC_DOT, KC_COMMA)
 // TAP_HOLD(thEscape, KC_ESC, KC_CAPS)
-// TAP_HOLD(thExtDefault, LAYER_FN_EXT, LAYER_FN_DEF)
 
 // === TAP_HOLD_ALL(name, key, sft, hold, sft_hold) ===
-// TAP_HOLD_ALL(thBackspace, KC_BSPC, KC_DEL, OSX_BKSP_LINE, OSX_DEL_LINE)
+TAP_HOLD_ALL(thBackspace, KC_BSPC, KC_DEL, OSX_BKSP_LINE, OSX_DEL_LINE)
 TAP_HOLD_ALL(thPaste, S_PASTE, S_CLIPBOARD, S_CLIPBOARD, SFT(S_PASTE))
 
 TAP_HOLD_ALL(multiParen,   KC_LPRN, KC_RPRN, KC_RPRN, KC_RPRN)

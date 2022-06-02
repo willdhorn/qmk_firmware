@@ -35,6 +35,7 @@ enum user_layers {
     _WNDW_NINT,
     _MAX_LAYER_
 };
+#define _NAV _EXT
 
 // Layer key defines
 // #define lk_Default TO(0)
@@ -46,12 +47,12 @@ enum user_layers {
 // #define LKT_VSC TO(_VSCODE)
 
 // === THUMB KEYS ===
-#define LTHMB_L KC_ESCAPE // LT(_MOUSE, KC_ESCAPE)
-#define LTHMB_M LT(_NUM, KC_SPACE)
-#define LTHMB_R LT(_DESKTOP, KC_TAB)
-#define RTHMB_L S_ALFRED // LT()
-#define RTHMB_M LT(_SYM, KC_BSPACE)
-#define RTHMB_R LT(_NAV, KC_ENTER)
+#define LTHMB_L kEscape // LT(_MOUSE, KC_ESCAPE)
+#define LTHMB_M kShift
+#define LTHMB_R kTab
+#define RTHMB_L kBackspace
+#define RTHMB_M kSpace
+#define RTHMB_R kEnter
 
 #define DEFAULT_THUMB  THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, RTHMB_M, RTHMB_R)
 // #define SYMBOL_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, RTHMB_M, RTHMB_R)
@@ -62,7 +63,7 @@ enum user_layers {
   ==== STANDARD LAYERS ====
 */
 
-/// === EXT ===
+/// === EXT/NAV ===
 #define EXT_L1 ___, ___,           ___,           ___,           ___,           ___
 #define EXT_L2 ___, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LCMD), S_SNIPPETS
 #define EXT_L3 ___, S_UNDO,        S_CUT,         S_COPY,        TH(thPaste),   ___
@@ -74,15 +75,15 @@ enum user_layers {
 #define EXT_THUMB DEFAULT_THUMB
 
 // === SYM ===
-#define SYM_L1 ___, KC_AT,   KC_PIPE,       KC_AMPR, KC_HASH,       ___
-#define SYM_L2 ___, KC_PERC, KC_MINS,       KC_PLUS, TH(thkoEqual), ___
-#define SYM_L3 ___, ___,     TH(thkoSlash), KC_ASTR, KC_BSLS,       ___
+#define SYM_L1 ___, KC_AT,   KC_PIPE,       KC_AMPR, KC_HASH,        ___
+#define SYM_L2 ___, KC_BSLS, KC_MINS,       KC_PLUS, TH(thkoEqual),  ___
+#define SYM_L3 ___, ___,     TH(thkoSlash), KC_ASTR, TH(multiParen), ___
 
 // #define SYM_R1 ___, KC_TILD,        KC_LBRC, KC_RBRC, ___,     ___
 // #define SYM_R2 ___, TH(thkoEqual),  KC_LPRN, KC_RPRN, KC_COLN, ___
 // #define SYM_R3 ___, MCR_DIRUP,      ___,     ___,     ___,     ___
 
-#define SYM_THUMB THUMB_KEYS(TH(multiBrace), TH(multiParen), TH(multiBracket), RTHMB_L, RTHMB_M, RTHMB_R)
+#define SYM_THUMB THUMB_KEYS(TH(multiBrace), ___, TH(multiBracket), RTHMB_L, RTHMB_M, RTHMB_R)
 
 // === NUM ===
 // #define NUM_L1 SYM_L1
@@ -172,7 +173,7 @@ enum user_layers {
 #define COLEMAK_DH_L2 ___, LCTL_T(KC_A), LALT_T(KC_R), LSFT_T(KC_S), LCMD_T(KC_T), KC_G
 #define COLEMAK_DH_L3 ___, KC_Z,         KC_X,         KC_C,         KC_D,         KC_V
 
-#define COLEMAK_DH_R1 KC_J, KC_L,         KC_U,         KC_Y,         KC_MINS,          ___
+#define COLEMAK_DH_R1 KC_J, KC_L,         KC_U,         KC_Y,         KC_COLN,          ___
 #define COLEMAK_DH_R2 KC_M, RCMD_T(KC_N), RSFT_T(KC_E), RALT_T(KC_I), RCTL_T(KC_O),     ___
 #define COLEMAK_DH_R3 KC_K, KC_H,         kComma,       kPeriod,      kQuote,           ___
 

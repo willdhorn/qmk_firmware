@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // [_CONFIG]     = LAYER_CONFIG,
   // Additional Layers
   // [_VSCODE]     = LAYER_VSCODE,
-  // [_DESKTOP]    = LAYER_DESKTOP,
+  [_DESKTOP]    = LAYER_DESKTOP,
   // [_WNDW_HALF]  = LAYER_WNDW_HALF,
   // [_WNDW_QUAD]  = LAYER_WNDW_QUAD,
   // [_WNDW_THRD]  = LAYER_WNDW_THRD,
@@ -105,33 +105,47 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user(void) {
+#  define oops _DESKTOP + 1
+  static const unsigned char PROGMEM layerIcons[][128] = {
+      [_COLEMAK_DH] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 240, 248, 252, 252, 62, 62, 30, 30, 30, 30, 30, 62, 62, 60, 60, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 143, 223, 223, 254, 252, 252, 248, 248, 248, 240, 240, 224, 224, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 254, 255, 255, 255, 3, 1, 0, 0, 0, 0, 0, 1, 3, 255, 255, 255, 255, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 15, 31, 63, 63, 62, 60, 124, 124, 124, 60, 62, 63, 31, 31, 15, 7, 0, 0, 0, 0, 0, 0, 0},
+      [_SYM]        = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 224, 240, 248, 248, 252, 124, 124, 124, 124, 124, 252, 252, 252, 252, 188, 60, 60, 28, 28, 12, 12, 8, 0, 0, 0, 0, 0, 0, 0, 0, 124, 255, 255, 255, 255, 131, 0, 0, 0, 0, 0, 0, 0, 131, 255, 255, 255, 254, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 15, 31, 63, 62, 60, 124, 124, 124, 60, 62, 31, 31, 15, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+      [_NUM]        = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 56, 60, 28, 30, 30, 254, 254, 254, 60, 60, 60, 60, 248, 248, 248, 120, 120, 56, 60, 28, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 0, 0, 0, 0, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 48, 56, 62, 31, 15, 3, 0, 0, 0, 0, 3, 15, 31, 62, 56, 48, 32, 0, 0, 0, 0, 0, 0, 0},
+      [_EXT]        = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 56, 124, 252, 252, 248, 240, 192, 0, 0, 0, 0, 0, 0, 0, 192, 248, 252, 252, 124, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 31, 255, 255, 255, 248, 128, 0, 128, 240, 254, 255, 255, 31, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 63, 63, 63, 60, 63, 63, 31, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      [_DESKTOP]    = {0,  0,  0,  0,  0,  0,  0,  0,  0,128,192,192,128,  0,  0,  0,  0,  0,  0,128,192,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,248,254,255,127, 15,  3,  1,  0,192,224,224,192,  0,  1,  3, 15,127,255,254,248,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 31,255,255,255,248,192,128,  0,128,255,255,255,255,128,  0,128,192,248,255,255,255, 31,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  7, 15, 15, 31, 31, 15, 15,  7,  3,  3,  7, 15, 15, 31, 31, 15, 15,  7,  0,  0,  0,  0,  0,  0,  0},
+      [oops]        = {0,  0, 16,  8,  8,200,120,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 12,100, 36, 24,  0,  0,  0,  0,  0,  0,  0,  9,  0,  0,  0,240,248,252, 30, 14, 14, 14, 14, 14, 14, 14, 30,252,248,240,  0,  0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,192, 64, 32, 32, 64,192,  0,  0,  0,  0, 96,240,248,124, 30, 15,  7,  3,  1,  0,  0,  0,192, 96, 32, 96,192,  0,  0,  0,  0,  0,  1,  0,  0, 76,  3,  1,  0,  0,  0, 48,120,252,252,120, 48,  0,  0,  0,  0,  0,  0,  0,  1,  0, 92,  3,  1}
+  };
+
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer\n"), false);
+  const unsigned char *curIcon;
 
   switch (get_highest_layer(layer_state)) {
     case _COLEMAK_DH:
-#ifdef USE_LAYOUT_QWERTY
+#  ifdef USE_LAYOUT_QWERTY
     case _QWERTY:
-#endif
-#ifdef USE_LAYOUT_ISRT
+#  endif
+#  ifdef USE_LAYOUT_ISRT
     case _ISRT:
-#endif
-      oled_write_P(PSTR("\n\n\n\n DEF \n"), true);
+#  endif
+      curIcon = layerIcons[_COLEMAK_DH];
       break;
     case _EXT:
-      oled_write_P(PSTR("\n\n\n EXT \n\n"), false);
+      curIcon = layerIcons[_EXT];
       break;
     case _SYM:
-      oled_write_P(PSTR("\n\n SYM \n\n\n"), false);
+      curIcon = layerIcons[_SYM];
       break;
     case _NUM:
-      oled_write_P(PSTR("\n NUM \n\n\n\n"), false);
+      curIcon = layerIcons[_NUM];
+      break;
+    case _DESKTOP:
+      curIcon = layerIcons[_DESKTOP];
       break;
     default:
-      // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR("\n? ? ? \n? ? ? \n"), false);
+      curIcon = layerIcons[oops];
   }
 
+  oled_write_raw_P((const char *)curIcon, 128);
   // Host Keyboard LED Status
   // led_t led_state = host_keyboard_led_state();
   // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
