@@ -666,7 +666,7 @@ enum quantum_keycodes {
 #define KC_CIRC KC_CIRCUMFLEX
 
 #define KC_AMPERSAND LSFT(KC_7) // &
-#define KC_AMPR KC_AMPERSAND
+#define  KC_AMPR KC_AMPERSAND
 
 #define KC_ASTERISK LSFT(KC_8) // *
 #define KC_ASTR KC_ASTERISK

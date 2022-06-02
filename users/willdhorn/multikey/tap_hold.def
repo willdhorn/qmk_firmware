@@ -1,21 +1,28 @@
-//TAP_HOLD(name, key, hold)
+// === TAP_HOLD(name, key, hold) ===
 TAP_HOLD(thNum_Dot, KC_DOT, KC_COMMA)
-TAP_HOLD(thEscape, KC_ESC, KC_CAPS)
-TAP_HOLD(thExtDefault, LAYER_FN_EXT, LAYER_FN_DEF)
+// TAP_HOLD(thEscape, KC_ESC, KC_CAPS)
+// TAP_HOLD(thExtDefault, LAYER_FN_EXT, LAYER_FN_DEF)
 
-// TAP_HOLD_ALL(name, key, sft, hold, sft_hold)
-TAP_HOLD_ALL(thBackspace, KC_BSPC, KC_DEL, OSX_BKSP_LINE, OSX_DEL_LINE)
+// === TAP_HOLD_ALL(name, key, sft, hold, sft_hold) ===
+// TAP_HOLD_ALL(thBackspace, KC_BSPC, KC_DEL, OSX_BKSP_LINE, OSX_DEL_LINE)
 TAP_HOLD_ALL(thPaste, S_PASTE, S_CLIPBOARD, S_CLIPBOARD, SFT(S_PASTE))
- 
+
+TAP_HOLD_ALL(multiParen,   KC_LPRN, KC_RPRN, KC_RPRN, KC_RPRN)
+TAP_HOLD_ALL(multiBracket, KC_LBRC, KC_RBRC, KC_RBRC, KC_RBRC)
+TAP_HOLD_ALL(multiBrace,   KC_LCBR, KC_RCBR, KC_RCBR, KC_RCBR)
+
 // TAP_HOLD_ALL(thNav, LAYER_FN_NAV, KC_ESC, LAYER_FN_NAV, KC_CAPS)
 
-// TAP_HOLD_CMD(name, key)
-TAP_HOLD_CMD(thEnter, KC_ENTER)
-TAP_HOLD_CMD(thLeft, KC_LEFT)
-TAP_HOLD_CMD(thRight, KC_RGHT)
-TAP_HOLD_CMD(thAltLeft, ALT(KC_LEFT))
-TAP_HOLD_CMD(thAltRight, ALT(KC_RGHT))
+/*
+  === TAP_HOLD_CMD(name, key) ===
+*/
+// TAP_HOLD_CMD(thEnter, KC_ENTER)
+TAP_HOLD_CMD(thLeft,      KC_LEFT)
+TAP_HOLD_CMD(thRight,     KC_RGHT)
+TAP_HOLD_CMD(thAltLeft,   ALT(KC_LEFT))
+TAP_HOLD_CMD(thAltRight,  ALT(KC_RGHT))
 
-// TH_SFT_OVR(name, key, sft)
-TH_SFT_OVR(thkoEqual, KC_EQL, MCR_NEQL)
+// === TH_SFT_OVR(name, key, sft) ===
+TH_SFT_OVR(thkoEqual, KC_EQL,  MCR_NEQL)
+TH_SFT_OVR(thkoSlash, KC_SLSH, MCR_DIRUP)
 
