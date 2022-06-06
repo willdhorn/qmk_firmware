@@ -12,8 +12,8 @@
 #define EMPTY_ROW _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 #define EMPTY_HALF _______, _______, _______, _______, _______, _______
 
-#define MODS_L ___, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LGUI), ___
-#define MODS_R ___, OSM(MOD_RGUI), OSM(MOD_RSFT), OSM(MOD_RALT), OSM(MOD_RCTL), ___
+#define MODS_L ___, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LGUI), _x_
+#define MODS_R _x_, OSM(MOD_RGUI), OSM(MOD_RSFT), OSM(MOD_RALT), OSM(MOD_RCTL), ___
 
 #define ROW_WRAPPER(l0, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, r0) l0, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, r0
 #define THUMB_KEYS_WRAPPER(lNear, lCenter, lFar, rFar, rCenter, rNear) lNear, lCenter, lFar, rFar, rCenter, rNear
@@ -98,7 +98,7 @@
 
 // === APPS/WINDOWS === - App switching and window arrangement
 #define DESKTOP_1 ROW(EMPTY_HALF, DESKTOP_R1)
-#define DESKTOP_2 ROW(EMPTY_HALF, DESKTOP_R2)
+#define DESKTOP_2 ROW(EXT_L2, DESKTOP_R2)
 #define DESKTOP_3 ROW(EXT_L3, DESKTOP_R3)
 #define DESKTOP_4 DESKTOP_THUMB
 

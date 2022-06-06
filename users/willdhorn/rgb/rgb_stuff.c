@@ -136,9 +136,9 @@ HSV get_keycode_color(uint16_t kc, HSV layer_color) {
     case S_ALFRED:
       return C_PURPLE;
     // WINDOW ARRANGEMENT LAYER KEYS
-    case WNDW_LAYER_H:
+    case WNDW_LAYER_2:
       return CL_WNDW_HALF;
-    case WNDW_LAYER_Q:
+    case WNDW_LAYER_4:
       return CL_WNDW_QUAD;
     case WNDW_LAYER_3:
       return CL_WNDW_THRD;

@@ -4,7 +4,7 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // Default Layers
+  // === Default Layers ===
   [_COLEMAK_DH] = LAYER_COLEMAK_DH,
 #ifdef USE_LAYOUT_QWERTY
   [_QWERTY]     = LAYER_QWERTY,
@@ -12,23 +12,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef USE_LAYOUT_ISRT
   [_ISRT]       = LAYER_ISRT,
 #endif
-  // Standard Layers
+  // === Standard Layers ===
   [_EXT]        = LAYER_EXT,
   [_SYM]        = LAYER_SYM,
   [_NUM]        = LAYER_NUM,
   // [_CONFIG]     = LAYER_CONFIG,
-  // Additional Layers
+  // === Additional Layers ===
   // [_VSCODE]     = LAYER_VSCODE,
   [_DESKTOP]    = LAYER_DESKTOP,
-  // [_WNDW_HALF]  = LAYER_WNDW_HALF,
-  // [_WNDW_QUAD]  = LAYER_WNDW_QUAD,
-  // [_WNDW_THRD]  = LAYER_WNDW_THRD,
-  // [_WNDW_SIXT]  = LAYER_WNDW_SIXT,
-  // [_WNDW_NINT]  = LAYER_WNDW_NINT,
+  [_WNDW_HALF]  = LAYER_WNDW_HALF,
+  [_WNDW_QUAD]  = LAYER_WNDW_QUAD,
+  [_WNDW_THRD]  = LAYER_WNDW_THRD,
+  [_WNDW_SIXT]  = LAYER_WNDW_SIXT,
+  [_WNDW_NINT]  = LAYER_WNDW_NINT,
 };
-
 // clang-format on
 
+// === Matrix Scan ===
 void matrix_scan_user(void) {
   matrix_scan_tap_hold();
 #ifdef AUDIO_ENABLE
@@ -40,6 +40,7 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
   return true;
 }
 
+// ==== Process Record ====
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   dprintln();
 #ifdef DEBUG_KEYCODE_PRINT
@@ -66,6 +67,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return process_keycode_user(keycode, record);
 }
 
+// === Get Tapping Term ===
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #ifndef BILATERAL_COMBINATIONS
   if (IS_MOD_TAP(keycode)) {
@@ -82,9 +85,18 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return TAPPING_TERM;
   }
 #endif
+  switch (keycode) {
+    case kEscape:
+    case kTab:
+    case kEnter:
+      return 150;
+    default:
+      return TAPPING_TERM;
+  }
   return TAPPING_TERM;
 }
 
+// === RGB ===
 #ifdef RGB_ENABLE
 __attribute__((weak)) void rgb_matrix_indicators_keymap(void) {
   return;
@@ -96,6 +108,8 @@ void rgb_matrix_indicators_user(void) {
 }
 #endif
 
+// === OLED ===
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master()) {
@@ -106,6 +120,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 bool oled_task_user(void) {
 #  define oops _DESKTOP + 1
+ // clang-format off
   static const unsigned char PROGMEM layerIcons[][128] = {
       [_COLEMAK_DH] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 240, 248, 252, 252, 62, 62, 30, 30, 30, 30, 30, 62, 62, 60, 60, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 143, 223, 223, 254, 252, 252, 248, 248, 248, 240, 240, 224, 224, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 254, 255, 255, 255, 3, 1, 0, 0, 0, 0, 0, 1, 3, 255, 255, 255, 255, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 15, 31, 63, 63, 62, 60, 124, 124, 124, 60, 62, 63, 31, 31, 15, 7, 0, 0, 0, 0, 0, 0, 0},
       [_SYM]        = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 224, 240, 248, 248, 252, 124, 124, 124, 124, 124, 252, 252, 252, 252, 188, 60, 60, 28, 28, 12, 12, 8, 0, 0, 0, 0, 0, 0, 0, 0, 124, 255, 255, 255, 255, 131, 0, 0, 0, 0, 0, 0, 0, 131, 255, 255, 255, 254, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 15, 31, 63, 62, 60, 124, 124, 124, 60, 62, 31, 31, 15, 7, 1, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -114,9 +129,17 @@ bool oled_task_user(void) {
       [_DESKTOP]    = {0,  0,  0,  0,  0,  0,  0,  0,  0,128,192,192,128,  0,  0,  0,  0,  0,  0,128,192,192,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,248,254,255,127, 15,  3,  1,  0,192,224,224,192,  0,  1,  3, 15,127,255,254,248,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 31,255,255,255,248,192,128,  0,128,255,255,255,255,128,  0,128,192,248,255,255,255, 31,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  7, 15, 15, 31, 31, 15, 15,  7,  3,  3,  7, 15, 15, 31, 31, 15, 15,  7,  0,  0,  0,  0,  0,  0,  0},
       [oops]        = {0,  0, 16,  8,  8,200,120,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 12,100, 36, 24,  0,  0,  0,  0,  0,  0,  0,  9,  0,  0,  0,240,248,252, 30, 14, 14, 14, 14, 14, 14, 14, 30,252,248,240,  0,  0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,192, 64, 32, 32, 64,192,  0,  0,  0,  0, 96,240,248,124, 30, 15,  7,  3,  1,  0,  0,  0,192, 96, 32, 96,192,  0,  0,  0,  0,  0,  1,  0,  0, 76,  3,  1,  0,  0,  0, 48,120,252,252,120, 48,  0,  0,  0,  0,  0,  0,  0,  1,  0, 92,  3,  1}
   };
+  // clang-format on
 
-  // Host Keyboard Layer Status
-  oled_write_P(PSTR("Layer\n"), false);
+  // Mods
+  uint8_t mods = get_mods()|get_oneshot_mods();
+  oled_write_P(mods & MOD_MASK_CTRL ? PSTR("C") : PSTR(" "), get_oneshot_mods() & MOD_MASK_CTRL);
+  oled_write_P(mods & MOD_MASK_ALT ? PSTR("A") : PSTR(" "), get_oneshot_mods() & MOD_MASK_ALT);
+  oled_write_P(mods & MOD_MASK_SHIFT ? PSTR("S") : PSTR(" "), get_oneshot_mods() & MOD_MASK_SHIFT);
+  oled_write_P(mods & MOD_MASK_GUI ? PSTR("G") : PSTR(" "), get_oneshot_mods() & MOD_MASK_GUI);
+
+  // Layer Status
+  oled_write_P(PSTR("\nLayer\n"), false);
   const unsigned char *curIcon;
 
   switch (get_highest_layer(layer_state)) {
@@ -139,13 +162,22 @@ bool oled_task_user(void) {
       curIcon = layerIcons[_NUM];
       break;
     case _DESKTOP:
+    case _WNDW_HALF:
+    case _WNDW_THRD:
+    case _WNDW_QUAD:
+    case _WNDW_SIXT:
+    case _WNDW_NINT:
       curIcon = layerIcons[_DESKTOP];
       break;
     default:
+      oled_write(get_u8_str(get_highest_layer(layer_state), ' '), false);
       curIcon = layerIcons[oops];
   }
 
   oled_write_raw_P((const char *)curIcon, 128);
+
+
+
   // Host Keyboard LED Status
   // led_t led_state = host_keyboard_led_state();
   // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);

@@ -64,20 +64,20 @@ enum user_layers {
 */
 
 /// === EXT/NAV ===
-#define EXT_L1 ___, ___,           ___,           ___,           ___,           ___
+#define EXT_L1 ___, _x_,           _x_,           _x_,           _x_,           _x_
 #define EXT_L2 ___, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LCMD), S_SNIPPETS
-#define EXT_L3 ___, S_UNDO,        S_CUT,         S_COPY,        TH(thPaste),   ___
+#define EXT_L3 ___, S_UNDO,        S_CUT,         S_COPY,        TH(thPaste),   _x_
 
-#define EXT_R1 ___,        kAltLeft,    KC_UP,   kAltRight, ___,    ___
-#define EXT_R2 S_SNIPPETS, kLeft,       KC_DOWN, kRight,    ___,    ___
-#define EXT_R3 ___,        TH(thPaste), S_COPY,  S_CUT,     S_UNDO, ___
+#define EXT_R1 _x_,        kAltLeft,    KC_UP,   kAltRight, _x_,    ___
+#define EXT_R2 S_SNIPPETS, kLeft,       KC_DOWN, kRight,    _x_,    ___
+#define EXT_R3 _x_,        TH(thPaste), S_COPY,  S_CUT,     S_UNDO, ___
 
 #define EXT_THUMB DEFAULT_THUMB
 
 // === SYM ===
-#define SYM_L1 ___, KC_AT,   KC_PIPE,       KC_AMPR, KC_HASH,        ___
-#define SYM_L2 ___, KC_BSLS, KC_MINS,       KC_PLUS, TH(thkoEqual),  ___
-#define SYM_L3 ___, ___,     TH(thkoSlash), KC_ASTR, TH(multiParen), ___
+#define SYM_L1 ___, KC_AT,   KC_PIPE,       KC_AMPR, KC_HASH,        _x_
+#define SYM_L2 ___, KC_BSLS, KC_MINS,       KC_PLUS, TH(thkoEqual),  _x_
+#define SYM_L3 ___, _x_,     TH(thkoSlash), KC_ASTR, TH(multiParen), _x_
 
 // #define SYM_R1 ___, KC_TILD,        KC_LBRC, KC_RBRC, ___,     ___
 // #define SYM_R2 ___, TH(thkoEqual),  KC_LPRN, KC_RPRN, KC_COLN, ___
@@ -90,9 +90,9 @@ enum user_layers {
 // #define NUM_L2 SYM_L2
 // #define NUM_L3 SYM_L3
 
-#define NUM_R1 ___, KC_7, KC_8, KC_9, KC_RABK,  ___
-#define NUM_R2 ___, KC_4, KC_5, KC_6, KC_0,     ___
-#define NUM_R3 ___, KC_1, KC_2, KC_3, KC_LABK,  ___
+#define NUM_R1 _x_, KC_7, KC_8, KC_9, KC_RABK,  ___
+#define NUM_R2 _x_, KC_4, KC_5, KC_6, KC_0,     ___
+#define NUM_R3 _x_, KC_1, KC_2, KC_3, KC_LABK,  ___
 
 #define NUM_THUMB THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, KC_DOT, KC_COMMA)
 
@@ -129,9 +129,9 @@ enum user_layers {
 // #define DESKTOP_L2 ___, _x_, WNDW_LAYER_6, WNDW_LAYER_3, WNDW_LAYER_2, _x_
 // #define DESKTOP_L3 ___, _x_, _x_, _x_, WNDW_LAYER_4, _x_
 
-#define DESKTOP_R1 ___, _x_,          _x_,          WNDW_LAYER_9, _x_, _x_
-#define DESKTOP_R2 ___, WNDW_LAYER_4, _x_,          WNDW_LAYER_6, _x_, _x_
-#define DESKTOP_R3 ___, WM_FULL,      WNDW_LAYER_2, WNDW_LAYER_3, _x_, _x_
+#define DESKTOP_R1 _x_, _x_,          _x_,          WNDW_LAYER_9, _x_, _x_
+#define DESKTOP_R2 _x_, WNDW_LAYER_4, _x_,          WNDW_LAYER_6, _x_, _x_
+#define DESKTOP_R3 _x_, WM_FULL,      WNDW_LAYER_2, WNDW_LAYER_3, _x_, _x_
 
 #define DESKTOP_THUMB DEFAULT_THUMB
 
@@ -156,9 +156,9 @@ enum user_layers {
 #define WNDW_THRD_R2 _x_, WM_3_L,  WM_3_M, WM_3_R, _x_, ___
 #define WNDW_THRD_R3 _x_, _x_,     _x_,    _x_, _x_, ___
 // SIXTH TILING
-#define WNDW_SIXT_R1 _x_, WM_6_UL, WM_6_UM, WM_6_UR, _x_, ___,
-#define WNDW_SIXT_R2 _x_, _x_,     _x_,     _x_, _x_, ___,
-#define WNDW_SIXT_R3 _x_, WM_6_LL, WM_6_LM, WM_6_LR, _x_, ___,
+#define WNDW_SIXT_R1 _x_, WM_6_UL, WM_6_UM, WM_6_UR, _x_, ___
+#define WNDW_SIXT_R2 _x_, _x_,     _x_,     _x_, _x_, ___
+#define WNDW_SIXT_R3 _x_, WM_6_LL, WM_6_LM, WM_6_LR, _x_, ___
 // NINTH TILING
 #define WNDW_NINT_R1 _x_, WM_9_TL, WM_9_TC, WM_9_TR, _x_, ___
 #define WNDW_NINT_R2 _x_, WM_9_ML, WM_9_MC, WM_9_MR, _x_, ___

@@ -12,6 +12,11 @@ CONSOLE_ENABLE = no
 WEBUSB_ENABLE = no
 DYNAMIC_MACRO_ENABLE = no
 BOOTMAGIC_ENABLE = no
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
+MAGIC_ENABLE = no
+# To save bytes in some circumstances
+AVR_USE_MINIMAL_PRINTF = yes
 
 ### "Whistle-bell" features ###
 #Enabled

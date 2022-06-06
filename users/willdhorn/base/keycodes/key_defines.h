@@ -7,12 +7,11 @@
   I may change how these keys work, and I want changes to be reflected in every layer/keymap
 */
 #define kEscape LT(_NUM, KC_ESCAPE)
-#define kTab LT(_NAV, KC_TAB)
-#define kBackspace TH(thBackspace)
-#define kSpace LT(_SYM, KC_SPACE)
-#define kEnter LT(_DESKTOP, KC_ENTER)
-
 #define kShift OSM(MOD_LSFT)
+#define kTab LT(_DESKTOP, KC_TAB)
+#define kBackspace TH(thBackspace)
+#define kSpace LT(_NAV, KC_SPACE)
+#define kEnter LT(_SYM, KC_ENTER)
 
 #define kComma KC_COMMA
 #define kPeriod KC_DOT
