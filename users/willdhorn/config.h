@@ -5,23 +5,23 @@
 
 // Key Behaviour
 #undef TAPPING_TERM
-#define TAPPING_TERM 250
+#define TAPPING_TERM 225
 
 #define TAPPING_TERM_PER_KEY
 #define RETRO_TAPPING_PER_KEY
 #define SPACE_RETRO_TAP_TERM 250
 
-// !! ABSOLUTELY NEEDED FOR HOME ROW MODS !!
-#define IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT // !! ABSOLUTELY NEEDED FOR HOME ROW MODS !!
+#define TAPPING_FORCE_HOLD // Don't repeat tapping functing when hold after tap. Needed to make space a layer key (tapSpace-holdForLayer-tapSymbol-tapSpace)
 #undef PERMISIVE_HOLD
 // This should make accidental mod triggers less likely
-#define BILATERAL_COMBINATIONS 400
+#define BILATERAL_COMBINATIONS 300
 
 // #define TAPPING_TOGGLE 1
 
 // ONESHOT CONFIGS
-#define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 3000
+#define ONESHOT_TAP_TOGGLE 3 // Incompatiple with TAPPING_FORCE_HOLD
+#define ONESHOT_TIMEOUT 1500
 
 // Mouse keys
 #undef MOUSEKEY_WHEEL_DELAY
@@ -42,6 +42,9 @@
 // Disable deprecated features for binary size
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define NO_MUSIC_MODE
 
 // USB Startup (no delay)
 #define USB_SUSPEND_WAKEUP_DELAY 0

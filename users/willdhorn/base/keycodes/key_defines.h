@@ -6,14 +6,12 @@
   === Default Keys ===
   I may change how these keys work, and I want changes to be reflected in every layer/keymap
 */
-#define kSpace KC_SPACE
+#define kEscape LT(_NUM, KC_ESCAPE)
+#define kShift OSM(MOD_LSFT)
+#define kTab LT(_DESKTOP, KC_TAB)
 #define kBackspace TH(thBackspace)
-#define kEnter TH(thEnter)
-#define kEscape TH(thEscape)
-#define kTab KC_TAB
-
-// Mods
-#define km_Shift OSM(MOD_LSFT)
+#define kSpace LT(_NAV, KC_SPACE)
+#define kEnter LT(_SYM, KC_ENTER)
 
 #define kComma KC_COMMA
 #define kPeriod KC_DOT
@@ -23,15 +21,6 @@
 #define kRight TH(thRight)
 #define kAltLeft TH(thAltLeft)
 #define kAltRight TH(thAltRight)
-
-// Layers
-#define lk_Default TO(0)
-#define lk_Ext TH(thExtDefault)
-#define lk_Symbol TO(_SYM)
-#define lk_Num TG(_NUM)
-#define lk_Config TO(_CONFIG)
-#define lk_Desktop TO(_DESKTOP)
-// #define LKT_VSC TO(_VSCODE)
 
 /*
   === General ===
@@ -81,16 +70,16 @@
 
 #define WM_FULL WM(KC_ENT)
 
-#define WM_H_L WM(KC_H)
-#define WM_H_R WM(KC_L)
-#define WM_H_U WM(KC_K)
-#define WM_H_D WM(KC_J)
-#define WM_H_M WM(KC_SCLN)
+#define WM_2_L WM(KC_H)
+#define WM_2_R WM(KC_L)
+#define WM_2_U WM(KC_K)
+#define WM_2_D WM(KC_J)
+#define WM_2_M WM(KC_SCLN)
 
-#define WM_4Q_UL WM(KC_Y)
-#define WM_4Q_UR WM(KC_O)
-#define WM_4Q_LL WM(KC_N)
-#define WM_4Q_LR WM(KC_DOT)
+#define WM_4_UL WM(KC_Y)
+#define WM_4_UR WM(KC_O)
+#define WM_4_LL WM(KC_N)
+#define WM_4_LR WM(KC_DOT)
 
 #define WM_4V_L WM(KC_U)
 #define WM_4V_LC WM(KC_M)
@@ -121,9 +110,9 @@
 #define WM_9_TR WM(KC_KP_9)
 
 // WINDOW LAYERS
-#define WNDW_LAYER_H OSL(_WNDW_HALF)
-#define WNDW_LAYER_Q OSL(_WNDW_QUAD)
-#define WNDW_LAYER_V OSL(_WNDW_VERT)
+#define WNDW_LAYER_2 OSL(_WNDW_HALF)
+#define WNDW_LAYER_4 OSL(_WNDW_QUAD)
+// #define WNDW_LAYER_V OSL(_WNDW_VERT)
 #define WNDW_LAYER_3 OSL(_WNDW_THRD)
 #define WNDW_LAYER_6 OSL(_WNDW_SIXT)
 #define WNDW_LAYER_9 OSL(_WNDW_NINT)

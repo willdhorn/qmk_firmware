@@ -13,8 +13,7 @@ enum custom_keycodes {
 
   // MACRO KEYS
   MCR_NEQL,
-  MCR_SLUP,
-  MCR_TILD,
+  MCR_DIRUP,
 
   // // CALLUM MODS
 #ifdef CALLUM_MODS_ENABLE

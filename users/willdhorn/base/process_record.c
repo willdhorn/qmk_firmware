@@ -32,14 +32,9 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("!=");
       }
       return false;
-    case MCR_SLUP:
+    case MCR_DIRUP:
       if (pressed) {
         SEND_STRING("../");
-      }
-      return false;
-    case MCR_TILD:
-      if (pressed) {
-        SEND_STRING("~/");
       }
       return false;
 

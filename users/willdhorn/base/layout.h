@@ -3,7 +3,7 @@
 #include "willdhorn.h"
 
 /*
-  === LAYOUT ===
+  ==== Macros ====
 */
 
 #undef LAYOUT
@@ -12,20 +12,23 @@
 #define EMPTY_ROW _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 #define EMPTY_HALF _______, _______, _______, _______, _______, _______
 
+#define MODS_L ___, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LGUI), _x_
+#define MODS_R _x_, OSM(MOD_RGUI), OSM(MOD_RSFT), OSM(MOD_RALT), OSM(MOD_RCTL), ___
+
 #define ROW_WRAPPER(l0, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, r0) l0, l1, l2, l3, l4, l5, r5, r4, r3, r2, r1, r0
-#define THUMB_KEYS_WRAPPER(l1, l2, l3, r3, r2, r1) l1, l2, l3, r3, r2, r1
+#define THUMB_KEYS_WRAPPER(lNear, lCenter, lFar, rFar, rCenter, rNear) lNear, lCenter, lFar, rFar, rCenter, rNear
 
 #define L5(l1, l2, l3, l4, l5) KC_EMPTY, l1, l2, l3, l4, l5
 #define R5(r5, r4, r3, r2, r1) r5, r4, r3, r2, r1, KC_EMPTY
 
-#define ROW(...) ROW_WRAPPER(_______, __VA_ARGS__, _______)
+#define ROW(...) ROW_WRAPPER(__VA_ARGS__)
 #define THUMB_KEYS(...) THUMB_KEYS_WRAPPER(__VA_ARGS__)
 
 /*
-  === BEGIN LAYOUTS  ===
+  ==== BEGIN LAYOUTS  ====
 */
 
-//  COLEMAK DH
+// === COLEMAK DH ===
 #define COLEMAK_DH_1 ROW(COLEMAK_DH_L1, COLEMAK_DH_R1)
 #define COLEMAK_DH_2 ROW(COLEMAK_DH_L2, COLEMAK_DH_R2)
 #define COLEMAK_DH_3 ROW(COLEMAK_DH_L3, COLEMAK_DH_R3)
@@ -43,8 +46,8 @@
 #  define LAYER_QWERTY LAYOUT(QWERTY_1, QWERTY_2, QWERTY_3, QWERTY_4)
 #endif
 
-#ifdef USE_LAYOUT_QWERTY
-//  ISRT
+#ifdef USE_LAYOUT_ISRT
+//  === ISRT ===
 #  define ISRT_1 ROW(ISRT_L1, ISRT_R1)
 #  define ISRT_2 ROW(ISRT_L2, ISRT_R2)
 #  define ISRT_3 ROW(ISRT_L3, ISRT_R3)
@@ -53,7 +56,7 @@
 #  define LAYER_ISRT LAYOUT(ISRT_1, ISRT_2, ISRT_3, ISRT_4)
 #endif
 
-// EXT
+// === EXT ===
 #define EXT_1 ROW(EXT_L1, EXT_R1)
 #define EXT_2 ROW(EXT_L2, EXT_R2)
 #define EXT_3 ROW(EXT_L3, EXT_R3)
@@ -61,42 +64,42 @@
 
 #define LAYER_EXT LAYOUT(EXT_1, EXT_2, EXT_3, EXT_4)
 
-// SYM
-#define SYM_1 ROW(SYM_L1, SYM_R1)
-#define SYM_2 ROW(SYM_L2, SYM_R2)
-#define SYM_3 ROW(SYM_L3, SYM_R3)
+// === SYM ===
+#define SYM_1 ROW(SYM_L1, EMPTY_HALF)
+#define SYM_2 ROW(SYM_L2, MODS_R)
+#define SYM_3 ROW(SYM_L3, EMPTY_HALF)
 #define SYM_4 SYM_THUMB
 
 #define LAYER_SYM LAYOUT(SYM_1, SYM_2, SYM_3, SYM_4)
 
-// NUM
-#define NUM_1 ROW(NUM_L1, NUM_R1)
-#define NUM_2 ROW(NUM_L2, NUM_R2)
-#define NUM_3 ROW(NUM_L3, NUM_R3)
+// === NUM ===
+#define NUM_1 ROW(EMPTY_HALF, NUM_R1)
+#define NUM_2 ROW(MODS_L, NUM_R2)
+#define NUM_3 ROW(EMPTY_HALF, NUM_R3)
 #define NUM_4 NUM_THUMB
 
 #define LAYER_NUM LAYOUT(NUM_1, NUM_2, NUM_3, NUM_4)
 
-// CONFIG
-#define CONFIG_1 ROW(CONFIG_L1, CONFIG_R1)
-#define CONFIG_2 ROW(CONFIG_L2, CONFIG_R2)
-#define CONFIG_3 ROW(CONFIG_L3, CONFIG_R3)
-#define CONFIG_4 CONFIG_THUMB
+// // === CONFIG ===
+// #define CONFIG_1 ROW(CONFIG_L1, CONFIG_R1)
+// #define CONFIG_2 ROW(CONFIG_L2, CONFIG_R2)
+// #define CONFIG_3 ROW(CONFIG_L3, CONFIG_R3)
+// #define CONFIG_4 CONFIG_THUMB
+//
+// #define LAYER_CONFIG LAYOUT(CONFIG_1, CONFIG_2, CONFIG_3, CONFIG_4)
 
-#define LAYER_CONFIG LAYOUT(CONFIG_1, CONFIG_2, CONFIG_3, CONFIG_4)
+// // === VSCODE ===
+// #define VSCODE_1 ROW(VSCODE_L1, VSCODE_R1)
+// #define VSCODE_2 ROW(VSCODE_L2, VSCODE_R2)
+// #define VSCODE_3 ROW(VSCODE_L3, VSCODE_R3)
+// #define VSCODE_4 VSCODE_THUMB
+//
+// #define LAYER_VSCODE LAYOUT(VSCODE_1, VSCODE_2, VSCODE_3, VSCODE_4)
 
-// VSCODE
-#define VSCODE_1 ROW(VSCODE_L1, VSCODE_R1)
-#define VSCODE_2 ROW(VSCODE_L2, VSCODE_R2)
-#define VSCODE_3 ROW(VSCODE_L3, VSCODE_R3)
-#define VSCODE_4 VSCODE_THUMB
-
-#define LAYER_VSCODE LAYOUT(VSCODE_1, VSCODE_2, VSCODE_3, VSCODE_4)
-
-// APPS/WINDOWS - App switching and window arrangement
-#define DESKTOP_1 ROW(DESKTOP_L1, DESKTOP_R1)
-#define DESKTOP_2 ROW(DESKTOP_L2, DESKTOP_R2)
-#define DESKTOP_3 ROW(DESKTOP_L3, DESKTOP_R3)
+// === APPS/WINDOWS === - App switching and window arrangement
+#define DESKTOP_1 ROW(EMPTY_HALF, DESKTOP_R1)
+#define DESKTOP_2 ROW(EXT_L2, DESKTOP_R2)
+#define DESKTOP_3 ROW(EXT_L3, DESKTOP_R3)
 #define DESKTOP_4 DESKTOP_THUMB
 
 #define LAYER_DESKTOP LAYOUT(DESKTOP_1, DESKTOP_2, DESKTOP_3, DESKTOP_4)
