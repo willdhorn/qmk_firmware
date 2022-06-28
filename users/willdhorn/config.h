@@ -15,13 +15,13 @@
 #define TAPPING_FORCE_HOLD // Don't repeat tapping functing when hold after tap. Needed to make space a layer key (tapSpace-holdForLayer-tapSymbol-tapSpace)
 #undef PERMISIVE_HOLD
 // This should make accidental mod triggers less likely
-#define BILATERAL_COMBINATIONS 300
+#define BILATERAL_COMBINATIONS 250
 
 // #define TAPPING_TOGGLE 1
 
 // ONESHOT CONFIGS
-#define ONESHOT_TAP_TOGGLE 3 // Incompatiple with TAPPING_FORCE_HOLD
-#define ONESHOT_TIMEOUT 1500
+#undef ONESHOT_TAP_TOGGLE // 3 // Incompatiple with TAPPING_FORCE_HOLD
+#define ONESHOT_TIMEOUT 500
 
 // Mouse keys
 #undef MOUSEKEY_WHEEL_DELAY
@@ -51,6 +51,6 @@
 
 // DEBUG FLAGS
 #undef DEBUG_KEYCODE_PRINT
-// #define DEBUG_LAYER_PRINT
+#define DEBUG_LAYER_PRINT
 // QMK flag
 #undef DEBUG_MATRIX_SCAN_RATE

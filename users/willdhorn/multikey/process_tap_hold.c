@@ -57,7 +57,7 @@ void process_record_tap_hold(uint16_t keycode, keyrecord_t *record) {
       }
     }
   } else if (record->event.pressed) {
-    // If another key is pressed, current interupt tap-hold
+    // If another key is pressed, interupt current tap-hold
     for (int i = 0; i < TAP_HOLD_KEY_MAX; ++i) {
       tap_hold_action_t *t = &tap_hold_actions[i];
       if (t->state == th_first_press) {
@@ -82,11 +82,11 @@ void matrix_scan_tap_hold(void) {
 void process_shift_state(uint16_t keycode, keyrecord_t *record) {
     bool pressed = record->event.pressed;
 
-    if (keycode == OSM(MOD_LSFT) || keycode == KC_LSFT) {
-        if (pressed) {
-            shift_down += 1;
-        } else {
-            shift_down -= (shift_down > 0) ? 1 : 0;
-        }
+    if ((IS_MOD_TAP(keycode) && MT_MODS(keycode) & MOD_MASK_SHIFT) || (IS_OSM(keycode) && OSM_MODS(keycode) & MOD_MASK_SHIFT) || keycode == KC_LSFT || keycode == KC_RSFT) {
+      if (pressed) {
+        shift_down += 1;
+      } else {
+        shift_down -= (shift_down > 0) ? 1 : 0;
+      }
     }
 }

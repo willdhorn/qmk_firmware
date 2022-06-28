@@ -59,7 +59,7 @@
 #define CL_ISRT CHSV(170, 255, 240)      // Purple
 
 // Additional Layers
-#define CL_EXT C_YELLOW
+#define CL_NAV C_YELLOW
 #define CL_SYM C_BLUE
 #define CL_NUM C_GREEN
 #define CL_VSCODE C_PURPLE

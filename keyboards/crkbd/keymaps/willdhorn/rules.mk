@@ -1,5 +1,7 @@
 # Use to reduce firmware size as much as possible
 LTO_ENABLE = yes
+# Try to fix my fucked up B key
+# DEBOUNCE_TYPE = sym_eager_pr
 
 ### Keyboard behavior features ###
 #Enabled

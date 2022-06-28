@@ -23,11 +23,11 @@ enum default_layers {
 enum user_layers {
     _SYM = _DEFAULT_RANGE_,
     _NUM,
-    _EXT,
+    _NAV,
     _CONFIG,
     _VSCODE,
     _DESKTOP,
-  // TODO: Replace these layers with leader sequences to save bytes
+  // TODO:(maybe) Replace these layers with leader sequences to save bytes
     _WNDW_HALF,
     _WNDW_THRD,
     _WNDW_QUAD,
@@ -35,11 +35,10 @@ enum user_layers {
     _WNDW_NINT,
     _MAX_LAYER_
 };
-#define _NAV _EXT
 
 // Layer key defines
 // #define lk_Default TO(0)
-// #define lk_Ext TO(_EXT) //TH(thExtDefault)
+// #define lk_Ext TO(_NAV) //TH(thExtDefault)
 // #define lk_Symbol TO(_SYM)
 // #define lk_Num TO(_NUM)
 // #define lk_Config TO(_CONFIG)
@@ -48,7 +47,7 @@ enum user_layers {
 
 // === THUMB KEYS ===
 #define LTHMB_L kEscape // LT(_MOUSE, KC_ESCAPE)
-#define LTHMB_M kShift
+#define LTHMB_M OSL(_SYM)
 #define LTHMB_R kTab
 #define RTHMB_L kBackspace
 #define RTHMB_M kSpace
@@ -58,43 +57,77 @@ enum user_layers {
 // #define SYMBOL_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, RTHMB_M, RTHMB_R)
 // #define NUMBER_THUMB   THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, TH(thNum_Dot), RTHMB_M, RTHMB_R)
 
+/*
+  ==== DEFAULT LAYERS ====
+*/
+
+// === COLEMAK-DH ===
+#define COLEMAK_DH_L1 OSX_DESK_PREV, KC_Q,         KC_W,         KC_F,         KC_P,         KC_B
+#define COLEMAK_DH_L2 OSX_MC_APPS,   LCTL_T(KC_A), LALT_T(KC_R), LSFT_T(KC_S), LCMD_T(KC_T), KC_G
+#define COLEMAK_DH_L3 ___,           KC_Z,         KC_X,         KC_C,         KC_D,         KC_V
+
+#define COLEMAK_DH_R1 KC_J, KC_L,         KC_U,         KC_Y,         TH(thkoDashSlash),          OSX_DESK_NEXT
+#define COLEMAK_DH_R2 KC_M, RCMD_T(KC_N), RSFT_T(KC_E), RALT_T(KC_I), RCTL_T(KC_O),     OSX_MC_DESKS
+#define COLEMAK_DH_R3 KC_K, KC_H,         kComma,       kPeriod,      kQuote,           ___
+
+// === QWERTY ===
+#ifdef USE_LAYOUT_QWERTY
+  #define QWERTY_L1 ___, KC_Q, KC_W, KC_E, KC_R, KC_T
+  #define QWERTY_L2 ___, KC_A, KC_S, KC_D, KC_F, KC_G
+  #define QWERTY_L3 ___, LCTL_T(KC_Z), LALT_T(KC_X), LCMD_T(KC_C), KC_V, KC_B
+
+  #define QWERTY_R1 KC_Y, KC_U, KC_I, KC_O, KC_P, ___
+  #define QWERTY_R2 KC_H, KC_J, KC_K, KC_L, KC_COLN, ___
+  #define QWERTY_R3 KC_N, KC_M, kComma, kPeriod, kQuote, ___
+#endif
+
+// === ISRT ===
+#ifdef USE_LAYOUT_ISRT
+  #define ISRT_L1 ___, KC_Y, KC_C, KC_L, KC_M, KC_K
+  #define ISRT_L2 ___, KC_I, KC_S, KC_R, KC_T, KC_G
+  #define ISRT_L3 ___, LCTL_T(KC_Q), LALT_T(KC_V), LCMD_T(KC_W), KC_D, KC_J
+
+  #define ISRT_R1 KC_Z, KC_F, KC_U, kQuote, KC_COLN, ___
+  #define ISRT_R2 KC_M, KC_N, KC_E, KC_A, KC_O, ___
+  #define ISRT_R3 KC_B, KC_H, kComma, kPeriod, KC_X, ___
+#endif
 
 /*
   ==== STANDARD LAYERS ====
 */
 
-/// === EXT/NAV ===
-#define EXT_L1 ___, _x_,           _x_,           _x_,           _x_,           _x_
-#define EXT_L2 ___, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LSFT), OSM(MOD_LCMD), S_SNIPPETS
-#define EXT_L3 ___, S_UNDO,        S_CUT,         S_COPY,        TH(thPaste),   _x_
+/// === NAV/NAV ===
+#define NAV_L1 ___, X_SIDE
+#define NAV_L2 ___, MODS_L, S_SNIPPETS
+#define NAV_L3 ___, CMDS_L, _x_
 
-#define EXT_R1 _x_,        kAltLeft,    KC_UP,   kAltRight, _x_,    ___
-#define EXT_R2 S_SNIPPETS, kLeft,       KC_DOWN, kRight,    _x_,    ___
-#define EXT_R3 _x_,        TH(thPaste), S_COPY,  S_CUT,     S_UNDO, ___
+#define NAV_R1 _x_,        kAltLeft,    KC_UP,   kAltRight, _x_,    ___
+#define NAV_R2 S_SNIPPETS, kLeft,       KC_DOWN, kRight,    _x_,    ___
+#define NAV_R3 _x_,        CMDS_R, ___
 
-#define EXT_THUMB DEFAULT_THUMB
+#define NAV_THUMB DEFAULT_THUMB
 
 // === SYM ===
-#define SYM_L1 ___, KC_AT,   KC_PIPE,       KC_AMPR, KC_HASH,        _x_
-#define SYM_L2 ___, KC_BSLS, KC_MINS,       KC_PLUS, TH(thkoEqual),  _x_
-#define SYM_L3 ___, _x_,     TH(thkoSlash), KC_ASTR, TH(multiParen), _x_
+#define SYM_L1 ___, X_SIDE
+#define SYM_L2 ___, MODS_L, _x_
+#define SYM_L3 ___, CMDS_L, _x_
 
-// #define SYM_R1 ___, KC_TILD,        KC_LBRC, KC_RBRC, ___,     ___
-// #define SYM_R2 ___, TH(thkoEqual),  KC_LPRN, KC_RPRN, KC_COLN, ___
-// #define SYM_R3 ___, MCR_DIRUP,      ___,     ___,     ___,     ___
+#define SYM_R1 ___, KC_ASTR,       KC_LBRC,                KC_RBRC,                ___,                    ___
+#define SYM_R2 ___, KC_PLUS,       KC_LPRN,                KC_RPRN,                TH(thkoColonSemicolon), ___
+#define SYM_R3 ___, TH(thkoSlash), TH(thkoLBraceAnglebrk), TH(thkoRBraceAnglebrk), KC_PERC,                ___
 
-#define SYM_THUMB THUMB_KEYS(TH(multiBrace), ___, TH(multiBracket), RTHMB_L, RTHMB_M, RTHMB_R)
+#define SYM_THUMB THUMB_KEYS(___,___,___, TG(_NUM), TH(thkoEqual), ___)
 
 // === NUM ===
-// #define NUM_L1 SYM_L1
-// #define NUM_L2 SYM_L2
-// #define NUM_L3 SYM_L3
+#define NUM_L1 ___, X_SIDE
+#define NUM_L2 ___, MODS_L, _x_
+#define NUM_L3 ___, CMDS_L, _x_
 
-#define NUM_R1 _x_, KC_7, KC_8, KC_9, KC_RABK,  ___
-#define NUM_R2 _x_, KC_4, KC_5, KC_6, KC_0,     ___
-#define NUM_R3 _x_, KC_1, KC_2, KC_3, KC_LABK,  ___
+#define NUM_R1 _x_, TH(thko7), TH(thko8), TH(thko9), _x_,       ___
+#define NUM_R2 _x_, TH(thko4), TH(thko5), TH(thko6), TH(thko0), ___
+#define NUM_R3 _x_, TH(thko1), TH(thko2), TH(thko3), _x_,       ___
 
-#define NUM_THUMB THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, RTHMB_L, KC_DOT, KC_COMMA)
+#define NUM_THUMB THUMB_KEYS(LTHMB_L, LTHMB_M, LTHMB_R, TG(_NUM), KC_DOT, KC_COMMA)
 
 // // === CONFIG ===
 // #define CONFIG_L1 ___, RESET,  DEBUG,   _x_,     _x_,     _x_
@@ -125,20 +158,20 @@ enum user_layers {
   === APPS/WINDOW MANAGEMENT ===
 */
 
-// #define DESKTOP_L1 ___, _x_, _x_, WNDW_LAYER_9, _x_, _x_
-// #define DESKTOP_L2 ___, _x_, WNDW_LAYER_6, WNDW_LAYER_3, WNDW_LAYER_2, _x_
-// #define DESKTOP_L3 ___, _x_, _x_, _x_, WNDW_LAYER_4, _x_
+#define DESKTOP_L1 ___, X_SIDE
+#define DESKTOP_L2 ___, MODS_L, _x_
+#define DESKTOP_L3 ___, CMDS_L, _x_
 
-#define DESKTOP_R1 _x_, _x_,          _x_,          WNDW_LAYER_9, _x_, _x_
-#define DESKTOP_R2 _x_, WNDW_LAYER_4, _x_,          WNDW_LAYER_6, _x_, _x_
-#define DESKTOP_R3 _x_, WM_FULL,      WNDW_LAYER_2, WNDW_LAYER_3, _x_, _x_
+#define DESKTOP_R1 _x_, _x_,          _x_,          WNDW_LAYER_9, _x_, ___
+#define DESKTOP_R2 _x_, WNDW_LAYER_4, _x_,          WNDW_LAYER_6, _x_, ___
+#define DESKTOP_R3 _x_, WM_FULL,      WNDW_LAYER_2, WNDW_LAYER_3, _x_, ___
 
 #define DESKTOP_THUMB DEFAULT_THUMB
 
 // // APPS/DESKTOPS
 // #define APPS_DESK_R1 _x_, OSX_DESK_PREV, OSX_MC_DESKS, OSX_DESK_RIGHT, _x_, ___
-// #define APPS_DESK_R2 _x_, OSX_APP_PREV, OSX_APP_WNDW, OSX_APP_NEXT, _x_, ___
-// #define APPS_DESK_R3 _x_, _x_, OSX_MC_APPS, _x_, _x_, ___
+// #define APPS_DESK_R2 _x_, OSX_APP_PREV,  OSX_APP_WNDW, OSX_APP_NEXT,   _x_, ___
+// #define APPS_DESK_R3 _x_, _x_,           OSX_MC_APPS,  _x_,            _x_, ___
 // HALF TILING
 #define WNDW_HALF_R1 _x_, _x_,    WM_2_U, _x_,    _x_, ___
 #define WNDW_HALF_R2 _x_, WM_2_L, WM_2_M, WM_2_R, ___, ___
@@ -164,35 +197,3 @@ enum user_layers {
 #define WNDW_NINT_R2 _x_, WM_9_ML, WM_9_MC, WM_9_MR, _x_, ___
 #define WNDW_NINT_R3 _x_, WM_9_BL, WM_9_BC, WM_9_BR, _x_, ___
 
-/*
-  ==== DEFAULT LAYERS ====
-*/
-
-// === COLEMAK-DH ===
-#define COLEMAK_DH_L1 ___, KC_Q,         KC_W,         KC_F,         KC_P,         KC_B
-#define COLEMAK_DH_L2 ___, LCTL_T(KC_A), LALT_T(KC_R), LSFT_T(KC_S), LCMD_T(KC_T), KC_G
-#define COLEMAK_DH_L3 ___, KC_Z,         KC_X,         KC_C,         KC_D,         KC_V
-
-#define COLEMAK_DH_R1 KC_J, KC_L,         KC_U,         KC_Y,         KC_COLN,          ___
-#define COLEMAK_DH_R2 KC_M, RCMD_T(KC_N), RSFT_T(KC_E), RALT_T(KC_I), RCTL_T(KC_O),     ___
-#define COLEMAK_DH_R3 KC_K, KC_H,         kComma,       kPeriod,      kQuote,           ___
-
-
-// === QWERTY ===
-#define QWERTY_L1 ___, KC_Q, KC_W, KC_E, KC_R, KC_T
-#define QWERTY_L2 ___, KC_A, KC_S, KC_D, KC_F, KC_G
-#define QWERTY_L3 ___, LCTL_T(KC_Z), LALT_T(KC_X), LCMD_T(KC_C), KC_V, KC_B
-
-#define QWERTY_R1 KC_Y, KC_U, KC_I, KC_O, KC_P, ___
-#define QWERTY_R2 KC_H, KC_J, KC_K, KC_L, KC_COLN, ___
-#define QWERTY_R3 KC_N, KC_M, kComma, kPeriod, kQuote, ___
-
-
-// === ISRT ===
-#define ISRT_L1 ___, KC_Y, KC_C, KC_L, KC_M, KC_K
-#define ISRT_L2 ___, KC_I, KC_S, KC_R, KC_T, KC_G
-#define ISRT_L3 ___, LCTL_T(KC_Q), LALT_T(KC_V), LCMD_T(KC_W), KC_D, KC_J
-
-#define ISRT_R1 KC_Z, KC_F, KC_U, kQuote, KC_COLN, ___
-#define ISRT_R2 KC_M, KC_N, KC_E, KC_A, KC_O, ___
-#define ISRT_R3 KC_B, KC_H, kComma, kPeriod, KC_X, ___

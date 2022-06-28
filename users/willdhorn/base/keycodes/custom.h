@@ -15,7 +15,7 @@ enum custom_keycodes {
   MCR_NEQL,
   MCR_DIRUP,
 
-  // // CALLUM MODS
+// // CALLUM MODS
 #ifdef CALLUM_MODS_ENABLE
   OS_SHFT,
   OS_CTRL,
@@ -39,7 +39,7 @@ enum custom_keycodes {
   VSC_OPN_DEF_SIDE,  // OPEN DEFINITION IN OPPOSITE GROUP
   // Custom Layer Macro keys for Tap-Hold
   LAYER_FN_DEF,
-  LAYER_FN_EXT,
+  LAYER_FN_NAV,
   LAYER_FN_SYM,
 };
 

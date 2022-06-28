@@ -93,11 +93,12 @@
 #define IS_DF_LAYER(kc) ((kc) >= QK_DEF_LAYER && (kc) <= QK_DEF_LAYER_MAX)
 #define IS_LT_LAYER(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
 #define IS_OSL_LAYER(kc) ((kc) >= QK_ONE_SHOT_LAYER && (kc) <= QK_ONE_SHOT_LAYER_MAX)
-#define IS_CUSTOM_LK(kc) ( \
-    (kc) == LAYER_FN_DEF || \
-    (kc) == LAYER_FN_EXT || \
-    (kc) == LAYER_FN_SYM \
-)
+/*
+// #define IS_CUSTOM_LK(kc) ( \
+//     (kc) == LAYER_FN_DEF || \
+//     (kc) == LAYER_FN_NAV || \
+//     (kc) == LAYER_FN_SYM \
+// ) */
 
 #define LT_KEYCODE(lt) ((lt)&0xFF)
 #define LT_LAYER(lt) ((lt>>8)&0xF)

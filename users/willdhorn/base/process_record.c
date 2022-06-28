@@ -6,6 +6,7 @@ __attribute__((weak)) bool process_keycode_keymap(uint16_t keycode, keyrecord_t 
   return true;
 }
 
+// === Process Record ===
 bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_keycode_keymap(keycode, record)) {
     return false;
@@ -14,6 +15,25 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;
 
   switch (keycode) {
+    // Custom Oneshot layer handling
+    case OSL(_SYM):
+      if (!pressed) {
+        // on release, Also turn NUM layer off
+        // This doesn't allow oneshot to activate anything in NUM but that's too difficult at the moment
+        layer_off(_NUM);
+      }
+      return true;
+
+    case TG(_NUM):
+      if (pressed) {
+        if (IS_LAYER_OFF(_NUM) && (get_oneshot_layer_state() & ONESHOT_PRESSED)) {
+          layer_on(_NUM);
+        } else {
+          layer_off(_NUM);
+        }
+      }
+      return false;
+
     // Keycodes defined in custom_keycodes
     case KC_EMPTY: // used for layer coloring; fundtionally identical to KC_NO
       return false;
@@ -38,22 +58,22 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    // Custom Layer Macro keys for Tap-Hold
-    case LAYER_FN_DEF:
-      if (pressed) {
-        layer_clear();
-      }
-      return false;
-    case LAYER_FN_EXT:
-      if (pressed) {
-        layer_move(_EXT);
-      }
-      return false;
-    case LAYER_FN_SYM:
-      if (pressed) {
-        layer_move(_SYM);
-      }
-      return false;
+    // // Custom Layer Macro keys for Tap-Hold
+    // case LAYER_FN_DEF:
+    //   if (pressed) {
+    //     layer_clear();
+    //   }
+    //   return false;
+    // case LAYER_FN_NAV:
+    //   if (pressed) {
+    //     layer_move(_NAV);
+    //   }
+    //   return false;
+    // case LAYER_FN_SYM:
+    //   if (pressed) {
+    //     layer_move(_SYM);
+    //   }
+    //   return false;
 
     default:
       break;
@@ -62,16 +82,17 @@ bool process_keycode_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+// === Process Default Layer Keys ===
 void process_default_layer_keys(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-#ifdef USE_LAYOUT_QWERTY
-    case KC_QWERTY:
-      set_single_persistent_default_layer(_QWERTY);
-      break;
-#endif
 #ifdef USE_LAYOUT_COLEMAK
     case KC_COLEMAK_DH:
       set_single_persistent_default_layer(_COLEMAK_DH);
+      break;
+#endif
+#ifdef USE_LAYOUT_QWERTY
+    case KC_QWERTY:
+      set_single_persistent_default_layer(_QWERTY);
       break;
 #endif
 #ifdef USE_LAYOUT_ISRT
@@ -99,7 +120,7 @@ void process_callum_mods(..., ...) {
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
   switch (keycode) {
-    case LKM_EXT:
+    case LKM_NAV:
     case KC_CLEAR_MODS:
       return true;
     default:
@@ -110,7 +131,7 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 bool is_oneshot_ignored_key(uint16_t keycode) {
   switch (keycode) {
     case LKT_SYM:
-    case LKM_EXT:
+    case LKM_NAV:
     case LKT_NAV:
     case LKT_DEF:
     case LKT_ADJ:
@@ -167,6 +188,7 @@ void process_led_keys(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
+// === Process VSCode Keys ===
 // VSCode keys for chorded shortcuts (cmd-k used as leader)
 void process_vscode_keys(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;

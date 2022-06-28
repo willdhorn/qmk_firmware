@@ -6,16 +6,17 @@
   === Default Keys ===
   I may change how these keys work, and I want changes to be reflected in every layer/keymap
 */
-#define kEscape LT(_NUM, KC_ESCAPE)
-#define kShift OSM(MOD_LSFT)
-#define kTab LT(_DESKTOP, KC_TAB)
-#define kBackspace TH(thBackspace)
-#define kSpace LT(_NAV, KC_SPACE)
-#define kEnter LT(_SYM, KC_ENTER)
+#define kEscape LT(_NAV, KC_ESCAPE) // NUM
+// #define kShift OSM(MOD_LSFT)        // NAV
+#define kTab LT(_DESKTOP, KC_TAB)   // DESKTOP
+#define kBackspace TH(thBackspace)  //
+#define kSpace KC_SPACE
+#define kEnter LT(_NAV, KC_ENTER)   // ---
 
-#define kComma KC_COMMA
-#define kPeriod KC_DOT
+#define kComma TH(thkoCommaExclamation)
+#define kPeriod TH(thkoPeriodQuestion)
 #define kQuote KC_QUOTE
+#define kColon TH(thkoColonSemicolon)
 
 #define kLeft TH(thLeft)
 #define kRight TH(thRight)
@@ -54,7 +55,7 @@
 #define S_TABR SFT(CMD(KC_RBRC))
 // DESKTOPS AND MISSION CONTROL
 #define OSX_DESK_PREV CTL(KC_LEFT)
-#define OSX_DESK_RIGHT CTL(KC_RIGHT)
+#define OSX_DESK_NEXT CTL(KC_RIGHT)
 #define OSX_MC_DESKS CTL(KC_UP)
 #define OSX_MC_APPS CTL(KC_DOWN)
 // TAP DANCE
