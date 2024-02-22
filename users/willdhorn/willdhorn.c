@@ -41,6 +41,9 @@ __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *
 }
 
 // ==== Process Record ====
+
+uint16_t space_timer;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   dprintln();
 #ifdef DEBUG_KEYCODE_PRINT
@@ -49,6 +52,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     DEBUG_KEYCODE_BINARY(keycode);
   }
 #endif
+
+  if (keycode == kSpace && record->event.pressed) {
+    space_timer = record->event.time;
+  }
 
   process_record_tap_hold(keycode, record);
   // process_vscode_keys(keycode, record);
@@ -99,6 +106,49 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   return TAPPING_TERM;
 }
 
+// === Retro Tapping ===
+
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case kSpace:
+      if (timer_elapsed(space_timer) < SPACE_RETRO_TAP_TERM) {
+        return true;
+      }
+      return false;
+  }
+  return false;
+}
+
+// === Caps Word ===
+
+bool caps_word_press_user(uint16_t keycode) {
+  switch (keycode) {
+    // Keycodes that continue Caps Word, with shift applied.
+    case KC_A ... KC_Z:
+    case kSpace:
+    case KC_SPACE:
+      add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+      return true;
+
+    case kTab:
+    case kEscape:
+      return false;
+
+    // Keycodes that continue Caps Word, without shifting.
+    case KC_1 ... KC_0:
+    case (QK_TAP_HOLD)... QK_TAP_HOLD_MAX:
+    case QK_TO ... QK_ONE_SHOT_LAYER_MAX:
+
+    case KC_BSPC:
+    case KC_DEL:
+    case KC_UNDS:
+      return true;
+
+    default:
+      return false; // Deactivate Caps Word.
+  }
+}
+
 // === RGB ===
 #ifdef RGB_ENABLE
 __attribute__((weak)) void rgb_matrix_indicators_keymap(void) {
@@ -138,7 +188,7 @@ bool oled_task_user(void) {
   uint8_t mods = get_mods() | get_oneshot_mods();
   oled_write_P(mods & MOD_MASK_CTRL ? PSTR("C") : PSTR(" "), get_oneshot_mods() & MOD_MASK_CTRL);
   oled_write_P(mods & MOD_MASK_ALT ? PSTR("A") : PSTR(" "), get_oneshot_mods() & MOD_MASK_ALT);
-  oled_write_P(mods & MOD_MASK_SHIFT ? PSTR("S") : PSTR(" "), get_oneshot_mods() & MOD_MASK_SHIFT);
+  oled_write_P(mods & MOD_MASK_SHIFT ? PSTR("S") : PSTR(" "), get_oneshot_mods() & MOD_MASK_SHIFT || is_caps_word_on());
   oled_write_P(mods & MOD_MASK_GUI ? PSTR("G") : PSTR(" "), get_oneshot_mods() & MOD_MASK_GUI);
 
   // Layer Status

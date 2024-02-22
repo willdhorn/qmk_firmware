@@ -9,18 +9,18 @@
         "**/*.bin": true,
     },
     "files.associations": {
-      "*.graphqls": "graphql",
-      "*.h": "c",
-      "*.c": "c",
-      "*.inc": "c",
-      "*.cpp": "cpp",
-      "*.hpp": "cpp",
-      "xstddef": "c",
-      "type_traits": "c",
-      "utility": "c",
-      "ranges": "c",
-      "def": "cg",
-      "*.def": "c"
+        "*.graphqls": "graphql",
+        "*.h": "c",
+        "*.c": "c",
+        "*.inc": "c",
+        "*.cpp": "cpp",
+        "*.hpp": "cpp",
+        "xstddef": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "ranges": "c",
+        "def": "cg",
+        "*.def": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
@@ -28,7 +28,7 @@
     },
     "python.formatting.provider": "yapf",
     "[json]": {
-	    "editor.formatOnSave": false
+        "editor.formatOnSave": false
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.default.intelliSenseMode": "clang-x64",
@@ -37,7 +37,7 @@
         "${workspaceFolder}/**",
     ],
     "[cpp]": {
-        "editor.wordBasedSuggestions": false,
+        "editor.wordBasedSuggestions": "off",
         "editor.suggest.insertMode": "replace",
         "editor.semanticHighlighting.enabled": true
     }

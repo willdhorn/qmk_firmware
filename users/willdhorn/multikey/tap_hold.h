@@ -7,6 +7,7 @@
 
 #define TAP_HOLD_ALL(name, key, sft, hold, sft_hold) TH_DEF(name, key, sft, hold, sft_hold)
 #define TAP_HOLD(name, key, hold) TH_DEF(name, key, LSFT(key), hold, LSFT(hold))
+#define TAP_HOLD_DUAL(name, key, sft_hold)
 #define TAP_HOLD_CMD(name, key) TH_DEF(name, key, LSFT(key), LCMD(key), LSFT(LCMD(key)))
 
 // replacement for key overrides with custom keycodes

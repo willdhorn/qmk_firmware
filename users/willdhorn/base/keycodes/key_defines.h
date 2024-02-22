@@ -10,8 +10,8 @@
 // #define kShift OSM(MOD_LSFT)        // NAV
 #define kTab LT(_DESKTOP, KC_TAB)   // DESKTOP
 #define kBackspace TH(thBackspace)  //
-#define kSpace KC_SPACE
-#define kEnter LT(_NAV, KC_ENTER)   // ---
+#define kSpace LT(_NAV, KC_SPACE)
+#define kEnter MT(MOD_RSFT, KC_ENTER)   // ---
 
 #define kComma TH(thkoCommaExclamation)
 #define kPeriod TH(thkoPeriodQuestion)
